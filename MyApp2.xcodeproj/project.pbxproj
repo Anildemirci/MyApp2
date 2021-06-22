@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,19 @@
 		043B5D5F268189D20085A68A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043B5D5D268189D20085A68A /* Main.storyboard */; };
 		043B5D61268189D20085A68A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 043B5D60268189D20085A68A /* Assets.xcassets */; };
 		043B5D64268189D20085A68A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043B5D62268189D20085A68A /* LaunchScreen.storyboard */; };
+		043B5D6C26818A3D0085A68A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 043B5D6B26818A3D0085A68A /* GoogleService-Info.plist */; };
+		047F059B2681941F00F6853E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F059A2681941F00F6853E /* LoginViewController.swift */; };
+		047F05A026819DB700F6853E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F059F26819DB700F6853E /* SignUpViewController.swift */; };
+		047F05A226819E0B00F6853E /* StadiumSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F05A126819E0B00F6853E /* StadiumSignUpViewController.swift */; };
+		047F05A426819E1D00F6853E /* UserSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F05A326819E1D00F6853E /* UserSignUpViewController.swift */; };
+		047F05A62681A72500F6853E /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F05A52681A72500F6853E /* UserInfoViewController.swift */; };
+		047F05A82681BE5C00F6853E /* UserLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F05A72681BE5B00F6853E /* UserLoginViewController.swift */; };
+		047F05AA2681BE6D00F6853E /* StadiumLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F05A92681BE6D00F6853E /* StadiumLoginViewController.swift */; };
+		047F05B22681C82C00F6853E /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F05B12681C82C00F6853E /* MyAccountViewController.swift */; };
+		047F05B42681C83D00F6853E /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F05B32681C83D00F6853E /* FavoritesViewController.swift */; };
+		047F05B62681C87600F6853E /* NearStadiumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F05B52681C87600F6853E /* NearStadiumsViewController.swift */; };
+		047F05B82681C88600F6853E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F05B72681C88600F6853E /* SettingsViewController.swift */; };
+		8ECFE33E50AC2E467C3BFABE /* Pods_MyApp2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5654FBA08BE38F6619C8625A /* Pods_MyApp2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +37,21 @@
 		043B5D60268189D20085A68A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		043B5D63268189D20085A68A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		043B5D65268189D20085A68A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		043B5D6B26818A3D0085A68A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		047F059A2681941F00F6853E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		047F059F26819DB700F6853E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		047F05A126819E0B00F6853E /* StadiumSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumSignUpViewController.swift; sourceTree = "<group>"; };
+		047F05A326819E1D00F6853E /* UserSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpViewController.swift; sourceTree = "<group>"; };
+		047F05A52681A72500F6853E /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
+		047F05A72681BE5B00F6853E /* UserLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginViewController.swift; sourceTree = "<group>"; };
+		047F05A92681BE6D00F6853E /* StadiumLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumLoginViewController.swift; sourceTree = "<group>"; };
+		047F05B12681C82C00F6853E /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
+		047F05B32681C83D00F6853E /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		047F05B52681C87600F6853E /* NearStadiumsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearStadiumsViewController.swift; sourceTree = "<group>"; };
+		047F05B72681C88600F6853E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		0D1BC8249D5FAAC0B10D3EC1 /* Pods-MyApp2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyApp2.release.xcconfig"; path = "Target Support Files/Pods-MyApp2/Pods-MyApp2.release.xcconfig"; sourceTree = "<group>"; };
+		5654FBA08BE38F6619C8625A /* Pods_MyApp2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyApp2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		77E001E78F07D7D5FD779BD0 /* Pods-MyApp2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyApp2.debug.xcconfig"; path = "Target Support Files/Pods-MyApp2/Pods-MyApp2.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8ECFE33E50AC2E467C3BFABE /* Pods_MyApp2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +71,8 @@
 			children = (
 				043B5D56268189D20085A68A /* MyApp2 */,
 				043B5D55268189D20085A68A /* Products */,
+				7BA6EEA64CAEC85C4F6E7CCD /* Pods */,
+				E0F1DFC50A3E297498412517 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,12 +90,41 @@
 				043B5D57268189D20085A68A /* AppDelegate.swift */,
 				043B5D59268189D20085A68A /* SceneDelegate.swift */,
 				043B5D5B268189D20085A68A /* ViewController.swift */,
+				047F059A2681941F00F6853E /* LoginViewController.swift */,
 				043B5D5D268189D20085A68A /* Main.storyboard */,
+				047F05A92681BE6D00F6853E /* StadiumLoginViewController.swift */,
+				047F05A72681BE5B00F6853E /* UserLoginViewController.swift */,
+				047F059F26819DB700F6853E /* SignUpViewController.swift */,
+				047F05B12681C82C00F6853E /* MyAccountViewController.swift */,
+				047F05B32681C83D00F6853E /* FavoritesViewController.swift */,
+				047F05A52681A72500F6853E /* UserInfoViewController.swift */,
+				047F05B72681C88600F6853E /* SettingsViewController.swift */,
+				047F05B52681C87600F6853E /* NearStadiumsViewController.swift */,
+				047F05A126819E0B00F6853E /* StadiumSignUpViewController.swift */,
+				047F05A326819E1D00F6853E /* UserSignUpViewController.swift */,
 				043B5D60268189D20085A68A /* Assets.xcassets */,
 				043B5D62268189D20085A68A /* LaunchScreen.storyboard */,
 				043B5D65268189D20085A68A /* Info.plist */,
+				043B5D6B26818A3D0085A68A /* GoogleService-Info.plist */,
 			);
 			path = MyApp2;
+			sourceTree = "<group>";
+		};
+		7BA6EEA64CAEC85C4F6E7CCD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				77E001E78F07D7D5FD779BD0 /* Pods-MyApp2.debug.xcconfig */,
+				0D1BC8249D5FAAC0B10D3EC1 /* Pods-MyApp2.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E0F1DFC50A3E297498412517 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5654FBA08BE38F6619C8625A /* Pods_MyApp2.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +134,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 043B5D68268189D20085A68A /* Build configuration list for PBXNativeTarget "MyApp2" */;
 			buildPhases = (
+				C98ACF3CAE75CA581906C027 /* [CP] Check Pods Manifest.lock */,
 				043B5D50268189D20085A68A /* Sources */,
 				043B5D51268189D20085A68A /* Frameworks */,
 				043B5D52268189D20085A68A /* Resources */,
+				775D3C1BF6C380DF63112454 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				043B5D64268189D20085A68A /* LaunchScreen.storyboard in Resources */,
+				043B5D6C26818A3D0085A68A /* GoogleService-Info.plist in Resources */,
 				043B5D61268189D20085A68A /* Assets.xcassets in Resources */,
 				043B5D5F268189D20085A68A /* Main.storyboard in Resources */,
 			);
@@ -132,14 +195,67 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		775D3C1BF6C380DF63112454 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyApp2/Pods-MyApp2-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyApp2/Pods-MyApp2-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyApp2/Pods-MyApp2-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C98ACF3CAE75CA581906C027 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyApp2-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		043B5D50268189D20085A68A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				047F05A426819E1D00F6853E /* UserSignUpViewController.swift in Sources */,
+				047F05A62681A72500F6853E /* UserInfoViewController.swift in Sources */,
+				047F05A226819E0B00F6853E /* StadiumSignUpViewController.swift in Sources */,
+				047F059B2681941F00F6853E /* LoginViewController.swift in Sources */,
 				043B5D5C268189D20085A68A /* ViewController.swift in Sources */,
+				047F05B22681C82C00F6853E /* MyAccountViewController.swift in Sources */,
 				043B5D58268189D20085A68A /* AppDelegate.swift in Sources */,
+				047F05AA2681BE6D00F6853E /* StadiumLoginViewController.swift in Sources */,
+				047F05A82681BE5C00F6853E /* UserLoginViewController.swift in Sources */,
+				047F05B82681C88600F6853E /* SettingsViewController.swift in Sources */,
 				043B5D5A268189D20085A68A /* SceneDelegate.swift in Sources */,
+				047F05B42681C83D00F6853E /* FavoritesViewController.swift in Sources */,
+				047F05B62681C87600F6853E /* NearStadiumsViewController.swift in Sources */,
+				047F05A026819DB700F6853E /* SignUpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +399,7 @@
 		};
 		043B5D69268189D20085A68A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77E001E78F07D7D5FD779BD0 /* Pods-MyApp2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -302,6 +419,7 @@
 		};
 		043B5D6A268189D20085A68A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0D1BC8249D5FAAC0B10D3EC1 /* Pods-MyApp2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
