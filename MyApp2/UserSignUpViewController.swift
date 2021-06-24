@@ -41,7 +41,7 @@ class UserSignUpViewController: UIViewController {
                     }
                 }
             } else {
-                makeAlert(titleInput: "Error!", messageInput: "Şifreler aynı değil.")
+                makeAlert(titleInput: "Error!", messageInput: "Şifreler eşleşmiyor.")
             }
         } else {
             makeAlert(titleInput: "Error!", messageInput: "Tüm bilgileri giriniz.")

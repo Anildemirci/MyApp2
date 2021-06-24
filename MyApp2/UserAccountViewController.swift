@@ -1,13 +1,13 @@
 //
-//  NearStadiumsViewController.swift
+//  UserAccountViewController.swift
 //  MyApp2
 //
-//  Created by Anıl Demirci on 22.06.2021.
+//  Created by Anıl Demirci on 23.06.2021.
 //
 
 import UIKit
 
-class NearStadiumsViewController: UIViewController {
+class UserAccountViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,4 +15,6 @@ class NearStadiumsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+
+
 }

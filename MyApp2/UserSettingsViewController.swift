@@ -1,5 +1,5 @@
 //
-//  SettingsViewController.swift
+//  UserSettingsViewController.swift
 //  MyApp2
 //
 //  Created by Anıl Demirci on 22.06.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 import Firebase
-class SettingsViewController: UIViewController {
+class UserSettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +20,7 @@ class SettingsViewController: UIViewController {
             try Auth.auth().signOut()
             self.performSegue(withIdentifier: "toViewController", sender: nil)
         } catch {
-            print("Error")
+            print("**Error**")
         }
     }
     

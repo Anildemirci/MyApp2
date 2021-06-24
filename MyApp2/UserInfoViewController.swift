@@ -45,7 +45,7 @@ class UserInfoViewController: UIViewController {
                 if error != nil {
                     self.makeAlert(titleInput: "Error!", messageInput: error?.localizedDescription ?? "Error")
                 } else {
-                    self.performSegue(withIdentifier: "toProfileBC", sender: nil)
+                    self.performSegue(withIdentifier: "toUserProfileBC", sender: nil)
                 }
             })
         } else {
