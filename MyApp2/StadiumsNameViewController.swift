@@ -25,7 +25,10 @@ class StadiumsNameViewController: UIViewController,UITableViewDelegate,UITableVi
         return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 5
+    }
+    @IBAction func backButtonClicked(_ sender: Any) {
+        performSegue(withIdentifier: "toTownName", sender: nil)   //geri tuşuna basınca tekrar geri gidilmiyor. düzelt
     }
     
 }

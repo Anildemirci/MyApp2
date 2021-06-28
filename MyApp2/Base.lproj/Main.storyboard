@@ -498,12 +498,26 @@
                     <view key="view" contentMode="scaleToFill" id="SpA-3V-8Mn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="w4F-pK-nV2">
+                                <rect key="frame" x="0.0" y="44" width="414" height="269"/>
+                            </mapView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="zPd-kb-TCI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="w4F-pK-nV2" firstAttribute="leading" secondItem="zPd-kb-TCI" secondAttribute="leading" id="63o-8i-l7f"/>
+                            <constraint firstItem="w4F-pK-nV2" firstAttribute="trailing" secondItem="zPd-kb-TCI" secondAttribute="trailing" id="E0h-7N-VdP"/>
+                            <constraint firstItem="w4F-pK-nV2" firstAttribute="top" secondItem="zPd-kb-TCI" secondAttribute="top" id="EXo-yz-4fb"/>
+                            <constraint firstItem="zPd-kb-TCI" firstAttribute="bottom" secondItem="w4F-pK-nV2" secondAttribute="bottom" constant="500" id="I1D-H2-E4Q"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Hesabım" id="Sqh-zs-3pU">
                         <imageReference key="image" image="person.fill" catalog="system"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="mapView" destination="w4F-pK-nV2" id="VeQ-ZZ-aJx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sc8-Cm-kbv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -731,7 +745,7 @@
                     <connections>
                         <outlet property="emailText" destination="qVI-aS-UUa" id="gal-5L-UKm"/>
                         <outlet property="passwordText" destination="alb-rE-yZI" id="PYj-bs-5Lb"/>
-                        <segue destination="21J-VT-8Tv" kind="presentation" identifier="toUserProfile" modalPresentationStyle="fullScreen" id="dwi-Zk-yXA"/>
+                        <segue destination="21J-VT-8Tv" kind="presentation" identifier="toUserProfileBC" modalPresentationStyle="fullScreen" id="dwi-Zk-yXA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B15-DZ-eh0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -747,7 +761,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LOl-cD-msk">
-                                <rect key="frame" x="150" y="733" width="114" height="30"/>
+                                <rect key="frame" x="25" y="758" width="364" height="30"/>
                                 <state key="normal" title="Çıkış">
                                     <color key="titleColor" systemColor="systemRedColor"/>
                                 </state>
@@ -756,13 +770,22 @@
                                     <action selector="logoutButtonClicked:" destination="vJG-XS-eZz" eventType="touchUpInside" id="8lt-Nl-lvL"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kullanıcı Bilgileri" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4jx-6g-bUu">
+                                <rect key="frame" x="25" y="69" width="364" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="JJP-EH-y7v"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="LOl-cD-msk" firstAttribute="leading" secondItem="JJP-EH-y7v" secondAttribute="leading" constant="150" id="0DU-ZE-odJ"/>
-                            <constraint firstItem="JJP-EH-y7v" firstAttribute="bottom" secondItem="LOl-cD-msk" secondAttribute="bottom" constant="50" id="CDU-3n-1No"/>
-                            <constraint firstItem="JJP-EH-y7v" firstAttribute="trailing" secondItem="LOl-cD-msk" secondAttribute="trailing" constant="150" id="egA-G7-chz"/>
+                            <constraint firstItem="JJP-EH-y7v" firstAttribute="trailing" secondItem="LOl-cD-msk" secondAttribute="trailing" constant="25" id="7Ws-CH-vZX"/>
+                            <constraint firstItem="JJP-EH-y7v" firstAttribute="bottom" secondItem="LOl-cD-msk" secondAttribute="bottom" constant="25" id="G6c-qk-DfA"/>
+                            <constraint firstItem="LOl-cD-msk" firstAttribute="leading" secondItem="JJP-EH-y7v" secondAttribute="leading" constant="25" id="WMt-Ko-mut"/>
+                            <constraint firstItem="4jx-6g-bUu" firstAttribute="leading" secondItem="JJP-EH-y7v" secondAttribute="leading" constant="25" id="gWx-oo-LJ5"/>
+                            <constraint firstItem="4jx-6g-bUu" firstAttribute="top" secondItem="JJP-EH-y7v" secondAttribute="top" constant="25" id="jLY-ot-53a"/>
+                            <constraint firstItem="JJP-EH-y7v" firstAttribute="trailing" secondItem="4jx-6g-bUu" secondAttribute="trailing" constant="25" id="nLj-kO-evA"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Ayarlar" id="w8w-DP-DHm">
@@ -774,7 +797,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CYL-gO-MXf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2390" y="2182"/>
+            <point key="canvasLocation" x="2389.8550724637685" y="2181.6964285714284"/>
         </scene>
         <!--Stadiums Name View Controller-->
         <scene sceneID="2FE-se-raL">
@@ -785,7 +808,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2dR-lp-4rJ">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="79" width="414" height="783"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="stadiumCell" rowHeight="68" id="eGG-gn-DRX" customClass="StadiumsTableViewCell" customModule="MyApp2" customModuleProvider="target">
@@ -815,18 +838,31 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Itn-Wf-zWp">
+                                <rect key="frame" x="0.0" y="44" width="55.5" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Geri"/>
+                                <connections>
+                                    <action selector="backButtonClicked:" destination="9wq-6V-YOi" eventType="touchUpInside" id="HOc-Ce-XR2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RlH-sg-U8z"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="2dR-lp-4rJ" firstAttribute="leading" secondItem="RlH-sg-U8z" secondAttribute="leading" id="QzF-ft-nmk"/>
-                            <constraint firstItem="2dR-lp-4rJ" firstAttribute="top" secondItem="RlH-sg-U8z" secondAttribute="top" id="U2W-bB-lhf"/>
-                            <constraint firstItem="RlH-sg-U8z" firstAttribute="bottom" secondItem="2dR-lp-4rJ" secondAttribute="bottom" id="dx5-ZT-8oE"/>
-                            <constraint firstItem="RlH-sg-U8z" firstAttribute="trailing" secondItem="2dR-lp-4rJ" secondAttribute="trailing" id="qhv-vs-DDS"/>
+                            <constraint firstItem="Itn-Wf-zWp" firstAttribute="top" secondItem="RlH-sg-U8z" secondAttribute="top" id="086-vR-CYL"/>
+                            <constraint firstItem="2dR-lp-4rJ" firstAttribute="top" secondItem="Itn-Wf-zWp" secondAttribute="bottom" id="Egx-YR-RPx"/>
+                            <constraint firstItem="2dR-lp-4rJ" firstAttribute="bottom" secondItem="RlH-sg-U8z" secondAttribute="bottom" id="RsW-1p-vqV"/>
+                            <constraint firstItem="Itn-Wf-zWp" firstAttribute="leading" secondItem="RlH-sg-U8z" secondAttribute="leading" id="hYx-h7-5Kn"/>
+                            <constraint firstItem="2dR-lp-4rJ" firstAttribute="trailing" secondItem="RlH-sg-U8z" secondAttribute="trailing" id="jlc-dW-2Td"/>
+                            <constraint firstItem="Itn-Wf-zWp" firstAttribute="leading" secondItem="RlH-sg-U8z" secondAttribute="leading" id="sxT-gZ-Myd"/>
+                            <constraint firstItem="2dR-lp-4rJ" firstAttribute="leading" secondItem="RlH-sg-U8z" secondAttribute="leading" id="w20-Ql-Smg"/>
+                            <constraint firstItem="Itn-Wf-zWp" firstAttribute="top" secondItem="RlH-sg-U8z" secondAttribute="top" id="zAZ-Tf-7dJ"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="2dR-lp-4rJ" id="Wk0-EH-qri"/>
+                        <segue destination="D11-KY-jcL" kind="presentation" identifier="toTownName" modalPresentationStyle="fullScreen" id="CIy-L9-26Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tFw-Ha-lTl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -842,7 +878,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="mAv-xg-20O">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="79" width="414" height="783"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cityCell" rowHeight="66" id="2z0-KO-3hC" customClass="CityTableViewCell" customModule="MyApp2" customModuleProvider="target">
@@ -860,10 +896,10 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Kdf-UG-YeT" firstAttribute="leading" secondItem="KQJ-zb-iiX" secondAttribute="leadingMargin" id="24V-o3-yXX"/>
-                                                <constraint firstItem="Kdf-UG-YeT" firstAttribute="top" secondItem="KQJ-zb-iiX" secondAttribute="topMargin" id="QRg-nQ-xdG"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Kdf-UG-YeT" secondAttribute="bottom" id="Srn-jL-aXn"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Kdf-UG-YeT" secondAttribute="trailing" id="cl4-fM-weY"/>
+                                                <constraint firstItem="Kdf-UG-YeT" firstAttribute="trailing" secondItem="KQJ-zb-iiX" secondAttribute="trailingMargin" id="CcO-sV-aQD"/>
+                                                <constraint firstItem="Kdf-UG-YeT" firstAttribute="bottom" secondItem="KQJ-zb-iiX" secondAttribute="bottomMargin" id="FcV-tF-xsQ"/>
+                                                <constraint firstItem="Kdf-UG-YeT" firstAttribute="top" secondItem="KQJ-zb-iiX" secondAttribute="topMargin" id="geh-Wg-6s0"/>
+                                                <constraint firstItem="Kdf-UG-YeT" firstAttribute="leading" secondItem="KQJ-zb-iiX" secondAttribute="leadingMargin" id="xzN-gF-jpw"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -872,14 +908,25 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrD-Ov-WiI">
+                                <rect key="frame" x="0.0" y="44" width="55.5" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Geri"/>
+                                <connections>
+                                    <action selector="backButtonClicked:" destination="9wq-6V-YOi" eventType="touchUpInside" id="jiy-52-lUn"/>
+                                    <segue destination="21J-VT-8Tv" kind="presentation" modalPresentationStyle="fullScreen" id="dpO-WF-gWc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5PE-W0-b1S"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="5PE-W0-b1S" firstAttribute="bottom" secondItem="mAv-xg-20O" secondAttribute="bottom" id="FUY-M1-trT"/>
-                            <constraint firstItem="mAv-xg-20O" firstAttribute="top" secondItem="5PE-W0-b1S" secondAttribute="top" id="O00-ci-NWV"/>
-                            <constraint firstItem="mAv-xg-20O" firstAttribute="leading" secondItem="5PE-W0-b1S" secondAttribute="leading" id="SyY-Mf-vLA"/>
-                            <constraint firstItem="5PE-W0-b1S" firstAttribute="trailing" secondItem="mAv-xg-20O" secondAttribute="trailing" id="hhS-tU-Jnr"/>
+                            <constraint firstItem="mAv-xg-20O" firstAttribute="top" secondItem="nrD-Ov-WiI" secondAttribute="bottom" id="238-Er-64J"/>
+                            <constraint firstItem="mAv-xg-20O" firstAttribute="leading" secondItem="5PE-W0-b1S" secondAttribute="leading" id="HCJ-Qm-Svs"/>
+                            <constraint firstItem="nrD-Ov-WiI" firstAttribute="top" secondItem="5PE-W0-b1S" secondAttribute="top" id="Iyh-4s-HvA"/>
+                            <constraint firstItem="nrD-Ov-WiI" firstAttribute="leading" secondItem="5PE-W0-b1S" secondAttribute="leading" id="b3E-HT-xUY"/>
+                            <constraint firstItem="mAv-xg-20O" firstAttribute="trailing" secondItem="5PE-W0-b1S" secondAttribute="trailing" id="osU-6k-1o8"/>
+                            <constraint firstItem="mAv-xg-20O" firstAttribute="bottom" secondItem="5PE-W0-b1S" secondAttribute="bottom" id="zUl-5c-fg4"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Sahalar" id="mXA-EG-Wsu">
@@ -896,11 +943,12 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="OGV-oN-CjR"/>
-        <segue reference="3vz-Nf-3s2"/>
+        <segue reference="CIy-L9-26Q"/>
+        <segue reference="UJk-bG-YXz"/>
+        <segue reference="dpO-WF-gWc"/>
         <segue reference="agI-v0-niQ"/>
-        <segue reference="diS-Z9-HKf"/>
-        <segue reference="BtJ-oV-qtT"/>
+        <segue reference="yXN-ho-CXh"/>
+        <segue reference="UCr-Ni-FeX"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>

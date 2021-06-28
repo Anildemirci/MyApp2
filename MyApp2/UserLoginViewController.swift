@@ -12,7 +12,7 @@ class UserLoginViewController: UIViewController {
 
     @IBOutlet weak var emailText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
-    
+    var userMailArray=[String]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,19 +28,35 @@ class UserLoginViewController: UIViewController {
     @IBAction func backButtonClicked(_ sender: Any) {
     }
     
-    
     @IBAction func loginButtonClicked(_ sender: Any) {
         if emailText.text != "" && passwordText.text != "" {
-            Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { (authdata, error) in
-                if error != nil {
-                    self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
-                } else {
-                    self.performSegue(withIdentifier: "toUserProfile", sender: nil)
-                }
+            let firestoreDatabase=Firestore.firestore()
+            firestoreDatabase.collection("Users").addSnapshotListener { [self] (snapshot, error) in
+                if error == nil {
+                    for document in snapshot!.documents
+                    {
+                        if let userType=document.get("User") as? String{
+                            userMailArray.append(userType)
+                        }
+                    }
+                    if userMailArray.contains(emailText.text!) {
+                        Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { (authdata, errorr) in
+                            if errorr != nil {
+                                makeAlert(titleInput: "Error", messageInput: errorr?.localizedDescription ?? "Error")
+                            } else {
+                                performSegue(withIdentifier: "toUserProfileBC", sender: nil)
+                            }
+                        }
+                    } else {
+                        makeAlert(titleInput: "Error", messageInput: "Yanlış giriş tipi seçtiniz veya bilgileri yanlış girdiniz.")
+                    }
+            } else {
+                self.makeAlert(titleInput: "Error", messageInput: "Tüm bilgileri giriniz.")
+                
             }
-        } else {
-            makeAlert(titleInput: "Error", messageInput: "Tüm bilgileri giriniz.")
+            }
         }
+     
     }
     
     func makeAlert(titleInput:String,messageInput:String){

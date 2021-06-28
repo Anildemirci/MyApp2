@@ -8,11 +8,11 @@
 import UIKit
 import Firebase
 class UserSettingsViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        
     }
     @IBAction func logoutButtonClicked(_ sender: Any) {
         

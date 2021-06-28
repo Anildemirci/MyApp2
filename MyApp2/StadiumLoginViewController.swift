@@ -12,7 +12,7 @@ class StadiumLoginViewController: UIViewController {
 
     @IBOutlet weak var emailText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
-    
+    var stadiumMailArray=[String]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,19 +29,33 @@ class StadiumLoginViewController: UIViewController {
     @IBAction func loginButtonClicked(_ sender: Any) {
         
         if emailText.text != "" && passwordText.text != "" {
-            Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { (authdata, error) in
-                if error != nil {
-                    self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
-                } else {
-                    self.performSegue(withIdentifier: "toStadiumProfileBC", sender: nil)
-                }
+            let firestoreDatabase=Firestore.firestore()
+            firestoreDatabase.collection("Stadiums").addSnapshotListener { [self] (snapshot, error) in
+                if error == nil {
+                    for document in snapshot!.documents
+                    {
+                        if let userType=document.get("User") as? String{
+                            stadiumMailArray.append(userType)
+                        }
+                    }
+                    if stadiumMailArray.contains(emailText.text!) {
+                        Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { (authdata, errorr) in
+                            if errorr != nil {
+                                makeAlert(titleInput: "Error", messageInput: errorr?.localizedDescription ?? "Error")
+                            } else {
+                                performSegue(withIdentifier: "toStadiumProfileBC", sender: nil)
+                            }
+                        }
+                    } else {
+                        makeAlert(titleInput: "Hata", messageInput: "Yanlış giriş tipi seçtiniz veya bilgileri yanlış girdiniz.")
+                    }
+            } else {
+                self.makeAlert(titleInput: "Error", messageInput: "Tüm bilgileri giriniz.")
+                
             }
-        } else {
-            makeAlert(titleInput: "Error", messageInput: "Tüm bilgilerini giriniz.")
+            }
         }
-        
     }
-    
     func makeAlert(titleInput:String,messageInput:String){
         let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)
         let okButton=UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
