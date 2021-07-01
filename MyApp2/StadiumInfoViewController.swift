@@ -31,12 +31,14 @@ class StadiumInfoViewController: UIViewController {
         
         let firestoreDatabese=Firestore.firestore()
         var firestoreReference:DocumentReference? = nil
-        let firestoreStadium=["User":Auth.auth().currentUser!.email,
+        let firestoreStadium=["User":Auth.auth().currentUser!.uid,
+                              "Email":Auth.auth().currentUser?.email,
                               "Name":nameText.text!,
                               "City":cityText.text!,
                               "Town":townText.text!,
                               "Phone":phoneText.text!,
                               "Address":addressText.text!,
+                              "Type":"Stadium",
                               "Date":FieldValue.serverTimestamp()] as [String:Any]
         
         if nameText.text != "" && cityText.text != "" && townText.text != "" && phoneText.text != "" &&  addressText.text != "" {

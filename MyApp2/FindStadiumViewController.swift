@@ -32,8 +32,8 @@ class FindStadiumViewController: UIViewController,UITableViewDelegate,UITableVie
                 if snapshot?.isEmpty != true && snapshot != nil {
                     for document in snapshot!.documents {
                         
-                        if let Name = document.get("Name") as? String {
-                            self.nameArray.append(Name)
+                        if let Town = document.get("Town") as? String {
+                            self.nameArray.append(Town)
                         }
                     }
                     self.tableView.reloadData()

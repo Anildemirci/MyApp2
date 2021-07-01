@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             Stadium.collection("Users").addSnapshotListener { (snapshot, error) in
                 if error == nil {
                     for document in snapshot!.documents{
-                        if let userType=document.get("UserID") as? String{
+                        if let userType=document.get("User") as? String{
                             userIdArray.append(userType)
                             if userIdArray.contains(currentUser!.uid)
                             {

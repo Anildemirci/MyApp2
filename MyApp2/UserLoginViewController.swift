@@ -12,7 +12,7 @@ class UserLoginViewController: UIViewController {
 
     @IBOutlet weak var emailText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
-    var userMailArray=[String]()
+    var userTypeArray=[String]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,11 +35,11 @@ class UserLoginViewController: UIViewController {
                 if error == nil {
                     for document in snapshot!.documents
                     {
-                        if let userType=document.get("User") as? String{
-                            userMailArray.append(userType)
+                        if let userType=document.get("Type") as? String{
+                            userTypeArray.append(userType)
                         }
                     }
-                    if userMailArray.contains(emailText.text!) {
+                    if userTypeArray.contains("User") {
                         Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { (authdata, errorr) in
                             if errorr != nil {
                                 makeAlert(titleInput: "Error", messageInput: errorr?.localizedDescription ?? "Error")
@@ -48,13 +48,13 @@ class UserLoginViewController: UIViewController {
                             }
                         }
                     } else {
-                        makeAlert(titleInput: "Error", messageInput: "Yanlış giriş tipi seçtiniz veya bilgileri yanlış girdiniz.")
+                        makeAlert(titleInput: "Hata", messageInput: "Yanlış giriş tipi seçtiniz veya bilgileri yanlış girdiniz.")
                     }
-            } else {
-                self.makeAlert(titleInput: "Error", messageInput: "Tüm bilgileri giriniz.")
-                
             }
             }
+        } else {
+            self.makeAlert(titleInput: "Error", messageInput: "Tüm bilgileri giriniz.")
+            
         }
      
     }

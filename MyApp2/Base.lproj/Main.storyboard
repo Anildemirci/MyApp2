@@ -771,27 +771,94 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kullanıcı Bilgileri" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4jx-6g-bUu">
-                                <rect key="frame" x="25" y="69" width="364" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="25" y="69" width="364" height="26.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Yeni e-mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xau-0J-47Q">
+                                <rect key="frame" x="25" y="168.5" width="364" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email değiştir" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DZY-WI-6Ei">
+                                <rect key="frame" x="25" y="120.5" width="364" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2v8-MD-q3l">
+                                <rect key="frame" x="125" y="227.5" width="164" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Değiştir"/>
+                                <connections>
+                                    <action selector="changeMailClicked:" destination="vJG-XS-eZz" eventType="touchUpInside" id="D2B-p7-0Ym"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Şifre değiştir" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHk-D2-IoV">
+                                <rect key="frame" x="25" y="302.5" width="364" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Yeni şifre" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ner-xY-eno">
+                                <rect key="frame" x="25" y="350.5" width="364" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Yeni şifre tekrarı" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tEJ-wt-hwX">
+                                <rect key="frame" x="25" y="409.5" width="364" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NbG-3z-Fac">
+                                <rect key="frame" x="125" y="468.5" width="164" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Değiştir"/>
+                                <connections>
+                                    <action selector="changePasswordClicked:" destination="vJG-XS-eZz" eventType="touchUpInside" id="Anc-HP-CmR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="JJP-EH-y7v"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="ner-xY-eno" firstAttribute="leading" secondItem="JJP-EH-y7v" secondAttribute="leading" constant="25" id="10m-bb-BYR"/>
+                            <constraint firstItem="2v8-MD-q3l" firstAttribute="top" secondItem="xau-0J-47Q" secondAttribute="bottom" constant="25" id="1Lw-nr-aa4"/>
                             <constraint firstItem="JJP-EH-y7v" firstAttribute="trailing" secondItem="LOl-cD-msk" secondAttribute="trailing" constant="25" id="7Ws-CH-vZX"/>
+                            <constraint firstItem="JJP-EH-y7v" firstAttribute="trailing" secondItem="xau-0J-47Q" secondAttribute="trailing" constant="25" id="8O7-5o-yco"/>
+                            <constraint firstItem="JJP-EH-y7v" firstAttribute="trailing" secondItem="DZY-WI-6Ei" secondAttribute="trailing" constant="25" id="BSx-sd-muH"/>
+                            <constraint firstItem="NbG-3z-Fac" firstAttribute="leading" secondItem="JJP-EH-y7v" secondAttribute="leading" constant="125" id="DQq-um-4di"/>
                             <constraint firstItem="JJP-EH-y7v" firstAttribute="bottom" secondItem="LOl-cD-msk" secondAttribute="bottom" constant="25" id="G6c-qk-DfA"/>
+                            <constraint firstItem="JJP-EH-y7v" firstAttribute="trailing" secondItem="NbG-3z-Fac" secondAttribute="trailing" constant="125" id="HJA-7Q-kZg"/>
+                            <constraint firstItem="xau-0J-47Q" firstAttribute="top" secondItem="DZY-WI-6Ei" secondAttribute="bottom" constant="25" id="IOO-yw-QPH"/>
+                            <constraint firstItem="JJP-EH-y7v" firstAttribute="trailing" secondItem="tEJ-wt-hwX" secondAttribute="trailing" constant="25" id="M2f-sC-sfb"/>
+                            <constraint firstItem="fHk-D2-IoV" firstAttribute="leading" secondItem="JJP-EH-y7v" secondAttribute="leading" constant="25" id="QXS-Re-GaB"/>
+                            <constraint firstItem="tEJ-wt-hwX" firstAttribute="leading" secondItem="JJP-EH-y7v" secondAttribute="leading" constant="25" id="SHF-Tw-jrN"/>
+                            <constraint firstItem="ner-xY-eno" firstAttribute="top" secondItem="fHk-D2-IoV" secondAttribute="bottom" constant="25" id="UJE-J8-DTM"/>
                             <constraint firstItem="LOl-cD-msk" firstAttribute="leading" secondItem="JJP-EH-y7v" secondAttribute="leading" constant="25" id="WMt-Ko-mut"/>
+                            <constraint firstItem="2v8-MD-q3l" firstAttribute="leading" secondItem="JJP-EH-y7v" secondAttribute="leading" constant="125" id="WQp-1O-rhJ"/>
+                            <constraint firstItem="JJP-EH-y7v" firstAttribute="trailing" secondItem="ner-xY-eno" secondAttribute="trailing" constant="25" id="ajA-H1-5Jo"/>
+                            <constraint firstItem="DZY-WI-6Ei" firstAttribute="top" secondItem="4jx-6g-bUu" secondAttribute="bottom" constant="25" id="eYe-9f-VQD"/>
+                            <constraint firstItem="tEJ-wt-hwX" firstAttribute="top" secondItem="ner-xY-eno" secondAttribute="bottom" constant="25" id="enT-Jw-MWU"/>
                             <constraint firstItem="4jx-6g-bUu" firstAttribute="leading" secondItem="JJP-EH-y7v" secondAttribute="leading" constant="25" id="gWx-oo-LJ5"/>
+                            <constraint firstItem="JJP-EH-y7v" firstAttribute="trailing" secondItem="2v8-MD-q3l" secondAttribute="trailing" constant="125" id="hTh-qT-i6W"/>
                             <constraint firstItem="4jx-6g-bUu" firstAttribute="top" secondItem="JJP-EH-y7v" secondAttribute="top" constant="25" id="jLY-ot-53a"/>
+                            <constraint firstItem="fHk-D2-IoV" firstAttribute="top" secondItem="2v8-MD-q3l" secondAttribute="bottom" constant="40" id="lo8-aW-apg"/>
                             <constraint firstItem="JJP-EH-y7v" firstAttribute="trailing" secondItem="4jx-6g-bUu" secondAttribute="trailing" constant="25" id="nLj-kO-evA"/>
+                            <constraint firstItem="xau-0J-47Q" firstAttribute="leading" secondItem="JJP-EH-y7v" secondAttribute="leading" constant="25" id="oXM-SR-iFJ"/>
+                            <constraint firstItem="DZY-WI-6Ei" firstAttribute="leading" secondItem="JJP-EH-y7v" secondAttribute="leading" constant="25" id="rR4-VR-GOe"/>
+                            <constraint firstItem="NbG-3z-Fac" firstAttribute="top" secondItem="tEJ-wt-hwX" secondAttribute="bottom" constant="25" id="v9W-6i-gAx"/>
+                            <constraint firstItem="JJP-EH-y7v" firstAttribute="trailing" secondItem="fHk-D2-IoV" secondAttribute="trailing" constant="25" id="vFl-qD-C5o"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Ayarlar" id="w8w-DP-DHm">
                         <imageReference key="image" image="pencil.circle.fill" catalog="system"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="newMailText" destination="xau-0J-47Q" id="moe-J8-fAz"/>
+                        <outlet property="newPasswordText" destination="ner-xY-eno" id="qMk-5w-LGn"/>
+                        <outlet property="newPasswordText2" destination="tEJ-wt-hwX" id="UA2-yx-5zB"/>
                         <segue destination="Pzz-hP-1Dt" kind="presentation" identifier="toViewController" modalPresentationStyle="fullScreen" id="UCr-Ni-FeX"/>
                     </connections>
                 </viewController>

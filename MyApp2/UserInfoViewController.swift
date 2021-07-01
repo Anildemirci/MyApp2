@@ -32,13 +32,15 @@ class UserInfoViewController: UIViewController {
         
         let firestoreDatabase=Firestore.firestore()
         var firestoreReference : DocumentReference?=nil
-        let firestoreUser=["User":Auth.auth().currentUser!.email,
+        let firestoreUser=["User":Auth.auth().currentUser!.uid,
+                           "Email":Auth.auth().currentUser?.email,
                            "Name":nameText.text!,
                            "Surname":surnameText.text!,
                            "DateofBirth":dateOfBirthText.text!,
                            "City":cityText.text!,
                            "Town":townText.text!,
                            "Phone":phoneText.text!,
+                           "Type":"User",
                            "Date":FieldValue.serverTimestamp()] as [String:Any]
         if nameText.text != "" && surnameText.text != "" && dateOfBirthText.text != "" && cityText.text != "" && townText.text != "" && phoneText.text != "" {
             firestoreReference=firestoreDatabase.collection("Users").addDocument(data: firestoreUser, completion: { (error) in

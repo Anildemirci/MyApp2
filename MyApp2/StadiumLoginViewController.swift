@@ -12,7 +12,7 @@ class StadiumLoginViewController: UIViewController {
 
     @IBOutlet weak var emailText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
-    var stadiumMailArray=[String]()
+    var stadiumTypeArray=[String]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,11 +34,11 @@ class StadiumLoginViewController: UIViewController {
                 if error == nil {
                     for document in snapshot!.documents
                     {
-                        if let userType=document.get("User") as? String{
-                            stadiumMailArray.append(userType)
+                        if let userType=document.get("Type") as? String{
+                            stadiumTypeArray.append(userType)
                         }
                     }
-                    if stadiumMailArray.contains(emailText.text!) {
+                    if stadiumTypeArray.contains("Stadium") {
                         Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { (authdata, errorr) in
                             if errorr != nil {
                                 makeAlert(titleInput: "Error", messageInput: errorr?.localizedDescription ?? "Error")
@@ -49,11 +49,11 @@ class StadiumLoginViewController: UIViewController {
                     } else {
                         makeAlert(titleInput: "Hata", messageInput: "Yanlış giriş tipi seçtiniz veya bilgileri yanlış girdiniz.")
                     }
-            } else {
-                self.makeAlert(titleInput: "Error", messageInput: "Tüm bilgileri giriniz.")
-                
             }
             }
+        }else {
+            self.makeAlert(titleInput: "Error", messageInput: "Tüm bilgileri giriniz.")
+            
         }
     }
     func makeAlert(titleInput:String,messageInput:String){
