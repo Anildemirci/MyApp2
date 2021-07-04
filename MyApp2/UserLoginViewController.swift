@@ -29,17 +29,18 @@ class UserLoginViewController: UIViewController {
     }
     
     @IBAction func loginButtonClicked(_ sender: Any) {
+        
         if emailText.text != "" && passwordText.text != "" {
             let firestoreDatabase=Firestore.firestore()
             firestoreDatabase.collection("Users").addSnapshotListener { [self] (snapshot, error) in
                 if error == nil {
                     for document in snapshot!.documents
                     {
-                        if let userType=document.get("Type") as? String{
+                        if let userType=document.get("Email") as? String{
                             userTypeArray.append(userType)
                         }
                     }
-                    if userTypeArray.contains("User") {
+                    if userTypeArray.contains(emailText.text!) {
                         Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { (authdata, errorr) in
                             if errorr != nil {
                                 makeAlert(titleInput: "Error", messageInput: errorr?.localizedDescription ?? "Error")
@@ -52,7 +53,7 @@ class UserLoginViewController: UIViewController {
                     }
             }
             }
-        } else {
+        }else {
             self.makeAlert(titleInput: "Error", messageInput: "Tüm bilgileri giriniz.")
             
         }

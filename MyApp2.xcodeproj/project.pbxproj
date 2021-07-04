@@ -14,6 +14,8 @@
 		043B5D61268189D20085A68A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 043B5D60268189D20085A68A /* Assets.xcassets */; };
 		043B5D64268189D20085A68A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043B5D62268189D20085A68A /* LaunchScreen.storyboard */; };
 		043B5D6C26818A3D0085A68A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 043B5D6B26818A3D0085A68A /* GoogleService-Info.plist */; };
+		044357D626918B6700BD7659 /* SelectedStadiumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044357D526918B6700BD7659 /* SelectedStadiumViewController.swift */; };
+		044357DA26919AC900BD7659 /* FavoriteStadiumsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044357D926919AC900BD7659 /* FavoriteStadiumsTableViewCell.swift */; };
 		04457823268284A8007B9C90 /* FindStadiumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04457822268284A8007B9C90 /* FindStadiumViewController.swift */; };
 		0445782526829701007B9C90 /* StadiumInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445782426829701007B9C90 /* StadiumInfoViewController.swift */; };
 		0445782726829974007B9C90 /* StadiumAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445782626829974007B9C90 /* StadiumAccountViewController.swift */; };
@@ -45,6 +47,8 @@
 		043B5D63268189D20085A68A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		043B5D65268189D20085A68A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		043B5D6B26818A3D0085A68A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		044357D526918B6700BD7659 /* SelectedStadiumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStadiumViewController.swift; sourceTree = "<group>"; };
+		044357D926919AC900BD7659 /* FavoriteStadiumsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteStadiumsTableViewCell.swift; sourceTree = "<group>"; };
 		04457822268284A8007B9C90 /* FindStadiumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindStadiumViewController.swift; sourceTree = "<group>"; };
 		0445782426829701007B9C90 /* StadiumInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumInfoViewController.swift; sourceTree = "<group>"; };
 		0445782626829974007B9C90 /* StadiumAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumAccountViewController.swift; sourceTree = "<group>"; };
@@ -110,12 +114,14 @@
 				047F05A72681BE5B00F6853E /* UserLoginViewController.swift */,
 				04DB3BF02684319A00FEEBBB /* StadiumsNameViewController.swift */,
 				04DB3BEC26842A4500FEEBBB /* StadiumsTableViewCell.swift */,
+				044357D526918B6700BD7659 /* SelectedStadiumViewController.swift */,
 				04457822268284A8007B9C90 /* FindStadiumViewController.swift */,
 				0445782E2682AC3B007B9C90 /* CityTableViewCell.swift */,
 				047F059F26819DB700F6853E /* SignUpViewController.swift */,
 				044578282682998E007B9C90 /* UserAccountViewController.swift */,
 				0445782626829974007B9C90 /* StadiumAccountViewController.swift */,
 				047F05B32681C83D00F6853E /* FavoritesViewController.swift */,
+				044357D926919AC900BD7659 /* FavoriteStadiumsTableViewCell.swift */,
 				0445782C26829AB8007B9C90 /* CalendarViewController.swift */,
 				0445782A26829A94007B9C90 /* StadiumSettingsViewController.swift */,
 				047F05B72681C88600F6853E /* UserSettingsViewController.swift */,
@@ -266,12 +272,14 @@
 				0445782726829974007B9C90 /* StadiumAccountViewController.swift in Sources */,
 				047F05A426819E1D00F6853E /* UserSignUpViewController.swift in Sources */,
 				04457823268284A8007B9C90 /* FindStadiumViewController.swift in Sources */,
+				044357D626918B6700BD7659 /* SelectedStadiumViewController.swift in Sources */,
 				047F05A62681A72500F6853E /* UserInfoViewController.swift in Sources */,
 				047F05A226819E0B00F6853E /* StadiumSignUpViewController.swift in Sources */,
 				044578292682998E007B9C90 /* UserAccountViewController.swift in Sources */,
 				0445782D26829AB8007B9C90 /* CalendarViewController.swift in Sources */,
 				0445782526829701007B9C90 /* StadiumInfoViewController.swift in Sources */,
 				04DB3BF12684319A00FEEBBB /* StadiumsNameViewController.swift in Sources */,
+				044357DA26919AC900BD7659 /* FavoriteStadiumsTableViewCell.swift in Sources */,
 				047F059B2681941F00F6853E /* LoginViewController.swift in Sources */,
 				043B5D5C268189D20085A68A /* ViewController.swift in Sources */,
 				043B5D58268189D20085A68A /* AppDelegate.swift in Sources */,

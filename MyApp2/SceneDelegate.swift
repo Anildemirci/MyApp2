@@ -17,22 +17,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        var userIdArray=[String]()
         let currentUser=Auth.auth().currentUser
+        let firebaseDatabase=Firestore.firestore()
+        var userTypeArray=[String]()
+        var stadiumTypeArray=[String]()
         
         if currentUser != nil {
-            let Stadium=Firestore.firestore()
-            Stadium.collection("Users").addSnapshotListener { (snapshot, error) in
+            firebaseDatabase.collection("Users").addSnapshotListener { (snapshot, error) in
                 if error == nil {
                     for document in snapshot!.documents{
                         if let userType=document.get("User") as? String{
-                            userIdArray.append(userType)
-                            if userIdArray.contains(currentUser!.uid)
-                            {
+                            userTypeArray.append(userType)
+                            if userTypeArray.contains(currentUser!.uid) {
                                 let board=UIStoryboard(name: "Main", bundle: nil)
                                 let userInfo=board.instantiateViewController(withIdentifier: "userProfile") as! UITabBarController
                                 self.window?.rootViewController=userInfo
-                            } else {
+                            }
+                        }
+                    }
+                }
+            }
+            firebaseDatabase.collection("Stadiums").addSnapshotListener { (snapshot, error) in
+                if error==nil {
+                    for document in snapshot!.documents{
+                        if let userType=document.get("User") as? String{
+                            stadiumTypeArray.append(userType)
+                            if stadiumTypeArray.contains(currentUser!.uid) {
                                 let board=UIStoryboard(name: "Main", bundle: nil)
                                 let stadiumInfo=board.instantiateViewController(withIdentifier: "stadiumProfile") as! UITabBarController
                                 self.window?.rootViewController=stadiumInfo
@@ -41,7 +51,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     }
                 }
             }
-            }
+        }
             
         guard let _ = (scene as? UIWindowScene) else { return }
     }

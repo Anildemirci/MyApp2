@@ -1,15 +1,15 @@
 //
-//  CityTableViewCell.swift
+//  FavoriteStadiumsTableViewCell.swift
 //  MyApp2
 //
-//  Created by Anıl Demirci on 23.06.2021.
+//  Created by Anıl Demirci on 4.07.2021.
 //
 
 import UIKit
 
-class CityTableViewCell: UITableViewCell {
+class FavoriteStadiumsTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var townNameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,5 +21,5 @@ class CityTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

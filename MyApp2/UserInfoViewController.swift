@@ -31,7 +31,6 @@ class UserInfoViewController: UIViewController {
     @IBAction func confirmButtonClicked(_ sender: Any) {
         
         let firestoreDatabase=Firestore.firestore()
-        var firestoreReference : DocumentReference?=nil
         let firestoreUser=["User":Auth.auth().currentUser!.uid,
                            "Email":Auth.auth().currentUser?.email,
                            "Name":nameText.text!,
@@ -43,15 +42,16 @@ class UserInfoViewController: UIViewController {
                            "Type":"User",
                            "Date":FieldValue.serverTimestamp()] as [String:Any]
         if nameText.text != "" && surnameText.text != "" && dateOfBirthText.text != "" && cityText.text != "" && townText.text != "" && phoneText.text != "" {
-            firestoreReference=firestoreDatabase.collection("Users").addDocument(data: firestoreUser, completion: { (error) in
+            firestoreDatabase.collection("Users").document(Auth.auth().currentUser!.uid).setData(firestoreUser) {
+                error in
                 if error != nil {
                     self.makeAlert(titleInput: "Error!", messageInput: error?.localizedDescription ?? "Error")
                 } else {
                     self.performSegue(withIdentifier: "toUserProfileBC", sender: nil)
                 }
-            })
+            }
         } else {
-            makeAlert(titleInput: "Error", messageInput: "Tüm bilgileri giriniz.")
+            self.makeAlert(titleInput: "Error", messageInput: "Lütfen tüm bilgileri giriniz.")
         }
     }
     

@@ -34,11 +34,11 @@ class StadiumLoginViewController: UIViewController {
                 if error == nil {
                     for document in snapshot!.documents
                     {
-                        if let userType=document.get("Type") as? String{
+                        if let userType=document.get("Email") as? String{
                             stadiumTypeArray.append(userType)
                         }
                     }
-                    if stadiumTypeArray.contains("Stadium") {
+                    if stadiumTypeArray.contains(emailText.text!) {
                         Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { (authdata, errorr) in
                             if errorr != nil {
                                 makeAlert(titleInput: "Error", messageInput: errorr?.localizedDescription ?? "Error")

@@ -30,7 +30,6 @@ class StadiumInfoViewController: UIViewController {
     @IBAction func confirmButtonClicked(_ sender: Any) {
         
         let firestoreDatabese=Firestore.firestore()
-        var firestoreReference:DocumentReference? = nil
         let firestoreStadium=["User":Auth.auth().currentUser!.uid,
                               "Email":Auth.auth().currentUser?.email,
                               "Name":nameText.text!,
@@ -42,15 +41,16 @@ class StadiumInfoViewController: UIViewController {
                               "Date":FieldValue.serverTimestamp()] as [String:Any]
         
         if nameText.text != "" && cityText.text != "" && townText.text != "" && phoneText.text != "" &&  addressText.text != "" {
-            firestoreReference=firestoreDatabese.collection("Stadiums").addDocument(data: firestoreStadium, completion: { (error) in
+            firestoreDatabese.collection("Stadiums").document(Auth.auth().currentUser!.uid).setData(firestoreStadium) {
+                error in
                 if error != nil {
-                    self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
+                    self.makeAlert(titleInput: "Error!", messageInput: error?.localizedDescription ?? "Error")
                 } else {
                     self.performSegue(withIdentifier: "toStadiumProfileBC", sender: nil)
                 }
-            })
+            }
         } else {
-            makeAlert(titleInput: "Error", messageInput: "Tüm bilgilerini giriniz.")
+            self.makeAlert(titleInput: "Error", messageInput: "Lütfen tüm bilgileri giriniz.")
         }
     }
     
