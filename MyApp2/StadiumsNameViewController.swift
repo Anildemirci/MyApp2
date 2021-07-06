@@ -13,6 +13,7 @@ class StadiumsNameViewController: UIViewController,UITableViewDelegate,UITableVi
     @IBOutlet weak var tableView: UITableView!
     var stadiumNameArray=[String]()
     var selectedTown=""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate=self

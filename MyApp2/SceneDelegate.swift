@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let firebaseDatabase=Firestore.firestore()
         var userTypeArray=[String]()
         var stadiumTypeArray=[String]()
-        
+        // eğer info kısmı boş ise infodan başlat değilse bu şekilde devam
         if currentUser != nil {
             firebaseDatabase.collection("Users").addSnapshotListener { (snapshot, error) in
                 if error == nil {
