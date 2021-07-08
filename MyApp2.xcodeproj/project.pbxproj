@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04389296269684CF00A43B26 /* CommentsCellViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04389295269684CF00A43B26 /* CommentsCellViewCell.swift */; };
 		043B5D58268189D20085A68A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B5D57268189D20085A68A /* AppDelegate.swift */; };
 		043B5D5A268189D20085A68A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B5D59268189D20085A68A /* SceneDelegate.swift */; };
 		043B5D5C268189D20085A68A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B5D5B268189D20085A68A /* ViewController.swift */; };
@@ -37,12 +38,15 @@
 		047F05AA2681BE6D00F6853E /* StadiumLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F05A92681BE6D00F6853E /* StadiumLoginViewController.swift */; };
 		047F05B42681C83D00F6853E /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F05B32681C83D00F6853E /* FavoritesViewController.swift */; };
 		047F05B82681C88600F6853E /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F05B72681C88600F6853E /* UserSettingsViewController.swift */; };
+		048CB3242696A7B200BC3CC0 /* WorkingHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048CB3232696A7B200BC3CC0 /* WorkingHoursCell.swift */; };
+		048CB32A2696B05400BC3CC0 /* StadiumEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048CB3292696B05400BC3CC0 /* StadiumEditViewController.swift */; };
 		04DB3BED26842A4500FEEBBB /* StadiumsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3BEC26842A4500FEEBBB /* StadiumsTableViewCell.swift */; };
 		04DB3BF12684319A00FEEBBB /* StadiumsNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3BF02684319A00FEEBBB /* StadiumsNameViewController.swift */; };
 		8ECFE33E50AC2E467C3BFABE /* Pods_MyApp2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5654FBA08BE38F6619C8625A /* Pods_MyApp2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04389295269684CF00A43B26 /* CommentsCellViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsCellViewCell.swift; sourceTree = "<group>"; };
 		043B5D54268189D20085A68A /* MyApp2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyApp2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		043B5D57268189D20085A68A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		043B5D59268189D20085A68A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +79,8 @@
 		047F05A92681BE6D00F6853E /* StadiumLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumLoginViewController.swift; sourceTree = "<group>"; };
 		047F05B32681C83D00F6853E /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		047F05B72681C88600F6853E /* UserSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
+		048CB3232696A7B200BC3CC0 /* WorkingHoursCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingHoursCell.swift; sourceTree = "<group>"; };
+		048CB3292696B05400BC3CC0 /* StadiumEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumEditViewController.swift; sourceTree = "<group>"; };
 		04DB3BEC26842A4500FEEBBB /* StadiumsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumsTableViewCell.swift; sourceTree = "<group>"; };
 		04DB3BF02684319A00FEEBBB /* StadiumsNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumsNameViewController.swift; sourceTree = "<group>"; };
 		0D1BC8249D5FAAC0B10D3EC1 /* Pods-MyApp2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyApp2.release.xcconfig"; path = "Target Support Files/Pods-MyApp2/Pods-MyApp2.release.xcconfig"; sourceTree = "<group>"; };
@@ -118,38 +124,121 @@
 				043B5D57268189D20085A68A /* AppDelegate.swift */,
 				043B5D59268189D20085A68A /* SceneDelegate.swift */,
 				043B5D5B268189D20085A68A /* ViewController.swift */,
-				047F059A2681941F00F6853E /* LoginViewController.swift */,
 				043B5D5D268189D20085A68A /* Main.storyboard */,
-				047F05A92681BE6D00F6853E /* StadiumLoginViewController.swift */,
-				047F05A72681BE5B00F6853E /* UserLoginViewController.swift */,
-				04DB3BF02684319A00FEEBBB /* StadiumsNameViewController.swift */,
-				04DB3BEC26842A4500FEEBBB /* StadiumsTableViewCell.swift */,
-				044357D526918B6700BD7659 /* SelectedStadiumViewController.swift */,
-				04457822268284A8007B9C90 /* FindStadiumViewController.swift */,
-				0445782E2682AC3B007B9C90 /* CityTableViewCell.swift */,
-				047F059F26819DB700F6853E /* SignUpViewController.swift */,
-				044578282682998E007B9C90 /* UserAccountViewController.swift */,
-				0445782626829974007B9C90 /* StadiumAccountViewController.swift */,
-				045FB4D72693B7B900C063C9 /* StadiumPhotosViewController.swift */,
-				045FB4DD2693BB2300C063C9 /* StadiumPhotosViewCell.swift */,
-				045FB4DF2693C23D00C063C9 /* UploadPhotosViewController.swift */,
-				045FB4D92693B7CF00C063C9 /* StadiumInformationsViewController.swift */,
-				045FB4DB2693B7E500C063C9 /* CommentsViewController.swift */,
-				047F05B32681C83D00F6853E /* FavoritesViewController.swift */,
-				044357D926919AC900BD7659 /* FavoriteStadiumsTableViewCell.swift */,
-				0445782C26829AB8007B9C90 /* CalendarViewController.swift */,
-				0445782A26829A94007B9C90 /* StadiumSettingsViewController.swift */,
-				047F05B72681C88600F6853E /* UserSettingsViewController.swift */,
-				047F05A52681A72500F6853E /* UserInfoViewController.swift */,
-				0445782426829701007B9C90 /* StadiumInfoViewController.swift */,
-				047F05A126819E0B00F6853E /* StadiumSignUpViewController.swift */,
-				047F05A326819E1D00F6853E /* UserSignUpViewController.swift */,
+				048CB3142696937900BC3CC0 /* SignUp */,
+				048CB3162696942800BC3CC0 /* Login */,
+				048CB3172696945600BC3CC0 /* StadiumAccount */,
+				048CB31A269694F500BC3CC0 /* UserAccount */,
 				043B5D60268189D20085A68A /* Assets.xcassets */,
 				043B5D62268189D20085A68A /* LaunchScreen.storyboard */,
 				043B5D65268189D20085A68A /* Info.plist */,
 				043B5D6B26818A3D0085A68A /* GoogleService-Info.plist */,
 			);
 			path = MyApp2;
+			sourceTree = "<group>";
+		};
+		048CB3142696937900BC3CC0 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				047F059F26819DB700F6853E /* SignUpViewController.swift */,
+				047F05A326819E1D00F6853E /* UserSignUpViewController.swift */,
+				047F05A126819E0B00F6853E /* StadiumSignUpViewController.swift */,
+				047F05A52681A72500F6853E /* UserInfoViewController.swift */,
+				0445782426829701007B9C90 /* StadiumInfoViewController.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		048CB315269693AD00BC3CC0 /* FindStadium */ = {
+			isa = PBXGroup;
+			children = (
+				04457822268284A8007B9C90 /* FindStadiumViewController.swift */,
+				0445782E2682AC3B007B9C90 /* CityTableViewCell.swift */,
+				04DB3BF02684319A00FEEBBB /* StadiumsNameViewController.swift */,
+				04DB3BEC26842A4500FEEBBB /* StadiumsTableViewCell.swift */,
+				044357D526918B6700BD7659 /* SelectedStadiumViewController.swift */,
+			);
+			path = FindStadium;
+			sourceTree = "<group>";
+		};
+		048CB3162696942800BC3CC0 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				047F059A2681941F00F6853E /* LoginViewController.swift */,
+				047F05A92681BE6D00F6853E /* StadiumLoginViewController.swift */,
+				047F05A72681BE5B00F6853E /* UserLoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		048CB3172696945600BC3CC0 /* StadiumAccount */ = {
+			isa = PBXGroup;
+			children = (
+				0445782626829974007B9C90 /* StadiumAccountViewController.swift */,
+				0445782A26829A94007B9C90 /* StadiumSettingsViewController.swift */,
+				048CB31D2696954F00BC3CC0 /* Calendar */,
+				048CB31C2696953000BC3CC0 /* Informations */,
+				048CB319269694CF00BC3CC0 /* Photos */,
+				048CB318269694B300BC3CC0 /* Comments */,
+			);
+			path = StadiumAccount;
+			sourceTree = "<group>";
+		};
+		048CB318269694B300BC3CC0 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				045FB4DB2693B7E500C063C9 /* CommentsViewController.swift */,
+				04389295269684CF00A43B26 /* CommentsCellViewCell.swift */,
+			);
+			path = Comments;
+			sourceTree = "<group>";
+		};
+		048CB319269694CF00BC3CC0 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				045FB4D72693B7B900C063C9 /* StadiumPhotosViewController.swift */,
+				045FB4DD2693BB2300C063C9 /* StadiumPhotosViewCell.swift */,
+				045FB4DF2693C23D00C063C9 /* UploadPhotosViewController.swift */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
+		048CB31A269694F500BC3CC0 /* UserAccount */ = {
+			isa = PBXGroup;
+			children = (
+				044578282682998E007B9C90 /* UserAccountViewController.swift */,
+				047F05B72681C88600F6853E /* UserSettingsViewController.swift */,
+				048CB31E2696958F00BC3CC0 /* FavoritesStadiums */,
+				048CB315269693AD00BC3CC0 /* FindStadium */,
+			);
+			path = UserAccount;
+			sourceTree = "<group>";
+		};
+		048CB31C2696953000BC3CC0 /* Informations */ = {
+			isa = PBXGroup;
+			children = (
+				045FB4D92693B7CF00C063C9 /* StadiumInformationsViewController.swift */,
+				048CB3232696A7B200BC3CC0 /* WorkingHoursCell.swift */,
+				048CB3292696B05400BC3CC0 /* StadiumEditViewController.swift */,
+			);
+			path = Informations;
+			sourceTree = "<group>";
+		};
+		048CB31D2696954F00BC3CC0 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				0445782C26829AB8007B9C90 /* CalendarViewController.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		048CB31E2696958F00BC3CC0 /* FavoritesStadiums */ = {
+			isa = PBXGroup;
+			children = (
+				044357D926919AC900BD7659 /* FavoriteStadiumsTableViewCell.swift */,
+				047F05B32681C83D00F6853E /* FavoritesViewController.swift */,
+			);
+			path = FavoritesStadiums;
 			sourceTree = "<group>";
 		};
 		7BA6EEA64CAEC85C4F6E7CCD /* Pods */ = {
@@ -289,13 +378,16 @@
 				047F05A426819E1D00F6853E /* UserSignUpViewController.swift in Sources */,
 				04457823268284A8007B9C90 /* FindStadiumViewController.swift in Sources */,
 				044357D626918B6700BD7659 /* SelectedStadiumViewController.swift in Sources */,
+				048CB3242696A7B200BC3CC0 /* WorkingHoursCell.swift in Sources */,
 				047F05A62681A72500F6853E /* UserInfoViewController.swift in Sources */,
 				045FB4D82693B7B900C063C9 /* StadiumPhotosViewController.swift in Sources */,
+				04389296269684CF00A43B26 /* CommentsCellViewCell.swift in Sources */,
 				047F05A226819E0B00F6853E /* StadiumSignUpViewController.swift in Sources */,
 				044578292682998E007B9C90 /* UserAccountViewController.swift in Sources */,
 				0445782D26829AB8007B9C90 /* CalendarViewController.swift in Sources */,
 				0445782526829701007B9C90 /* StadiumInfoViewController.swift in Sources */,
 				04DB3BF12684319A00FEEBBB /* StadiumsNameViewController.swift in Sources */,
+				048CB32A2696B05400BC3CC0 /* StadiumEditViewController.swift in Sources */,
 				044357DA26919AC900BD7659 /* FavoriteStadiumsTableViewCell.swift in Sources */,
 				045FB4DA2693B7CF00C063C9 /* StadiumInformationsViewController.swift in Sources */,
 				047F059B2681941F00F6853E /* LoginViewController.swift in Sources */,
