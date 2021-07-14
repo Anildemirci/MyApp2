@@ -9,6 +9,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import CoreData
+import Firebase
 
 class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate {
 
@@ -22,6 +23,9 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
     var locationManager=CLLocationManager()
     var chosenLatitude=Double()
     var chosenLongitude=Double()
+    var firestoreDatabase=Firestore.firestore()
+    var currentUser=Auth.auth().currentUser
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,8 +65,51 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
     }
     
     @IBAction func editClicked(_ sender: Any) {
+        
+        if villageText.text != "" && streetText.text != "" && townText.text! != "" && cityText.text != "" {
+            self.firestoreDatabase.collection("Stadiums").whereField("User", isEqualTo: self.currentUser?.uid).getDocuments { (snapshot, error) in
+                if error == nil {
+                    for document in snapshot!.documents{
+                        let documentId=document.documentID
+                        self.firestoreDatabase.collection("Stadiums").document(documentId).updateData(["Address": (self.villageText.text!)+",\(self.streetText.text!)"+",\(self.townText.text!)"+"/\(self.cityText.text!)"])
+                        self.firestoreDatabase.collection("Stadiums").document(documentId).updateData(["Town":self.townText.text!])
+                        self.firestoreDatabase.collection("Stadiums").document(documentId).updateData(["City":self.cityText.text!])
+                        self.makeAlert(titleInput: "Başarılı", messageInput: "Adres bilgileriniz değiştirilmiştir.")
+                    }
+                }
+            }
+        } else {
+            self.makeAlert(titleInput: "Error", messageInput: "Lütfen tüm bilgileri giriniz.")
+        }
+        
     }
+    
     @IBAction func addClicked(_ sender: Any) {
+        
+        if infoText.text != "" {
+            self.firestoreDatabase.collection("Stadiums").whereField("User", isEqualTo: self.currentUser?.uid).getDocuments { (snapshot, error) in
+                if error == nil {
+                    for document in snapshot!.documents{
+                        let documentId=document.documentID
+                        if var infoArray=document.get("Informations") as? [String] {
+                            infoArray.append(self.infoText.text!)
+                            let addInfo=["Informations":infoArray] as [String:Any]
+                            self.firestoreDatabase.collection("Stadiums").document(documentId).setData(addInfo, merge: true) { (error) in
+                                if error == nil {
+                                    self.makeAlert(titleInput: "Success", messageInput: "Bilgi eklendi")
+                                }
+                            }
+                        }else {
+                            let addInfo=["Informations":[self.infoText.text!]] as [String:Any]
+                            self.firestoreDatabase.collection("Stadiums").document(documentId).setData(addInfo, merge: true)
+                            self.makeAlert(titleInput: "Success", messageInput: "Bilgi eklendi")
+                        }
+                    }
+                }
+            }
+        } else {
+            self.makeAlert(titleInput: "Error", messageInput: "Lütfen boş bırakmayınız.")
+        }
     }
     
     func makeAlert(titleInput: String,messageInput: String){
@@ -71,4 +118,5 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
         alert.addAction(okButton)
         self.present(alert, animated: true, completion: nil)
     }
+    
 }

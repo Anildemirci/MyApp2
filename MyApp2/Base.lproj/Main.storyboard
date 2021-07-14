@@ -710,7 +710,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Geri"/>
                                 <connections>
-                                    <segue destination="oaO-Tj-fqx" kind="presentation" modalPresentationStyle="fullScreen" id="NJ4-Fo-FfP"/>
+                                    <segue destination="oaO-Tj-fqx" kind="presentation" identifier="" modalPresentationStyle="fullScreen" id="NJ4-Fo-FfP"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="il" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8wz-Bc-KTr">
@@ -1117,11 +1117,11 @@
             <objects>
                 <viewController id="AS7-O5-AZQ" customClass="StadiumPhotosViewController" customModule="MyApp2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZeJ-jT-2mO">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WUN-Ux-iUg">
-                                <rect key="frame" x="0.0" y="0.0" width="55.5" height="35"/>
+                                <rect key="frame" x="0.0" y="44" width="55.5" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Geri"/>
                                 <connections>
@@ -1130,7 +1130,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="qd0-CZ-ENJ">
-                                <rect key="frame" x="0.0" y="35" width="414" height="773"/>
+                                <rect key="frame" x="0.0" y="79" width="414" height="783"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="stadiumPhotosCell" rowHeight="272" id="chz-Ql-s3c" customClass="StadiumPhotosViewCell" customModule="MyApp2" customModuleProvider="target">
@@ -1173,7 +1173,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gqi-gX-xpy">
-                                <rect key="frame" x="368" y="0.0" width="46" height="35"/>
+                                <rect key="frame" x="368" y="44" width="46" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="6Ae-pl-c1X"/>
                                 </constraints>
@@ -1211,7 +1211,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fGX-Tm-aJp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-230" y="1919"/>
+            <point key="canvasLocation" x="-230" y="1876"/>
         </scene>
         <!--Upload Photos View Controller-->
         <scene sceneID="Um3-2D-Gij">
@@ -1879,12 +1879,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Xdj-8c-Av3"/>
         <segue reference="se8-qb-aW2"/>
         <segue reference="tJh-gL-yq9"/>
         <segue reference="X36-ra-QbS"/>
-        <segue reference="qQv-z8-5PN"/>
-        <segue reference="GOd-mi-9XF"/>
+        <segue reference="t9W-dD-CPh"/>
+        <segue reference="fKm-24-3tJ"/>
         <segue reference="Tny-Q3-eyJ"/>
         <segue reference="NJ4-Fo-FfP"/>
         <segue reference="dpO-WF-gWc"/>

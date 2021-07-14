@@ -61,5 +61,9 @@ class SelectedStadiumViewController: UIViewController {
             let destinationVC=segue.destination as! StadiumPhotosViewController
             destinationVC.ID=ID
         }
+        if segue.identifier == "toInformationFromUser" {
+            let destinationVC2=segue.destination as! StadiumInformationsViewController
+            destinationVC2.equalName=name
+        }
     }
 }
