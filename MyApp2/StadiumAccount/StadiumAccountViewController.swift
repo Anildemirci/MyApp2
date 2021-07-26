@@ -18,7 +18,7 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
     @IBOutlet weak var trashButton: UIButton!
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -34,6 +34,15 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
                 self.nameLabel.text=name
             }
     }
+        firestoreDatabase.collection("ProfilePhoto").document(currentUser!.uid).getDocument(source: .cache) { (snapshot, error) in
+            if let document = snapshot {
+                if let pp=document.get("imageUrl") {
+                    self.profileImageView.isUserInteractionEnabled=false
+                }else {
+                    self.trashButton.isHidden=true
+                }
+            }
+        }
         getPhoto()
     }
     @objc func choosePicture(){
@@ -117,6 +126,8 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
             error in
             if error != nil {
                 self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
+            } else {
+                self.makeAlert(titleInput: "Başarılı", messageInput: "Profil fotoğrafınız silindi.")
             }
         }
     }

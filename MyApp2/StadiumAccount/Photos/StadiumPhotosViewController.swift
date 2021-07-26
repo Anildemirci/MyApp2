@@ -18,6 +18,8 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
     
     var photoStatement=[String]()
     var imageUrl=[String]()
+    var image=""
+    var chosenPhoto=""
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
     var userTypeArray=[String]()
@@ -105,6 +107,43 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
               }
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            let firestoreDatabase=Firestore.firestore()
+            firestoreDatabase.collection("Stadiums").addSnapshotListener { [self] (snapshot, error) in
+                if error == nil {
+                    for document in snapshot!.documents
+                    {
+                        if let userType=document.get("User") as? String{
+                            stadiumTypeArray.append(userType)
+                        }
+                    }
+                    if stadiumTypeArray.contains(currentUser!.uid) {
+                        if editingStyle == .delete {
+                            let delPhoto=imageUrl[indexPath.row]
+                            firestoreDatabase.collection("StadiumPhotos").document(currentUser!.uid).collection("Photos").whereField("photoUrl", isEqualTo: delPhoto).getDocuments() { (query, error) in
+                                if error == nil {
+                                    for document in query!.documents{
+                                        let delDocID=document.documentID
+                                        firestoreDatabase.collection("StadiumPhotos").document(currentUser!.uid).collection("Photos").document(delDocID).delete(){ error in
+                                            if error == nil {
+                                                self.makeAlert(titleInput: "Başarılı", messageInput: "Fotoğraf silindi.")
+                                            }else {
+                                                self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                }
+                        }
+                        
+                    } else {
+                        view.isUserInteractionEnabled=false
+                    }
+            }
+            }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return imageUrl.count
     }
@@ -147,6 +186,20 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
                }
     }
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toPhoto" {
+            let destinationVC=segue.destination as! ThePhotoViewController
+            destinationVC.selectedPhoto=chosenPhoto
+            destinationVC.image=image
+            destinationVC.imageArray=imageUrl
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        chosenPhoto=imageUrl[indexPath.row]
+        performSegue(withIdentifier: "toPhoto", sender: nil)
+    }
     
     func makeAlert(titleInput: String,messageInput: String){
         let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)

@@ -29,6 +29,7 @@
 		045FB4DC2693B7E500C063C9 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045FB4DB2693B7E500C063C9 /* CommentsViewController.swift */; };
 		045FB4DE2693BB2300C063C9 /* StadiumPhotosViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045FB4DD2693BB2300C063C9 /* StadiumPhotosViewCell.swift */; };
 		045FB4E02693C23D00C063C9 /* UploadPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045FB4DF2693C23D00C063C9 /* UploadPhotosViewController.swift */; };
+		0462032026A2222C00C30FB9 /* ThePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0462031F26A2222C00C30FB9 /* ThePhotoViewController.swift */; };
 		047F059B2681941F00F6853E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F059A2681941F00F6853E /* LoginViewController.swift */; };
 		047F05A026819DB700F6853E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F059F26819DB700F6853E /* SignUpViewController.swift */; };
 		047F05A226819E0B00F6853E /* StadiumSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F05A126819E0B00F6853E /* StadiumSignUpViewController.swift */; };
@@ -70,6 +71,7 @@
 		045FB4DB2693B7E500C063C9 /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		045FB4DD2693BB2300C063C9 /* StadiumPhotosViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumPhotosViewCell.swift; sourceTree = "<group>"; };
 		045FB4DF2693C23D00C063C9 /* UploadPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPhotosViewController.swift; sourceTree = "<group>"; };
+		0462031F26A2222C00C30FB9 /* ThePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThePhotoViewController.swift; sourceTree = "<group>"; };
 		047F059A2681941F00F6853E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		047F059F26819DB700F6853E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		047F05A126819E0B00F6853E /* StadiumSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumSignUpViewController.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				045FB4D72693B7B900C063C9 /* StadiumPhotosViewController.swift */,
 				045FB4DD2693BB2300C063C9 /* StadiumPhotosViewCell.swift */,
 				045FB4DF2693C23D00C063C9 /* UploadPhotosViewController.swift */,
+				0462031F26A2222C00C30FB9 /* ThePhotoViewController.swift */,
 			);
 			path = Photos;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				045FB4E02693C23D00C063C9 /* UploadPhotosViewController.swift in Sources */,
+				0462032026A2222C00C30FB9 /* ThePhotoViewController.swift in Sources */,
 				0445782726829974007B9C90 /* StadiumAccountViewController.swift in Sources */,
 				047F05A426819E1D00F6853E /* UserSignUpViewController.swift in Sources */,
 				04457823268284A8007B9C90 /* FindStadiumViewController.swift in Sources */,

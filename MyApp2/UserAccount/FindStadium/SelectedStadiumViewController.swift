@@ -13,15 +13,17 @@ class SelectedStadiumViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var addFavoriteButton: UIButton! //tıklandığında fav işareti işaretlensin
+    @IBOutlet weak var addedFavButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     var name=""
+    var favStadium=[String]()
     var ID=""
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         addFavoriteButton.titleLabel?.text=""
+        addedFavButton.titleLabel?.text=""
         nameLabel.text=name
         
         let imageRef=firestoreDatabase.collection("ProfilePhoto").whereField("StadiumName", isEqualTo: name).getDocuments { (snapshot, error) in
@@ -42,8 +44,25 @@ class SelectedStadiumViewController: UIViewController {
                 }
             }
         }
-        
-    }
+        self.firestoreDatabase.collection("Users").whereField("User", isEqualTo: self.currentUser?.uid).getDocuments { (snapshot, error) in
+            if error == nil {
+                for document in snapshot!.documents{
+                    if let favArray=document.get("FavoriteStadiums") as? [String] {
+                        if favArray.contains(self.name) {
+                            self.addFavoriteButton.isHidden=true
+                            self.addFavoriteButton.isEnabled=false
+                        } else {
+                            self.addedFavButton.isHidden=true
+                            self.addedFavButton.isEnabled=false
+                        }
+                    }else {
+                        self.addedFavButton.isHidden=true
+                        self.addedFavButton.isEnabled=false
+                    }
+                        }
+                    }
+                }
+            }
     @IBAction func imagesClicked(_ sender: Any) {
         performSegue(withIdentifier: "toStadiumPhotosFromUser", sender: nil)
     }
@@ -53,7 +72,35 @@ class SelectedStadiumViewController: UIViewController {
     }
     @IBAction func requestClicked(_ sender: Any) {
     }
+    @IBAction func addedFavClicked(_ sender: Any) {
+        firestoreDatabase.collection("Users").document(currentUser!.uid).updateData(["FavoriteStadiums":FieldValue.arrayRemove([name])]) //düzelt
+    }
+    
     @IBAction func addFavoriteClicked(_ sender: Any) {
+        self.firestoreDatabase.collection("Users").whereField("User", isEqualTo: self.currentUser?.uid).getDocuments { (snapshot, error) in
+            if error == nil {
+                for document in snapshot!.documents{
+                    let documentId=document.documentID
+                    if var favArray=document.get("FavoriteStadiums") as? [String] {
+                        if favArray.contains(self.name) {
+                            print("saha ekli zaten.")
+                        } else {
+                            favArray.append(self.name)
+                            let addFavStadium=["FavoriteStadiums":favArray] as [String:Any]
+                            self.firestoreDatabase.collection("Users").document(documentId).setData(addFavStadium, merge: true) { (error) in
+                                if error == nil {
+                                    self.makeAlert(titleInput: "Success", messageInput: "Saha eklendi")
+                                }
+                            }
+                        }
+                    }else {
+                        let addFavStadium=["FavoriteStadiums":[self.name]] as [String:Any]
+                        self.firestoreDatabase.collection("Users").document(documentId).setData(addFavStadium, merge: true)
+                        self.makeAlert(titleInput: "Success", messageInput: "Saha eklendi")
+                    }
+                }
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -65,5 +112,12 @@ class SelectedStadiumViewController: UIViewController {
             let destinationVC2=segue.destination as! StadiumInformationsViewController
             destinationVC2.equalName=name
         }
+    }
+    
+    func makeAlert(titleInput: String,messageInput: String){
+        let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)
+        let okButton=UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+        alert.addAction(okButton)
+        self.present(alert, animated: true, completion: nil)
     }
 }

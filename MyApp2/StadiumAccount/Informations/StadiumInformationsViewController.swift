@@ -47,30 +47,28 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
                                                 let address=document.get("Address") as! String
                                                 self.addressLabel.text=address
                                                 
-                                                if var info=document.get("Informations") as? [String] {
+                                                if let info=document.get("Informations") as? [String] {
                                                     self.infoArray=info
                                                     self.featuresTableView.reloadData()
                                                 }else {
                                                     self.infoArray=["Saha tarafından henüz bilgi girilmemiştir."]
-                                                    
                                                 }
                                             }
                                     }
                                     }
                                 }
                             }
-                        } else {
+                        }else { //saha girişi ise
                             let docRef=self.firestoreDatabase.collection("Stadiums").document(self.currentUser!.uid)
                             docRef.getDocument(source: .cache) { (document, error) in
                                 if let document = document {
                                     let address=document.get("Address") as! String
                                     self.addressLabel.text=address
-                                    if var info=document.get("Informations") as? [String] {
+                                    if let info=document.get("Informations") as? [String] {
                                         self.infoArray=info
                                         self.featuresTableView.reloadData()
                                     }else {
                                         self.infoArray=["Saha tarafından henüz bilgi girilmemiştir."]
-                                        
                                     }
                                 }
                         }
@@ -81,6 +79,28 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
         }
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            let firestoreDatabase=Firestore.firestore()
+            firestoreDatabase.collection("Stadiums").addSnapshotListener { [self] (snapshot, error) in
+                if error == nil {
+                    for document in snapshot!.documents
+                    {
+                        if let userType=document.get("User") as? String{
+                            stadiumTypeArray.append(userType)
+                        }
+                    }
+                    if stadiumTypeArray.contains(currentUser!.uid) {
+                        if editingStyle == .delete {
+                        let delField = infoArray[indexPath.row]
+                        firestoreDatabase.collection("Stadiums").document(currentUser!.uid).updateData(["Informations" : FieldValue.arrayRemove([delField])])
+                            self.makeAlert(titleInput: "Başarılı", messageInput: "Bilgi silindi.")
+                        }
+                    } else {
+                        view.isUserInteractionEnabled=false
+                    }
+            }
+            }
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return infoArray.count
     }
@@ -100,5 +120,10 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
     @IBAction func navigationClicked(_ sender: Any) {
     }
     
-    
+    func makeAlert(titleInput: String,messageInput: String){
+        let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)
+        let okButton=UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+        alert.addAction(okButton)
+        self.present(alert, animated: true, completion: nil)
+    }
 }
