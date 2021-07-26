@@ -51,5 +51,14 @@ class FavoritesViewController: UIViewController,UITableViewDelegate,UITableViewD
         cell.nameLabel.text=favStadium[indexPath.row]
         return cell
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toStadiumFromFav" {
+            let destinationVC=segue.destination as! SelectedStadiumViewController
+            destinationVC.name=chosenName
+        }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        chosenName=favStadium[indexPath.row]
+        performSegue(withIdentifier: "toStadiumFromFav", sender: nil)
+    }
 }

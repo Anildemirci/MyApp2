@@ -433,6 +433,7 @@
                     </tabBarItem>
                     <connections>
                         <outlet property="tableView" destination="bSa-vK-PZg" id="vNO-n2-8ES"/>
+                        <segue destination="Qh2-3O-MwN" kind="presentation" identifier="toStadiumFromFav" modalPresentationStyle="fullScreen" id="MNF-dG-A9w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oJM-gO-pLb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1861,14 +1862,13 @@
                                     <action selector="addFavoriteClicked:" destination="Qh2-3O-MwN" eventType="touchUpInside" id="rIB-zW-WHQ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IMm-vb-4o0">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ChZ-tT-xHr">
                                 <rect key="frame" x="363" y="44" width="51" height="39"/>
                                 <buttonConfiguration key="configuration" style="plain">
                                     <imageReference key="image" image="star.fill" catalog="system"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="addFavoriteClicked:" destination="Qh2-3O-MwN" eventType="touchUpInside" id="IIX-iF-lZS"/>
-                                    <action selector="addedFavClicked:" destination="Qh2-3O-MwN" eventType="touchUpInside" id="TeM-oR-3e1"/>
+                                    <action selector="addedFavClicked:" destination="Qh2-3O-MwN" eventType="touchUpInside" id="pdd-L3-l41"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1876,12 +1876,11 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="cle-Ph-lBY" firstAttribute="leading" secondItem="AeK-zf-Lqh" secondAttribute="leading" id="1Gv-Yj-LRF"/>
-                            <constraint firstItem="fFP-iR-dWK" firstAttribute="top" secondItem="IMm-vb-4o0" secondAttribute="bottom" id="1w2-ug-dcb"/>
                             <constraint firstItem="Pbx-QP-kOv" firstAttribute="leading" secondItem="AeK-zf-Lqh" secondAttribute="leading" id="4Iq-wS-Vha"/>
                             <constraint firstItem="AeK-zf-Lqh" firstAttribute="trailing" secondItem="cle-Ph-lBY" secondAttribute="trailing" id="4hf-E4-8C1"/>
                             <constraint firstItem="y9d-dz-jIS" firstAttribute="centerX" secondItem="fFP-iR-dWK" secondAttribute="centerX" id="A6C-jJ-idZ"/>
-                            <constraint firstItem="IMm-vb-4o0" firstAttribute="top" secondItem="AeK-zf-Lqh" secondAttribute="top" id="C5u-4l-Vvi"/>
                             <constraint firstItem="AeK-zf-Lqh" firstAttribute="bottom" secondItem="PFk-gc-mTb" secondAttribute="bottom" constant="40" id="DMc-W4-d4R"/>
+                            <constraint firstItem="ChZ-tT-xHr" firstAttribute="trailing" secondItem="AeK-zf-Lqh" secondAttribute="trailing" id="De1-ow-gwu"/>
                             <constraint firstItem="AeK-zf-Lqh" firstAttribute="trailing" secondItem="YMb-g2-cv3" secondAttribute="trailing" id="EOL-9m-u0S"/>
                             <constraint firstItem="Pbx-QP-kOv" firstAttribute="top" secondItem="AeK-zf-Lqh" secondAttribute="top" id="EUm-eV-92z"/>
                             <constraint firstItem="PFk-gc-mTb" firstAttribute="leading" secondItem="AeK-zf-Lqh" secondAttribute="leading" constant="25" id="F7J-de-33u"/>
@@ -1892,9 +1891,10 @@
                             <constraint firstItem="AeK-zf-Lqh" firstAttribute="trailing" secondItem="fFP-iR-dWK" secondAttribute="trailing" id="Zp1-xf-sxS"/>
                             <constraint firstItem="y9d-dz-jIS" firstAttribute="top" secondItem="fFP-iR-dWK" secondAttribute="bottom" id="dXx-B8-vJb"/>
                             <constraint firstItem="nj8-D2-7Ox" firstAttribute="top" secondItem="fFP-iR-dWK" secondAttribute="bottom" id="fcU-D1-o8h"/>
-                            <constraint firstItem="IMm-vb-4o0" firstAttribute="trailing" secondItem="AeK-zf-Lqh" secondAttribute="trailing" id="gGD-b9-Nfy"/>
+                            <constraint firstItem="fFP-iR-dWK" firstAttribute="top" secondItem="ChZ-tT-xHr" secondAttribute="bottom" id="krv-Jl-OMC"/>
                             <constraint firstItem="nj8-D2-7Ox" firstAttribute="trailing" secondItem="AeK-zf-Lqh" secondAttribute="trailing" id="lqw-yS-9Hr"/>
                             <constraint firstItem="fFP-iR-dWK" firstAttribute="top" secondItem="Pbx-QP-kOv" secondAttribute="bottom" id="o2D-rB-e0v"/>
+                            <constraint firstItem="ChZ-tT-xHr" firstAttribute="top" secondItem="AeK-zf-Lqh" secondAttribute="top" id="rBX-Vs-hNO"/>
                             <constraint firstItem="b5A-Ks-KP5" firstAttribute="leading" secondItem="AeK-zf-Lqh" secondAttribute="leading" id="rYJ-I7-q3d"/>
                             <constraint firstItem="AeK-zf-Lqh" firstAttribute="trailing" secondItem="PFk-gc-mTb" secondAttribute="trailing" constant="25" id="sNI-9g-wuz"/>
                             <constraint firstItem="fFP-iR-dWK" firstAttribute="top" secondItem="YMb-g2-cv3" secondAttribute="bottom" id="tqe-yO-1M6"/>
@@ -1903,7 +1903,7 @@
                     <navigationItem key="navigationItem" id="a8k-vL-GXc"/>
                     <connections>
                         <outlet property="addFavoriteButton" destination="YMb-g2-cv3" id="ggp-gd-njp"/>
-                        <outlet property="addedFavButton" destination="IMm-vb-4o0" id="dgJ-nU-n11"/>
+                        <outlet property="addedFavButton" destination="ChZ-tT-xHr" id="YEu-vc-WgF"/>
                         <outlet property="imageView" destination="fFP-iR-dWK" id="9xs-wD-um2"/>
                         <outlet property="nameLabel" destination="cle-Ph-lBY" id="540-1m-oed"/>
                         <segue destination="AS7-O5-AZQ" kind="presentation" identifier="toStadiumPhotosFromUser" modalPresentationStyle="automatic" id="GOd-mi-9XF"/>
@@ -1988,7 +1988,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="se8-qb-aW2"/>
-        <segue reference="tJh-gL-yq9"/>
+        <segue reference="Qct-UG-Exo"/>
         <segue reference="Fqc-cu-lxY"/>
         <segue reference="t9W-dD-CPh"/>
         <segue reference="GOd-mi-9XF"/>

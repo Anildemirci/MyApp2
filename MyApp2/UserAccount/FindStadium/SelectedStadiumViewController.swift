@@ -12,7 +12,7 @@ import SDWebImage
 class SelectedStadiumViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var addFavoriteButton: UIButton! //tıklandığında fav işareti işaretlensin
+    @IBOutlet weak var addFavoriteButton: UIButton!
     @IBOutlet weak var addedFavButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     var name=""
@@ -22,8 +22,6 @@ class SelectedStadiumViewController: UIViewController {
     var currentUser=Auth.auth().currentUser
     override func viewDidLoad() {
         super.viewDidLoad()
-        addFavoriteButton.titleLabel?.text=""
-        addedFavButton.titleLabel?.text=""
         nameLabel.text=name
         
         let imageRef=firestoreDatabase.collection("ProfilePhoto").whereField("StadiumName", isEqualTo: name).getDocuments { (snapshot, error) in
@@ -73,7 +71,8 @@ class SelectedStadiumViewController: UIViewController {
     @IBAction func requestClicked(_ sender: Any) {
     }
     @IBAction func addedFavClicked(_ sender: Any) {
-        firestoreDatabase.collection("Users").document(currentUser!.uid).updateData(["FavoriteStadiums":FieldValue.arrayRemove([name])]) //düzelt
+        firestoreDatabase.collection("Users").document(currentUser!.uid).updateData(["FavoriteStadiums":FieldValue.arrayRemove([name])])
+        self.makeAlert(titleInput: "Başarılı", messageInput: "Saha favorilerden çıkartıldı.")
     }
     
     @IBAction func addFavoriteClicked(_ sender: Any) {
@@ -89,14 +88,14 @@ class SelectedStadiumViewController: UIViewController {
                             let addFavStadium=["FavoriteStadiums":favArray] as [String:Any]
                             self.firestoreDatabase.collection("Users").document(documentId).setData(addFavStadium, merge: true) { (error) in
                                 if error == nil {
-                                    self.makeAlert(titleInput: "Success", messageInput: "Saha eklendi")
+                                    self.makeAlert(titleInput: "Success", messageInput: "Saha favorilere eklendi.")
                                 }
                             }
                         }
                     }else {
                         let addFavStadium=["FavoriteStadiums":[self.name]] as [String:Any]
                         self.firestoreDatabase.collection("Users").document(documentId).setData(addFavStadium, merge: true)
-                        self.makeAlert(titleInput: "Success", messageInput: "Saha eklendi")
+                        self.makeAlert(titleInput: "Success", messageInput: "Saha favorilere eklendi.")
                     }
                 }
             }
