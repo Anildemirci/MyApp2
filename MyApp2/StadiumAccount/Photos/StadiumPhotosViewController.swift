@@ -138,7 +138,7 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
                         }
                         
                     } else {
-                        view.isUserInteractionEnabled=false
+                        tableView.isUserInteractionEnabled=false
                     }
             }
             }

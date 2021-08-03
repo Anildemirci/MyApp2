@@ -1,16 +1,15 @@
 //
-//  WorkingHoursCell.swift
+//  ConfirmFieldTableViewCell.swift
 //  MyApp2
 //
-//  Created by Anıl Demirci on 8.07.2021.
+//  Created by Anıl Demirci on 3.08.2021.
 //
 
 import UIKit
 
-class WorkingHoursCell: UITableViewCell {
-    
-    @IBOutlet weak var dayLabel: UILabel!
-    
+class ConfirmFieldTableViewCell: UITableViewCell {
+
+    @IBOutlet weak var fieldNameLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

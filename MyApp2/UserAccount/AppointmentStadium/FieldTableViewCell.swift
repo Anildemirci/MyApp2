@@ -1,16 +1,15 @@
 //
-//  WorkingHoursCell.swift
+//  FieldTableViewCell.swift
 //  MyApp2
 //
-//  Created by Anıl Demirci on 8.07.2021.
+//  Created by Anıl Demirci on 3.08.2021.
 //
 
 import UIKit
 
-class WorkingHoursCell: UITableViewCell {
+class FieldTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var dayLabel: UILabel!
-    
+    @IBOutlet weak var fieldNameLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

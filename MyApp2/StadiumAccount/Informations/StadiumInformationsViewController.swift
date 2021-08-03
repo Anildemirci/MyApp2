@@ -36,7 +36,7 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
                         if self.userTypeArray.contains(self.currentUser!.uid) {
                             self.backButton.isHidden=true
                             self.editButton.isHidden=true
-                            
+                            self.featuresTableView.isUserInteractionEnabled=false
                             self.firestoreDatabase.collection("Stadiums").whereField("Name", isEqualTo: self.equalName).getDocuments { (snapshot, error) in
                                 if error == nil {
                                     for document in snapshot!.documents{
@@ -58,11 +58,11 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
                                     }
                                 }
                             }
-                        }else { //saha girişi ise
+                        }else {//saha girişi ise
                             let docRef=self.firestoreDatabase.collection("Stadiums").document(self.currentUser!.uid)
                             docRef.getDocument(source: .cache) { (document, error) in
                                 if let document = document {
-                                    let address=document.get("Address") as! String
+                                    let address=document.get("Address") as? String
                                     self.addressLabel.text=address
                                     if let info=document.get("Informations") as? [String] {
                                         self.infoArray=info
@@ -95,8 +95,6 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
                         firestoreDatabase.collection("Stadiums").document(currentUser!.uid).updateData(["Informations" : FieldValue.arrayRemove([delField])])
                             self.makeAlert(titleInput: "Başarılı", messageInput: "Bilgi silindi.")
                         }
-                    } else {
-                        view.isUserInteractionEnabled=false
                     }
             }
             }
