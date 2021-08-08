@@ -6,23 +6,40 @@
 //
 
 import UIKit
+import Firebase
 
 class CalendarViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    
+    var firestoreDatabase=Firestore.firestore()
+    var currentUser=Auth.auth().currentUser
+    var nameFields=[String]()
+    
     override func viewDidLoad() {
         tableView.delegate=self
         tableView.dataSource=self
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        let docRef=firestoreDatabase.collection("Stadiums").document(currentUser!.uid)
+        docRef.getDocument(source: .cache) { (document, error) in
+            if let document = document {
+                let fields=document.get("NumberOfField") as! String
+                let intFields=Int(fields)
+                for number in 1...intFields! {
+                    self.nameFields.append("Saha \(number)")
+                }
+                self.tableView.reloadData()
+            }
+    }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return nameFields.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell=tableView.dequeueReusableCell(withIdentifier: "confirmField", for: indexPath) as! ConfirmFieldTableViewCell
-        cell.fieldNameLabel.text="Saha1"
+        cell.fieldNameLabel.text=nameFields[indexPath.row]
         return cell
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

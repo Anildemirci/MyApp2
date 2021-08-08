@@ -111,6 +111,10 @@ class SelectedStadiumViewController: UIViewController {
             let destinationVC2=segue.destination as! StadiumInformationsViewController
             destinationVC2.equalName=name
         }
+        if segue.identifier == "toFieldFromUser" {
+            let destinationVC3=segue.destination as! AppoitmentViewController
+            destinationVC3.stadiumName=name
+        }
     }
     
     func makeAlert(titleInput: String,messageInput: String){

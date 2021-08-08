@@ -4,7 +4,6 @@
 //
 //  Created by Anıl Demirci on 23.06.2021.
 //
-
 import UIKit
 import Firebase
 
@@ -15,6 +14,7 @@ class StadiumInfoViewController: UIViewController {
     @IBOutlet weak var townText: UITextField!
     @IBOutlet weak var phoneText: UITextField!
     @IBOutlet weak var addressText: UITextField!
+    @IBOutlet weak var numberOfField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,10 +37,11 @@ class StadiumInfoViewController: UIViewController {
                               "Town":townText.text!,
                               "Phone":phoneText.text!,
                               "Address":addressText.text!,
+                              "NumberOfField":numberOfField.text!,
                               "Type":"Stadium",
                               "Date":FieldValue.serverTimestamp()] as [String:Any]
         
-        if nameText.text != "" && cityText.text != "" && townText.text != "" && phoneText.text != "" &&  addressText.text != "" {
+        if nameText.text != "" && cityText.text != "" && townText.text != "" && phoneText.text != "" &&  addressText.text != "" && numberOfField.text != "" {
             firestoreDatabese.collection("Stadiums").document(Auth.auth().currentUser!.uid).setData(firestoreStadium) {
                 error in
                 if error != nil {

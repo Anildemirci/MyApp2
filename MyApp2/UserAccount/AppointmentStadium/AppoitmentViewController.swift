@@ -6,23 +6,40 @@
 //
 
 import UIKit
+import Firebase
 
 class AppoitmentViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    
+    var firestoreDatabase=Firestore.firestore()
+    var currentUser=Auth.auth().currentUser
+    var stadiumName=""
+    var nameFields=[String]()
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate=self
         tableView.dataSource=self
         // Do any additional setup after loading the view.
+        firestoreDatabase.collection("Stadiums").whereField("Name", isEqualTo: stadiumName).getDocuments { (snapshot, error) in
+            if error == nil {
+                for document in snapshot!.documents {
+                    let numberField=document.get("NumberOfField") as! String
+                    let intNumberField=Int(numberField)
+                    for number in 1...intNumberField! {
+                        self.nameFields.append("Saha \(number)")
+                    }
+                    self.tableView.reloadData()
+                }
+            }
+        }
+
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return nameFields.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell=tableView.dequeueReusableCell(withIdentifier: "fieldCell", for: indexPath) as! FieldTableViewCell
-        cell.fieldNameLabel.text="Saha1"
+        cell.fieldNameLabel.text=nameFields[indexPath.row]
         return cell
     }
     

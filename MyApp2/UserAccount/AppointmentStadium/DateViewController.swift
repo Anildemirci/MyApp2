@@ -10,6 +10,7 @@ import UIKit
 class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    var hourArray=[String]()
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate=self

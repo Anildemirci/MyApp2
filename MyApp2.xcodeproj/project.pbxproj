@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0409502626BFD5CF00E572CF /* DateEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0409502526BFD5CF00E572CF /* DateEditViewController.swift */; };
 		04389296269684CF00A43B26 /* CommentsCellViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04389295269684CF00A43B26 /* CommentsCellViewCell.swift */; };
 		043B5D58268189D20085A68A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B5D57268189D20085A68A /* AppDelegate.swift */; };
 		043B5D5A268189D20085A68A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B5D59268189D20085A68A /* SceneDelegate.swift */; };
@@ -55,6 +56,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0409502526BFD5CF00E572CF /* DateEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEditViewController.swift; sourceTree = "<group>"; };
 		04389295269684CF00A43B26 /* CommentsCellViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsCellViewCell.swift; sourceTree = "<group>"; };
 		043B5D54268189D20085A68A /* MyApp2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyApp2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		043B5D57268189D20085A68A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				048955D626B8FE6B009B2B6A /* ConfirmFieldTableViewCell.swift */,
 				048955D826B8FF6A009B2B6A /* ConfirmDateViewController.swift */,
 				048955DA26B8FFDB009B2B6A /* ConfirmDateTableViewCell.swift */,
+				0409502526BFD5CF00E572CF /* DateEditViewController.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -427,6 +430,7 @@
 				048955DB26B8FFDB009B2B6A /* ConfirmDateTableViewCell.swift in Sources */,
 				048955D726B8FE6B009B2B6A /* ConfirmFieldTableViewCell.swift in Sources */,
 				0445782526829701007B9C90 /* StadiumInfoViewController.swift in Sources */,
+				0409502626BFD5CF00E572CF /* DateEditViewController.swift in Sources */,
 				04DB3BF12684319A00FEEBBB /* StadiumsNameViewController.swift in Sources */,
 				048955C526B8DD46009B2B6A /* DateViewController.swift in Sources */,
 				048CB32A2696B05400BC3CC0 /* StadiumEditViewController.swift in Sources */,
