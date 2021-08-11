@@ -15,6 +15,7 @@ class AppoitmentViewController: UIViewController,UITableViewDelegate,UITableView
     var currentUser=Auth.auth().currentUser
     var stadiumName=""
     var nameFields=[String]()
+    var selectedField=""
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate=self
@@ -46,9 +47,11 @@ class AppoitmentViewController: UIViewController,UITableViewDelegate,UITableView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toSelectedField" {
             let destinationVC=segue.destination as! DateViewController
+            destinationVC.nameLabel=selectedField
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedField=nameFields[indexPath.row]
         performSegue(withIdentifier: "toSelectedField", sender: nil)
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class FindStadiumViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class FindStadiumViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -20,8 +20,7 @@ class FindStadiumViewController: UIViewController,UITableViewDelegate,UITableVie
         // Do any additional setup after loading the view.
         tableView.delegate=self
         tableView.dataSource=self
-        
-          getDataFromFirestore()
+        getDataFromFirestore()
               }
     
      func getDataFromFirestore(){

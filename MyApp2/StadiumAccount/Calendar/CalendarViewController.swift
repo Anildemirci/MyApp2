@@ -15,7 +15,7 @@ class CalendarViewController: UIViewController,UITableViewDelegate,UITableViewDa
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
     var nameFields=[String]()
-    
+    var chosenName=""
     override func viewDidLoad() {
         tableView.delegate=self
         tableView.dataSource=self
@@ -45,9 +45,11 @@ class CalendarViewController: UIViewController,UITableViewDelegate,UITableViewDa
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toConfirmDate" {
             let destinationVC=segue.destination as! ConfirmDateViewController
+            destinationVC.selectedName=chosenName
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        chosenName=nameFields[indexPath.row]
         performSegue(withIdentifier: "toConfirmDate", sender: nil)
     }
 }

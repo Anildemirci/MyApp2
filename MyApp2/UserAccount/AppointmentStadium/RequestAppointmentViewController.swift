@@ -16,10 +16,14 @@ class RequestAppointmentViewController: UIViewController {
     @IBOutlet weak var hourLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var noteText: UITextField!
+    var chosenHour=""
+    var chosenField=""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        hourLabel.text=chosenHour
+        fieldNameLabel.text=chosenField
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
     }

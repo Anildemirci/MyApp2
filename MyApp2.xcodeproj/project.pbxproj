@@ -50,6 +50,9 @@
 		048955DB26B8FFDB009B2B6A /* ConfirmDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048955DA26B8FFDB009B2B6A /* ConfirmDateTableViewCell.swift */; };
 		048CB3242696A7B200BC3CC0 /* WorkingHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048CB3232696A7B200BC3CC0 /* WorkingHoursCell.swift */; };
 		048CB32A2696B05400BC3CC0 /* StadiumEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048CB3292696B05400BC3CC0 /* StadiumEditViewController.swift */; };
+		048E056926C359C900591E14 /* DatesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E056826C359C900591E14 /* DatesCollectionViewCell.swift */; };
+		048E056D26C363CF00591E14 /* denemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E056C26C363CF00591E14 /* denemeViewController.swift */; };
+		048E056F26C366FD00591E14 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E056E26C366FD00591E14 /* DateCollectionViewCell.swift */; };
 		04DB3BED26842A4500FEEBBB /* StadiumsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3BEC26842A4500FEEBBB /* StadiumsTableViewCell.swift */; };
 		04DB3BF12684319A00FEEBBB /* StadiumsNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3BF02684319A00FEEBBB /* StadiumsNameViewController.swift */; };
 		8ECFE33E50AC2E467C3BFABE /* Pods_MyApp2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5654FBA08BE38F6619C8625A /* Pods_MyApp2.framework */; };
@@ -101,6 +104,9 @@
 		048955DA26B8FFDB009B2B6A /* ConfirmDateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDateTableViewCell.swift; sourceTree = "<group>"; };
 		048CB3232696A7B200BC3CC0 /* WorkingHoursCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingHoursCell.swift; sourceTree = "<group>"; };
 		048CB3292696B05400BC3CC0 /* StadiumEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumEditViewController.swift; sourceTree = "<group>"; };
+		048E056826C359C900591E14 /* DatesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatesCollectionViewCell.swift; sourceTree = "<group>"; };
+		048E056C26C363CF00591E14 /* denemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = denemeViewController.swift; sourceTree = "<group>"; };
+		048E056E26C366FD00591E14 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
 		04DB3BEC26842A4500FEEBBB /* StadiumsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumsTableViewCell.swift; sourceTree = "<group>"; };
 		04DB3BF02684319A00FEEBBB /* StadiumsNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumsNameViewController.swift; sourceTree = "<group>"; };
 		0D1BC8249D5FAAC0B10D3EC1 /* Pods-MyApp2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyApp2.release.xcconfig"; path = "Target Support Files/Pods-MyApp2/Pods-MyApp2.release.xcconfig"; sourceTree = "<group>"; };
@@ -164,6 +170,7 @@
 				048955D226B8F564009B2B6A /* FieldTableViewCell.swift */,
 				048955C626B8E2E1009B2B6A /* RequestAppointmentViewController.swift */,
 				048955C426B8DD46009B2B6A /* DateViewController.swift */,
+				048E056E26C366FD00591E14 /* DateCollectionViewCell.swift */,
 				048955D426B8F5BF009B2B6A /* DateTableViewCell.swift */,
 			);
 			path = AppointmentStadium;
@@ -265,6 +272,8 @@
 				048955D626B8FE6B009B2B6A /* ConfirmFieldTableViewCell.swift */,
 				048955D826B8FF6A009B2B6A /* ConfirmDateViewController.swift */,
 				048955DA26B8FFDB009B2B6A /* ConfirmDateTableViewCell.swift */,
+				048E056C26C363CF00591E14 /* denemeViewController.swift */,
+				048E056826C359C900591E14 /* DatesCollectionViewCell.swift */,
 				0409502526BFD5CF00E572CF /* DateEditViewController.swift */,
 			);
 			path = Calendar;
@@ -423,6 +432,7 @@
 				048955BD26B8CD4C009B2B6A /* AppoitmentViewController.swift in Sources */,
 				047F05A62681A72500F6853E /* UserInfoViewController.swift in Sources */,
 				045FB4D82693B7B900C063C9 /* StadiumPhotosViewController.swift in Sources */,
+				048E056F26C366FD00591E14 /* DateCollectionViewCell.swift in Sources */,
 				04389296269684CF00A43B26 /* CommentsCellViewCell.swift in Sources */,
 				047F05A226819E0B00F6853E /* StadiumSignUpViewController.swift in Sources */,
 				044578292682998E007B9C90 /* UserAccountViewController.swift in Sources */,
@@ -432,6 +442,7 @@
 				0445782526829701007B9C90 /* StadiumInfoViewController.swift in Sources */,
 				0409502626BFD5CF00E572CF /* DateEditViewController.swift in Sources */,
 				04DB3BF12684319A00FEEBBB /* StadiumsNameViewController.swift in Sources */,
+				048E056D26C363CF00591E14 /* denemeViewController.swift in Sources */,
 				048955C526B8DD46009B2B6A /* DateViewController.swift in Sources */,
 				048CB32A2696B05400BC3CC0 /* StadiumEditViewController.swift in Sources */,
 				044357DA26919AC900BD7659 /* FavoriteStadiumsTableViewCell.swift in Sources */,
@@ -449,6 +460,7 @@
 				0445782F2682AC3B007B9C90 /* CityTableViewCell.swift in Sources */,
 				043B5D5A268189D20085A68A /* SceneDelegate.swift in Sources */,
 				047F05B42681C83D00F6853E /* FavoritesViewController.swift in Sources */,
+				048E056926C359C900591E14 /* DatesCollectionViewCell.swift in Sources */,
 				045FB4DE2693BB2300C063C9 /* StadiumPhotosViewCell.swift in Sources */,
 				0445782B26829A94007B9C90 /* StadiumSettingsViewController.swift in Sources */,
 				047F05A026819DB700F6853E /* SignUpViewController.swift in Sources */,

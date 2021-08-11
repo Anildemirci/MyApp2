@@ -14,6 +14,7 @@ class DateEditViewController: UIViewController {
     @IBOutlet weak var closingTime: UITextField!
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
+    var chosenField=""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ class DateEditViewController: UIViewController {
     }
     
     @IBAction func confirmClicked(_ sender: Any) {
+        
         if openingTime.text != "" && closingTime.text != "" {
             self.firestoreDatabase.collection("Stadiums").whereField("User", isEqualTo: self.currentUser!.uid).getDocuments { (snapshot, error) in
                 if error == nil {
