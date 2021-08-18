@@ -10,6 +10,7 @@ import UIKit
 class ConfirmDateTableViewCell: UITableViewCell {
 
     @IBOutlet weak var hourLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

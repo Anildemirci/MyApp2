@@ -13,11 +13,12 @@ import grpc
 class StadiumAccountViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet weak var appoinmentButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var trashButton: UIButton!
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
+    var appointmentArray=[String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +45,8 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
             }
         }
         getPhoto()
+        getAppointment()
+        
     }
     @objc func choosePicture(){
         let picker=UIImagePickerController()
@@ -66,6 +69,38 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
                        }
                    }
            }
+    }
+    
+    func getAppointment(){
+        firestoreDatabase.collection("StadiumAppointments").document(nameLabel.text!).collection(nameLabel.text!).whereField("Status", isEqualTo: "Onay bekliyor.").getDocuments { (snapshot, error) in
+            if error != nil {
+                print(error?.localizedDescription ?? "Error")
+            } else {
+                    for document in snapshot!.documents {
+                        if let status=document.get("Status") as? String {
+                            self.appointmentArray.append(status)
+                        }
+                    }
+            }
+        }
+        
+        /*         firestoreDatabase.collection("StadiumAppointments").document(nameLabel.text!).collection(nameLabel.text!).addSnapshotListener { (snapshot, error) in
+         if error != nil {
+             print(error?.localizedDescription ?? "Error")
+         } else {
+             if snapshot?.isEmpty != true && snapshot != nil {
+                 for document in snapshot!.documents {
+                     
+                     if let status = document.get("Status") as? String {
+                         if status == "Onay bekliyor." {
+                             self.appointmentArray.append(status)
+                         }
+                     }
+                 }
+             }
+         }
+     } */
+        
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -130,6 +165,12 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
                 self.makeAlert(titleInput: "Başarılı", messageInput: "Profil fotoğrafınız silindi.")
             }
         }
+    }
+    
+    @IBAction func appointmentClicked(_ sender: Any) {
+        
+        print(appointmentArray.count)
+      //  appoinmentButton.setTitle("Bekleyen \(appointmentArray.count) adet randevu.", for: .normal)
     }
     
     func makeAlert(titleInput: String,messageInput: String){

@@ -37,7 +37,6 @@ class UserSettingsViewController: UIViewController {
     }
     
     @IBAction func changeMailClicked(_ sender: Any) {
-        
         if newMailText.text != "" {
             currentUser?.updateEmail(to: newMailText.text!, completion: { (error) in
                 if error != nil {
@@ -57,8 +56,8 @@ class UserSettingsViewController: UIViewController {
         }else {
             makeAlert(titleInput: "Error", messageInput: "Lütfen yeni mailinizi giriniz.")
         }
-            }
-        
+    }
+    
     @IBAction func changePasswordClicked(_ sender: Any) {
         if newPasswordText.text != "" && newPasswordText2.text != "" {
             if newPasswordText.text==newPasswordText2.text {

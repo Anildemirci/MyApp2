@@ -48,6 +48,7 @@ class AppoitmentViewController: UIViewController,UITableViewDelegate,UITableView
         if segue.identifier == "toSelectedField" {
             let destinationVC=segue.destination as! DateViewController
             destinationVC.nameLabel=selectedField
+            destinationVC.stadium=stadiumName
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

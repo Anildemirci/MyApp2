@@ -16,6 +16,7 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var hourArray=[String]()
     var nameLabel=""
     var selectedHour=""
+    var stadium=""
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate=self
@@ -24,6 +25,7 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         collectionView.dataSource=self
         // Do any additional setup after loading the view.
         fieldName.text=nameLabel
+        
         hourArray=["00:00-01:00","01:00-02:00","02:00-03:00","03:00-04:00","04:00-05:00","05:00-06:00","06:00-07:00","07:00-08:00","08:00-09:00","09:00-10:00","10:00-11:00","11:00-12:00","12:00-13:00","13:00-14:00","14:00-15:00","15:00-16:00","16:00-17:00","17:00-18:00","18:00-19:00","19:00-20:00","20:00-21:00","21:00-22:00","22:00-23:00","23:00-00:00"]
     }
     
@@ -44,6 +46,7 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             let destinationVC=segue.destination as! RequestAppointmentViewController
             destinationVC.chosenHour=selectedHour
             destinationVC.chosenField=nameLabel
+            destinationVC.chosenStadiumName=stadium
         }
     }
     
@@ -52,8 +55,18 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let timeFormatter = DateFormatter()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        timeFormatter.timeStyle = .medium
+        timeFormatter.dateFormat = "HH:mm:ss" //24 saatlik format için
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        let date = dateFormatter.string(from: NSDate() as Date)
+        let time = timeFormatter.string(from: NSDate() as Date)
+        
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "DateCollectionViewCell", for: indexPath) as! DateCollectionViewCell
-        cell.datesButton.setTitle("17.05.1996", for: .normal)
+        cell.datesButton.setTitle(date, for: .normal)
         cell.datesButton.addTarget(self, action: #selector(viewdetail), for: .touchUpInside)
         return cell
     }
