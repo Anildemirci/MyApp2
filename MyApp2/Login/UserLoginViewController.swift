@@ -12,10 +12,13 @@ class UserLoginViewController: UIViewController {
 
     @IBOutlet weak var emailText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
     var userTypeArray=[String]()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        loginButton.setTitleColor(UIColor.white, for: .disabled)
+        loginButton.backgroundColor = .blue
+        loginButton.layer.cornerRadius=20
         // Do any additional setup after loading the view.
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)

@@ -12,12 +12,24 @@ class UserSettingsViewController: UIViewController {
     @IBOutlet weak var newMailText: UITextField!
     @IBOutlet weak var newPasswordText: UITextField!
     @IBOutlet weak var newPasswordText2: UITextField!
+    @IBOutlet weak var changeEmailButton: UIButton!
+    @IBOutlet weak var changePasswordButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
     
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        changeEmailButton.setTitleColor(UIColor.white, for: .disabled)
+        changeEmailButton.backgroundColor = .blue
+        changeEmailButton.layer.cornerRadius=20
+        changePasswordButton.setTitleColor(UIColor.white, for: .disabled)
+        changePasswordButton.backgroundColor = .blue
+        changePasswordButton.layer.cornerRadius=20
+        logoutButton.setTitleColor(UIColor.white, for: .disabled)
+        logoutButton.backgroundColor = .red
+        logoutButton.layer.cornerRadius=20
         // Do any additional setup after loading the view.
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
@@ -37,6 +49,7 @@ class UserSettingsViewController: UIViewController {
     }
     
     @IBAction func changeMailClicked(_ sender: Any) {
+        
         if newMailText.text != "" {
             currentUser?.updateEmail(to: newMailText.text!, completion: { (error) in
                 if error != nil {
@@ -59,6 +72,7 @@ class UserSettingsViewController: UIViewController {
     }
     
     @IBAction func changePasswordClicked(_ sender: Any) {
+        
         if newPasswordText.text != "" && newPasswordText2.text != "" {
             if newPasswordText.text==newPasswordText2.text {
                 currentUser?.updatePassword(to: newPasswordText.text!, completion: { (error) in

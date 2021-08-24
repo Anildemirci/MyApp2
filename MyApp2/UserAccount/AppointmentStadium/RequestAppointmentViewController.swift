@@ -22,6 +22,9 @@ class RequestAppointmentViewController: UIViewController {
     var chosenStadiumName=""
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
+    var userName=""
+    var userPhone=""
+    var userSurname=""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +34,18 @@ class RequestAppointmentViewController: UIViewController {
         stadiumNameLabel.text=chosenStadiumName
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
+        
+        let docref=firestoreDatabase.collection("Users").document(currentUser!.uid)
+        docref.getDocument(source: .cache) { (document, error) in
+            if let document = document {
+                let name=document.get("Name") as! String
+                self.userName=name
+                let phone=document.get("Phone") as! String
+                self.userPhone=phone
+                let surname=document.get("Surname") as! String
+                self.userSurname=surname
+            }
+        }
     }
     @objc func hideKeyboard(){
         view.endEditing(true)
@@ -75,12 +90,14 @@ class RequestAppointmentViewController: UIViewController {
                               "FieldName":fieldNameLabel.text!,
                               "Hour":hourLabel.text!,
                               "Price":priceLabel.text!,
-                              "Note":noteText.text,
+                              "Note":noteText.text!,
                               "AppointmentDate":dateLabel.text!,
                               "Status":"Onay bekliyor.",
+                              "UserFullName":userName+" "+userSurname,
+                              "UserPhone":userPhone,
                               "Date":FieldValue.serverTimestamp()] as [String:Any]
         
-        firestoreDatabase.collection("StadiumAppointments").document(stadiumNameLabel.text!).collection(stadiumNameLabel.text!).document(date+"-"+time).setData(firestoreUser) {
+        firestoreDatabase.collection("StadiumAppointments").document(stadiumNameLabel.text!).collection(stadiumNameLabel.text!).document(date+"-"+time).setData(firestoreStadium) {
             error in
             if error != nil {
                 self.makeAlert(titleInput: "Error!", messageInput: error?.localizedDescription ?? "Error")

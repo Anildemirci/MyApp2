@@ -9,17 +9,28 @@ import UIKit
 import Firebase
 
 class StadiumSettingsViewController: UIViewController {
-
     
     @IBOutlet weak var newMailText: UITextField!
     @IBOutlet weak var newPasswordText: UITextField!
     @IBOutlet weak var newPasswordText2: UITextField!
+    @IBOutlet weak var changeEmailButton: UIButton!
+    @IBOutlet weak var changePasswordButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
     
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        changeEmailButton.setTitleColor(UIColor.white, for: .disabled)
+        changeEmailButton.backgroundColor = .blue
+        changeEmailButton.layer.cornerRadius=20
+        changePasswordButton.setTitleColor(UIColor.white, for: .disabled)
+        changePasswordButton.backgroundColor = .blue
+        changePasswordButton.layer.cornerRadius=20
+        logoutButton.setTitleColor(UIColor.white, for: .disabled)
+        logoutButton.backgroundColor = .red
+        logoutButton.layer.cornerRadius=20
         // Do any additional setup after loading the view.
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
@@ -36,9 +47,10 @@ class StadiumSettingsViewController: UIViewController {
         } catch {
             print("**Error**")
         }
-        
     }
+    
     @IBAction func changeMailClicked(_ sender: Any) {
+        
         if newMailText.text != "" {
             currentUser?.updateEmail(to: newMailText.text!, completion: { (error) in
                 if error != nil {
@@ -61,6 +73,7 @@ class StadiumSettingsViewController: UIViewController {
     }
     
     @IBAction func changePasswordClicked(_ sender: Any) {
+        
         if newPasswordText.text != "" && newPasswordText2.text != "" {
             if newPasswordText.text==newPasswordText2.text {
                 currentUser?.updatePassword(to: newPasswordText.text!, completion: { (error) in
@@ -77,6 +90,7 @@ class StadiumSettingsViewController: UIViewController {
             self.makeAlert(titleInput: "Error", messageInput: "Lütfen eksiksiz doldurunuz.")
         }
     }
+    
     func makeAlert(titleInput: String,messageInput: String){
         let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)
         let okButton=UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)

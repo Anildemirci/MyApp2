@@ -13,16 +13,26 @@ import grpc
 class StadiumAccountViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var appoinmentButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var uploadButton: UIButton!
     @IBOutlet weak var trashButton: UIButton!
+    @IBOutlet weak var appointmentButton: UIButton!
+    
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
     var appointmentArray=[String]()
+    var nameStadium=""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        uploadButton.setTitleColor(UIColor.white, for: .disabled)
+        uploadButton.backgroundColor = .green
+        uploadButton.layer.cornerRadius=20
+        appointmentButton.setTitleColor(UIColor.white, for: .disabled)
+        appointmentButton.backgroundColor = .green
+        appointmentButton.layer.cornerRadius=20
         // Do any additional setup after loading the view.
+        
         trashButton.titleLabel?.text=""
         profileImageView.isUserInteractionEnabled=true
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(choosePicture))
@@ -32,6 +42,7 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
         docRef.getDocument(source: .cache) { (document, error) in
             if let document = document {
                 let name=document.get("Name") as! String
+                self.nameStadium=name
                 self.nameLabel.text=name
             }
     }
@@ -45,7 +56,6 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
             }
         }
         getPhoto()
-        getAppointment()
         
     }
     @objc func choosePicture(){
@@ -72,35 +82,7 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
     }
     
     func getAppointment(){
-        firestoreDatabase.collection("StadiumAppointments").document(nameLabel.text!).collection(nameLabel.text!).whereField("Status", isEqualTo: "Onay bekliyor.").getDocuments { (snapshot, error) in
-            if error != nil {
-                print(error?.localizedDescription ?? "Error")
-            } else {
-                    for document in snapshot!.documents {
-                        if let status=document.get("Status") as? String {
-                            self.appointmentArray.append(status)
-                        }
-                    }
-            }
-        }
-        
-        /*         firestoreDatabase.collection("StadiumAppointments").document(nameLabel.text!).collection(nameLabel.text!).addSnapshotListener { (snapshot, error) in
-         if error != nil {
-             print(error?.localizedDescription ?? "Error")
-         } else {
-             if snapshot?.isEmpty != true && snapshot != nil {
-                 for document in snapshot!.documents {
-                     
-                     if let status = document.get("Status") as? String {
-                         if status == "Onay bekliyor." {
-                             self.appointmentArray.append(status)
-                         }
-                     }
-                 }
-             }
-         }
-     } */
-        
+      //  self.appointmentButton.setTitle("Bekleyen \(self.appointmentArray.count) adet randevu.", for: .normal)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -168,9 +150,14 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
     }
     
     @IBAction func appointmentClicked(_ sender: Any) {
-        
-        print(appointmentArray.count)
-      //  appoinmentButton.setTitle("Bekleyen \(appointmentArray.count) adet randevu.", for: .normal)
+    
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toPendingAppointments" {
+            let destinationVC=segue.destination as! PendingAppointmentsViewController
+            destinationVC.stadiumName=nameStadium
+        }
     }
     
     func makeAlert(titleInput: String,messageInput: String){

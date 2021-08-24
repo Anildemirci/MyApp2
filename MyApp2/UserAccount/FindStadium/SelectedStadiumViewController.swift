@@ -15,6 +15,7 @@ class SelectedStadiumViewController: UIViewController {
     @IBOutlet weak var addFavoriteButton: UIButton!
     @IBOutlet weak var addedFavButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var appointmentButton: UIButton!
     var name=""
     var favStadium=[String]()
     var ID=""
@@ -22,6 +23,9 @@ class SelectedStadiumViewController: UIViewController {
     var currentUser=Auth.auth().currentUser
     override func viewDidLoad() {
         super.viewDidLoad()
+        appointmentButton.setTitleColor(UIColor.white, for: .disabled)
+        appointmentButton.backgroundColor = .blue
+        appointmentButton.layer.cornerRadius=20
         nameLabel.text=name
         
         let imageRef=firestoreDatabase.collection("ProfilePhoto").whereField("StadiumName", isEqualTo: name).getDocuments { (snapshot, error) in

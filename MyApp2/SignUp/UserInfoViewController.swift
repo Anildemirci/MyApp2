@@ -16,10 +16,13 @@ class UserInfoViewController: UIViewController {
     @IBOutlet weak var cityText: UITextField!
     @IBOutlet weak var townText: UITextField!
     @IBOutlet weak var phoneText: UITextField!
+    @IBOutlet weak var confirmButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        confirmButton.setTitleColor(UIColor.white, for: .disabled)
+        confirmButton.backgroundColor = .blue
+        confirmButton.layer.cornerRadius=20
         // Do any additional setup after loading the view.
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)

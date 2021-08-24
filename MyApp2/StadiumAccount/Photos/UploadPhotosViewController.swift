@@ -24,6 +24,9 @@ class UploadPhotosViewController: UIViewController,UIImagePickerControllerDelega
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(choosePhoto))
         imageView.addGestureRecognizer(gestureRecognizer)
         uploadButton.isEnabled=false
+        uploadButton.setTitleColor(UIColor.white, for: .disabled)
+        uploadButton.backgroundColor = .blue
+        uploadButton.layer.cornerRadius=20
         // Do any additional setup after loading the view.
     }
     

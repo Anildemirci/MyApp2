@@ -12,12 +12,16 @@ class DateEditViewController: UIViewController {
 
     @IBOutlet weak var openingTime: UITextField!
     @IBOutlet weak var closingTime: UITextField!
+    @IBOutlet weak var confirmButton: UIButton!
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
     var chosenField=""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        confirmButton.setTitleColor(UIColor.white, for: .disabled)
+        confirmButton.backgroundColor = .blue
+        confirmButton.layer.cornerRadius=20
         // Do any additional setup after loading the view.
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)

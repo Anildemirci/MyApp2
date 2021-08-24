@@ -13,9 +13,13 @@ class UserSignUpViewController: UIViewController {
     @IBOutlet weak var emailText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var password2Text: UITextField!
+    @IBOutlet weak var signUpButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        signUpButton.setTitleColor(UIColor.white, for: .disabled)
+        signUpButton.backgroundColor = .green
+        signUpButton.layer.cornerRadius=20
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
         
