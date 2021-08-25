@@ -134,6 +134,7 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
     @IBAction func imagesClicked(_ sender: Any) {
     }
     @IBAction func informationClicked(_ sender: Any) {
+        
     }
     @IBAction func commentClicked(_ sender: Any) {
     }

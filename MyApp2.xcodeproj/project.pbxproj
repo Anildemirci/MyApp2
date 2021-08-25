@@ -32,6 +32,10 @@
 		045FB4DE2693BB2300C063C9 /* StadiumPhotosViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045FB4DD2693BB2300C063C9 /* StadiumPhotosViewCell.swift */; };
 		045FB4E02693C23D00C063C9 /* UploadPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045FB4DF2693C23D00C063C9 /* UploadPhotosViewController.swift */; };
 		0462032026A2222C00C30FB9 /* ThePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0462031F26A2222C00C30FB9 /* ThePhotoViewController.swift */; };
+		04686BD126D5E4AB00509DE3 /* UserInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04686BD026D5E4AB00509DE3 /* UserInformationViewController.swift */; };
+		04686BD426D5E51700509DE3 /* UserAppointmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04686BD326D5E51700509DE3 /* UserAppointmentsViewController.swift */; };
+		04686BDE26D5F09800509DE3 /* UserAppointmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04686BDD26D5F09800509DE3 /* UserAppointmentTableViewCell.swift */; };
+		04686BE026D5F5A300509DE3 /* EvaluationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04686BDF26D5F5A300509DE3 /* EvaluationViewController.swift */; };
 		047F059B2681941F00F6853E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F059A2681941F00F6853E /* LoginViewController.swift */; };
 		047F05A026819DB700F6853E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F059F26819DB700F6853E /* SignUpViewController.swift */; };
 		047F05A226819E0B00F6853E /* StadiumSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F05A126819E0B00F6853E /* StadiumSignUpViewController.swift */; };
@@ -88,6 +92,10 @@
 		045FB4DD2693BB2300C063C9 /* StadiumPhotosViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumPhotosViewCell.swift; sourceTree = "<group>"; };
 		045FB4DF2693C23D00C063C9 /* UploadPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPhotosViewController.swift; sourceTree = "<group>"; };
 		0462031F26A2222C00C30FB9 /* ThePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThePhotoViewController.swift; sourceTree = "<group>"; };
+		04686BD026D5E4AB00509DE3 /* UserInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationViewController.swift; sourceTree = "<group>"; };
+		04686BD326D5E51700509DE3 /* UserAppointmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAppointmentsViewController.swift; sourceTree = "<group>"; };
+		04686BDD26D5F09800509DE3 /* UserAppointmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAppointmentTableViewCell.swift; sourceTree = "<group>"; };
+		04686BDF26D5F5A300509DE3 /* EvaluationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationViewController.swift; sourceTree = "<group>"; };
 		047F059A2681941F00F6853E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		047F059F26819DB700F6853E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		047F05A126819E0B00F6853E /* StadiumSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumSignUpViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +173,24 @@
 				043B5D6B26818A3D0085A68A /* GoogleService-Info.plist */,
 			);
 			path = MyApp2;
+			sourceTree = "<group>";
+		};
+		04686BCF26D5E48B00509DE3 /* Information */ = {
+			isa = PBXGroup;
+			children = (
+				04686BD026D5E4AB00509DE3 /* UserInformationViewController.swift */,
+			);
+			path = Information;
+			sourceTree = "<group>";
+		};
+		04686BD226D5E4D600509DE3 /* Appointments */ = {
+			isa = PBXGroup;
+			children = (
+				04686BD326D5E51700509DE3 /* UserAppointmentsViewController.swift */,
+				04686BDD26D5F09800509DE3 /* UserAppointmentTableViewCell.swift */,
+				04686BDF26D5F5A300509DE3 /* EvaluationViewController.swift */,
+			);
+			path = Appointments;
 			sourceTree = "<group>";
 		};
 		048955D126B8F21E009B2B6A /* AppointmentStadium */ = {
@@ -253,6 +279,8 @@
 			children = (
 				044578282682998E007B9C90 /* UserAccountViewController.swift */,
 				047F05B72681C88600F6853E /* UserSettingsViewController.swift */,
+				04686BCF26D5E48B00509DE3 /* Information */,
+				04686BD226D5E4D600509DE3 /* Appointments */,
 				048955D126B8F21E009B2B6A /* AppointmentStadium */,
 				048CB31E2696958F00BC3CC0 /* FavoritesStadiums */,
 				048CB315269693AD00BC3CC0 /* FindStadium */,
@@ -436,9 +464,11 @@
 			files = (
 				045FB4E02693C23D00C063C9 /* UploadPhotosViewController.swift in Sources */,
 				048955D526B8F5BF009B2B6A /* DateTableViewCell.swift in Sources */,
+				04686BE026D5F5A300509DE3 /* EvaluationViewController.swift in Sources */,
 				0462032026A2222C00C30FB9 /* ThePhotoViewController.swift in Sources */,
 				0445782726829974007B9C90 /* StadiumAccountViewController.swift in Sources */,
 				048955D926B8FF6A009B2B6A /* ConfirmDateViewController.swift in Sources */,
+				04686BD126D5E4AB00509DE3 /* UserInformationViewController.swift in Sources */,
 				047F05A426819E1D00F6853E /* UserSignUpViewController.swift in Sources */,
 				04457823268284A8007B9C90 /* FindStadiumViewController.swift in Sources */,
 				044357D626918B6700BD7659 /* SelectedStadiumViewController.swift in Sources */,
@@ -456,6 +486,7 @@
 				048955D726B8FE6B009B2B6A /* ConfirmFieldTableViewCell.swift in Sources */,
 				0445782526829701007B9C90 /* StadiumInfoViewController.swift in Sources */,
 				0409502626BFD5CF00E572CF /* DateEditViewController.swift in Sources */,
+				04686BDE26D5F09800509DE3 /* UserAppointmentTableViewCell.swift in Sources */,
 				04DB3BF12684319A00FEEBBB /* StadiumsNameViewController.swift in Sources */,
 				048955C526B8DD46009B2B6A /* DateViewController.swift in Sources */,
 				048CB32A2696B05400BC3CC0 /* StadiumEditViewController.swift in Sources */,
@@ -464,6 +495,7 @@
 				048955C726B8E2E1009B2B6A /* RequestAppointmentViewController.swift in Sources */,
 				047F059B2681941F00F6853E /* LoginViewController.swift in Sources */,
 				045FB4DC2693B7E500C063C9 /* CommentsViewController.swift in Sources */,
+				04686BD426D5E51700509DE3 /* UserAppointmentsViewController.swift in Sources */,
 				043B5D5C268189D20085A68A /* ViewController.swift in Sources */,
 				043B5D58268189D20085A68A /* AppDelegate.swift in Sources */,
 				04DB3BED26842A4500FEEBBB /* StadiumsTableViewCell.swift in Sources */,

@@ -16,7 +16,9 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var hourArray=[String]()
     var nameLabel=""
     var selectedHour=""
+    var selectedDay=""
     var stadium=""
+    var daysArray=[String]()
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate=self
@@ -27,11 +29,43 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         fieldName.text=nameLabel
         
         hourArray=["00:00-01:00","01:00-02:00","02:00-03:00","03:00-04:00","04:00-05:00","05:00-06:00","06:00-07:00","07:00-08:00","08:00-09:00","09:00-10:00","10:00-11:00","11:00-12:00","12:00-13:00","13:00-14:00","14:00-15:00","15:00-16:00","16:00-17:00","17:00-18:00","18:00-19:00","19:00-20:00","20:00-21:00","21:00-22:00","22:00-23:00","23:00-00:00"]
+        
+        for day in 0...13 {
+            let hourToAdd=3
+            let daysToAdd=0 + day
+            let UTCDate = getCurrentDate()
+            var dateComponent = DateComponents()
+            dateComponent.hour=hourToAdd
+            dateComponent.day = daysToAdd
+            let currentDate = Calendar.current.date(byAdding: dateComponent, to: UTCDate)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.dateFormat = "dd.MM.yyyy"
+            let date = dateFormatter.string(from: currentDate! as Date)
+            daysArray.append(date)
+        }
+        tableView.reloadData()
+    }
+    
+    func getCurrentDate()->Date {
+        var now=Date()
+        var nowComponents = DateComponents()
+        let calendar = Calendar.current
+        nowComponents.year = Calendar.current.component(.year, from: now)
+        nowComponents.month = Calendar.current.component(.month, from: now)
+        nowComponents.day = Calendar.current.component(.day, from: now)
+        nowComponents.hour = Calendar.current.component(.hour, from: now)
+        nowComponents.minute = Calendar.current.component(.minute, from: now)
+        nowComponents.second = Calendar.current.component(.second, from: now)
+        nowComponents.timeZone = NSTimeZone.local
+        now = calendar.date(from: nowComponents)!
+        return now
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell=tableView.dequeueReusableCell(withIdentifier: "dateCell", for: indexPath) as! DateTableViewCell
         cell.dateLabel.text=hourArray[indexPath.row]
+     //   cell.dateLabel.backgroundColor = .red
         return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,6 +73,7 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedHour=hourArray[indexPath.row]
+        selectedDay=daysArray[indexPath.row]
         performSegue(withIdentifier: "toRequestAppointment", sender: nil)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -47,6 +82,7 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             destinationVC.chosenHour=selectedHour
             destinationVC.chosenField=nameLabel
             destinationVC.chosenStadiumName=stadium
+            destinationVC.chosenDay=selectedDay
         }
     }
     
@@ -56,17 +92,8 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let timeFormatter = DateFormatter()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        timeFormatter.timeStyle = .medium
-        timeFormatter.dateFormat = "HH:mm:ss" //24 saatlik format için
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        let date = dateFormatter.string(from: NSDate() as Date)
-        let time = timeFormatter.string(from: NSDate() as Date)
-        
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "DateCollectionViewCell", for: indexPath) as! DateCollectionViewCell
-        cell.datesButton.setTitle(date, for: .normal)
+        cell.datesButton.setTitle(daysArray[indexPath.row], for: .normal)
         cell.datesButton.addTarget(self, action: #selector(viewdetail), for: .touchUpInside)
         return cell
     }

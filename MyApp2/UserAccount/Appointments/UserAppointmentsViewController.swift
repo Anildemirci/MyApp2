@@ -1,29 +1,27 @@
 //
-//  PendingAppointmentsViewController.swift
+//  UserAppointmentsViewController.swift
 //  MyApp2
 //
-//  Created by Anıl Demirci on 24.08.2021.
+//  Created by Anıl Demirci on 25.08.2021.
 //
 
 import UIKit
 import Firebase
 
-class PendingAppointmentsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-
+class UserAppointmentsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+    
     @IBOutlet weak var tableView: UITableView!
     
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
-    var stadiumName=""
     var appointmentsArray=[String]()
-    var chosenAppointment=""
-    
+    var appointmentDate=""
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource=self
         tableView.delegate=self
         // Do any additional setup after loading the view.
-        firestoreDatabase.collection("StadiumAppointments").document(stadiumName).collection(stadiumName).whereField("Status", isEqualTo: "Onay bekliyor.").addSnapshotListener { (snapshot, error) in
+        firestoreDatabase.collection("UserAppointments").document(currentUser!.uid).collection(currentUser!.uid).addSnapshotListener { (snapshot, error) in
             if error == nil {
                 for document in snapshot!.documents {
                     self.appointmentsArray.append(document.documentID)
@@ -34,7 +32,6 @@ class PendingAppointmentsViewController: UIViewController,UITableViewDelegate,UI
                 self.tableView.reloadData()
             }
         }
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -46,26 +43,24 @@ class PendingAppointmentsViewController: UIViewController,UITableViewDelegate,UI
         
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell=tableView.dequeueReusableCell(withIdentifier: "pendingAppointments", for: indexPath) as! PendingAppointmentsCellTableViewCell
-        if appointmentsArray.count == 0 {
-            cell.appointmentLabel.text="Henüz bekleyen randevunuz yok."
+        let cell=tableView.dequeueReusableCell(withIdentifier: "userAppointmentCell", for: indexPath) as! UserAppointmentTableViewCell
+        if appointmentsArray.count != 0 {
+            cell.appointmentLabel.text=appointmentsArray[indexPath.row]
             return cell
         } else {
-            cell.appointmentLabel.text=appointmentsArray[indexPath.row]
+            cell.appointmentLabel.text="Henüz bekleyen randevunuz yok."
             return cell
         }
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        chosenAppointment=appointmentsArray[indexPath.row]
-        performSegue(withIdentifier: "toConfirmAppointment", sender: nil)
+        appointmentDate=appointmentsArray[indexPath.row]
+        performSegue(withIdentifier: "toShowAppointment", sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toConfirmAppointment" {
-            let destinationVC=segue.destination as! ConfirmAppointmentViewController
-            destinationVC.documentID=chosenAppointment
-            destinationVC.name=stadiumName
+        if segue.identifier == "toShowAppointment" {
+            let destinationVC=segue.destination as! EvaluationViewController
+            destinationVC.documentID=appointmentDate
         }
     }
     

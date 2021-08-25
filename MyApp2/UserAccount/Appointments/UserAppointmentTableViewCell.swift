@@ -1,15 +1,15 @@
 //
-//  DateTableViewCell.swift
+//  UserAppointmentTableViewCell.swift
 //  MyApp2
 //
-//  Created by Anıl Demirci on 3.08.2021.
+//  Created by Anıl Demirci on 25.08.2021.
 //
 
 import UIKit
 
-class DateTableViewCell: UITableViewCell {
-    
-    @IBOutlet weak var dateLabel: UILabel!
+class UserAppointmentTableViewCell: UITableViewCell {
+
+    @IBOutlet weak var appointmentLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

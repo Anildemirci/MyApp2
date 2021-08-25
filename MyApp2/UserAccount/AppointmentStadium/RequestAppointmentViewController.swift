@@ -18,6 +18,7 @@ class RequestAppointmentViewController: UIViewController {
     @IBOutlet weak var noteText: UITextField!
     
     var chosenHour=""
+    var chosenDay=""
     var chosenField=""
     var chosenStadiumName=""
     var firestoreDatabase=Firestore.firestore()
@@ -32,6 +33,7 @@ class RequestAppointmentViewController: UIViewController {
         hourLabel.text=chosenHour
         fieldNameLabel.text=chosenField
         stadiumNameLabel.text=chosenStadiumName
+        dateLabel.text=chosenDay
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
         
