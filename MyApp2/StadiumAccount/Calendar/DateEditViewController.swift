@@ -10,18 +10,12 @@ import Firebase
 
 class DateEditViewController: UIViewController {
 
-    @IBOutlet weak var openingTime: UITextField!
-    @IBOutlet weak var closingTime: UITextField!
-    @IBOutlet weak var confirmButton: UIButton!
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
     var chosenField=""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        confirmButton.setTitleColor(UIColor.white, for: .disabled)
-        confirmButton.backgroundColor = .blue
-        confirmButton.layer.cornerRadius=20
         // Do any additional setup after loading the view.
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
@@ -29,32 +23,6 @@ class DateEditViewController: UIViewController {
     @objc func hideKeyboard(){
         view.endEditing(true)
     }
-    
-    @IBAction func confirmClicked(_ sender: Any) {
-        
-        if openingTime.text != "" && closingTime.text != "" {
-            self.firestoreDatabase.collection("Stadiums").whereField("User", isEqualTo: self.currentUser!.uid).getDocuments { (snapshot, error) in
-                if error == nil {
-                    for document in snapshot!.documents{
-                        let documentId=document.documentID
-                        if document.get("Opened") != nil && document.get("Closed") != nil {
-                            self.firestoreDatabase.collection("Stadiums").document(documentId).updateData(["Opened":self.openingTime.text!])
-                            self.firestoreDatabase.collection("Stadiums").document(documentId).updateData(["Closed":self.closingTime.text!])
-                            }
-                        else {
-                            let addOpened=["Opened":self.openingTime.text!,
-                                           "Closed":self.closingTime.text!] as [String:Any]
-                            self.firestoreDatabase.collection("Stadiums").document(documentId).setData(addOpened, merge: true)
-                            self.makeAlert(titleInput: "Success", messageInput: "Çalışma saatleri düzenlendi")
-                        }
-                    }
-                }
-            }
-            
-        } else {
-            self.makeAlert(titleInput: "Error", messageInput: "Lütfen boş bırakmayınız.")
-            }
-        }
     
 
     func makeAlert(titleInput: String,messageInput: String){

@@ -119,6 +119,10 @@ class SelectedStadiumViewController: UIViewController {
             let destinationVC3=segue.destination as! AppoitmentViewController
             destinationVC3.stadiumName=name
         }
+        if segue.identifier == "toCommentsFromUser" {
+            let destinationVC4=segue.destination as! CommentsViewController
+            destinationVC4.name=name
+        }
     }
     
     func makeAlert(titleInput: String,messageInput: String){

@@ -159,6 +159,10 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
             let destinationVC=segue.destination as! PendingAppointmentsViewController
             destinationVC.stadiumName=nameStadium
         }
+        if segue.identifier == "toComments" {
+            let destinationVC=segue.destination as! CommentsViewController
+            destinationVC.name=nameStadium
+        }
     }
     
     func makeAlert(titleInput: String,messageInput: String){

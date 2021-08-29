@@ -92,13 +92,10 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "DatesCollectionViewCell", for: indexPath) as! DatesCollectionViewCell
-        cell.dateButton.setTitle(daysArray[indexPath.row], for: .normal)
-        cell.dateButton.addTarget(self, action: #selector(viewdetail), for: .touchUpInside)
+        cell.datesLabel.text=daysArray[indexPath.row]
         return cell
     }
-    @objc func viewdetail(sender:UIButton){
-        hourArray=["11:11-01:00","21:00-02:00","32:00-03:00","43:00-04:00","64:00-05:00","05:00-06:00","06:00-07:00","07:00-08:00","08:00-09:00","09:00-10:00","10:00-11:00","11:00-12:00","12:00-13:00","13:00-14:00","14:00-15:00","15:00-16:00","16:00-17:00","17:00-18:00","18:00-19:00","19:00-20:00","20:00-21:00","21:00-22:00","22:00-23:00","23:00-10:00"]
-    }
+ 
     @IBAction func editClicked(_ sender: Any) {
     
 }

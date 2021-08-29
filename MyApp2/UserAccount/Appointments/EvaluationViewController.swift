@@ -24,7 +24,8 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
     var documentID=""
-    var points=["5-Çok iyi","4-İyi","3-Orta","2-Kötü","1-Çok kötü"]
+    var chosenPoint=""
+    var points=["","5-Çok iyi","4-İyi","3-Orta","2-Kötü","1-Çok kötü"]
     override func viewDidLoad() {
         super.viewDidLoad()
         scoringPicker.delegate=self
@@ -50,9 +51,14 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
                         }
                     }
                 }
-        
+        let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(gestureRecognizer)
         
     }
+
+@objc func hideKeyboard(){
+    view.endEditing(true)
+}
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -65,9 +71,41 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
         return points[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(points[row])
+        chosenPoint=points[row]
     }
     @IBAction func sendClicked(_ sender: Any) {
+        
+        let firestoreUser=["User":Auth.auth().currentUser!.uid,
+                           "Email":Auth.auth().currentUser?.email,
+                           "StadiumName":stadiumName.text!,
+                           "FieldName":fieldName.text!,
+                           "Date":dateLabel.text!,
+                           "Hour":hourLabel.text!,
+                           "Status":statusLabel.text!,
+                           "Comment":commentText.text!,
+                           "Score":chosenPoint,
+                           "CommentDate":FieldValue.serverTimestamp()] as [String:Any]
+        if chosenPoint != "" && commentText.text != "" {
+            firestoreDatabase.collection("Evaluation").document(stadiumName.text!).collection(stadiumName.text!).document(dateLabel.text!+"-"+hourLabel.text!).setData(firestoreUser) {
+                error in
+                if error != nil {
+                    self.makeAlert(titleInput: "Error!", messageInput: error?.localizedDescription ?? "Error")
+                } else {
+                    self.performSegue(withIdentifier: "toUserProfileFromComment", sender: nil)
+                }
+            }
+        } else {
+            self.makeAlert(titleInput: "Error", messageInput: "Lütfen yorum/puan boş bırakmayınız.")
+        }
+        
+    }
+    
+    
+    func makeAlert(titleInput: String,messageInput: String){
+        let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)
+        let okButton=UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+        alert.addAction(okButton)
+        self.present(alert, animated: true, completion: nil)
     }
     
 }

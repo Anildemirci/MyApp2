@@ -13,6 +13,8 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var featuresTableView: UITableView!
+    @IBOutlet weak var openingTime: UILabel!
+    @IBOutlet weak var closingTime: UILabel!
     
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
@@ -46,7 +48,13 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
                                             if let document = document {
                                                 let address=document.get("Address") as! String
                                                 self.addressLabel.text=address
-                                                
+                                                if let openHour=document.get("Opened") as? String {
+                                                    self.openingTime.text="Açılış saati: \(openHour)"
+                                                }
+                                                if let closeHour=document.get("Closed") as? String {
+                                                    self.closingTime.text="Kapanış saati: \(closeHour)"
+                                                }
+
                                                 if let info=document.get("Informations") as? [String] {
                                                     self.infoArray=info
                                                     self.featuresTableView.reloadData()
@@ -64,6 +72,12 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
                                 if let document = document {
                                     let address=document.get("Address") as? String
                                     self.addressLabel.text=address
+                                    if let openHour=document.get("Opened") as? String {
+                                        self.openingTime.text="Açılış saati: \(openHour)"
+                                    }
+                                    if let closeHour=document.get("Closed") as? String {
+                                        self.closingTime.text="Kapanış saati: \(closeHour)"
+                                    }
                                     if let info=document.get("Informations") as? [String] {
                                         self.infoArray=info
                                         self.featuresTableView.reloadData()

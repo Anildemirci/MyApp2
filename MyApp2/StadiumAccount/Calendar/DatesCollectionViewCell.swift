@@ -9,5 +9,6 @@ import UIKit
 
 class DatesCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var dateButton: UIButton!
+    @IBOutlet weak var datesLabel: UILabel!
+    
 }

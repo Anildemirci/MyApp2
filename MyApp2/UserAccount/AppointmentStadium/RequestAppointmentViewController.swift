@@ -86,7 +86,7 @@ class RequestAppointmentViewController: UIViewController {
         }
         
         let firestoreStadium=["User":Auth.auth().currentUser!.uid,
-                              "Email":Auth.auth().currentUser?.email,
+                              "Email":Auth.auth().currentUser!.email,
                               "Type":"User",
                               "StadiumName":stadiumNameLabel.text!,
                               "FieldName":fieldNameLabel.text!,

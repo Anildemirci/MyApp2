@@ -19,6 +19,14 @@ class CommentsViewController: UIViewController,UITableViewDelegate,UITableViewDa
     var stadiumTypeArray=[String]()
     
     
+    var name=""
+    var score=[String]()
+    var comment=[String]()
+    var date=[String]()
+    var commentArray=[String]()
+    var documentID=""
+    var userName=[String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate=self
@@ -37,18 +45,96 @@ class CommentsViewController: UIViewController,UITableViewDelegate,UITableViewDa
             }
         }
         
+        firestoreDatabase.collection("Evaluation").document(name).collection(name).addSnapshotListener{ (snapshot, error) in
+            if error == nil {
+                for document in snapshot!.documents {
+                    self.commentArray.append(document.documentID)
+                }
+                }
+            }
+        
+            firestoreDatabase.collection("Evaluation").document(name).collection(name).addSnapshotListener { (snapshot, error) in
+                if error != nil {
+                    self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
+                } else {
+                        for document in snapshot!.documents {
+                            if let comments = document.get("Comment") as? String {
+                                self.comment.append(comments)
+                            }
+                            if let username = document.get("Email") as? String {
+                                self.userName.append(username)
+                            }
+                            if let commentDate = document.get("Date") as? String {
+                                self.date.append(commentDate)
+                            }
+                            if let scorePoint = document.get("Score") as? String {
+                                self.score.append(scorePoint)
+                            }
+                        }
+                        self.tableView.reloadData()
+                }
+            }
+
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        if commentArray.count == 0 {
+            return 1
+        } else {
+            return commentArray.count
+        }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell=tableView.dequeueReusableCell(withIdentifier: "commentsCell", for: indexPath) as! CommentsCellViewCell
-        cell.commentLabel.text="güzel işletme fakat sahanın ve topların yenilenmesi gerekiyor. maçtan sonra oturmak için kafesi gayet ferah ve rahattı."
-        cell.dateLabel.text="08.07.2021"
-        cell.userLabel.text="anil demirci"
-        return cell
+        if commentArray.count == 0 {
+            cell.dateLabel.isHidden=true
+            cell.userLabel.isHidden=true
+            cell.score1View.isHidden=true
+            cell.score2View.isHidden=true
+            cell.score3View.isHidden=true
+            cell.score4View.isHidden=true
+            cell.score5View.isHidden=true
+            cell.commentLabel.text="Saha hakkında henüz yorum yapılmamıştır."
+            return cell
+        } else {
+            cell.commentLabel.text=comment[indexPath.row]
+            cell.dateLabel.text=date[indexPath.row]
+            cell.userLabel.text=userName[indexPath.row]
+            if score[indexPath.row]=="5-Çok iyi" {
+                cell.score5View.image=UIImage(named: "yellowStar")
+                cell.score4View.image=UIImage(named: "yellowStar")
+                cell.score3View.image=UIImage(named: "yellowStar")
+                cell.score2View.image=UIImage(named: "yellowStar")
+                cell.score1View.image=UIImage(named: "yellowStar")
+            }
+            else if score[indexPath.row]=="4-İyi" {
+                cell.score4View.image=UIImage(named: "yellowStar")
+                cell.score3View.image=UIImage(named: "yellowStar")
+                cell.score2View.image=UIImage(named: "yellowStar")
+                cell.score1View.image=UIImage(named: "yellowStar")
+            }
+            else if score[indexPath.row]=="3-Orta" {
+                cell.score3View.image=UIImage(named: "yellowStar")
+                cell.score2View.image=UIImage(named: "yellowStar")
+                cell.score1View.image=UIImage(named: "yellowStar")
+            }
+            else if score[indexPath.row]=="2-Kötü" {
+                cell.score2View.image=UIImage(named: "yellowStar")
+                cell.score1View.image=UIImage(named: "yellowStar")
+            }
+            else if score [indexPath.row]=="1-Kötü" {
+                cell.score1View.image=UIImage(named: "yellowStar")
+            }
+            return cell
+        }
         
-        //randevu oluşturulduktan sonra puanlayıp yorum yapılabilir.
+    }
+
+    
+    func makeAlert(titleInput: String,messageInput: String){
+        let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)
+        let okButton=UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+        alert.addAction(okButton)
+        self.present(alert, animated: true, completion: nil)
     }
 }

@@ -106,6 +106,7 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
                   }
               }
     }
+
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             let firestoreDatabase=Firestore.firestore()
@@ -138,7 +139,7 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
                         }
                         
                     } else {
-                        tableView.isUserInteractionEnabled=false
+                        //değilse yana kaydırmayı kapat.
                     }
             }
             }

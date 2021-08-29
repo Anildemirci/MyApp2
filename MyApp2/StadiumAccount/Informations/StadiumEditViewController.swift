@@ -19,6 +19,11 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
     @IBOutlet weak var cityText: UITextField!
     @IBOutlet weak var mapKit: MKMapView!
     @IBOutlet weak var infoText: UITextField!
+    @IBOutlet weak var openingTimeText: UITextField!
+    @IBOutlet weak var closingTimeText: UITextField!
+    @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var addButton: UIButton!
     
     var locationManager=CLLocationManager()
     var chosenLatitude=Double()
@@ -29,6 +34,15 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        confirmButton.setTitleColor(UIColor.white, for: .disabled)
+        confirmButton.backgroundColor = .blue
+        confirmButton.layer.cornerRadius=20
+        editButton.setTitleColor(UIColor.white, for: .disabled)
+        editButton.backgroundColor = .blue
+        editButton.layer.cornerRadius=20
+        addButton.setTitleColor(UIColor.white, for: .disabled)
+        addButton.backgroundColor = .blue
+        addButton.layer.cornerRadius=20
         
         mapKit.delegate=self
         locationManager.delegate=self
@@ -65,7 +79,6 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
     }
     
     @IBAction func editClicked(_ sender: Any) {
-        
         if villageText.text != "" && streetText.text != "" && townText.text! != "" && cityText.text != "" {
             self.firestoreDatabase.collection("Stadiums").whereField("User", isEqualTo: self.currentUser?.uid).getDocuments { (snapshot, error) in
                 if error == nil {
@@ -81,11 +94,9 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
         } else {
             self.makeAlert(titleInput: "Error", messageInput: "Lütfen tüm bilgileri giriniz.")
         }
-        
     }
     
     @IBAction func addClicked(_ sender: Any) {
-        
         if infoText.text != "" {
             self.firestoreDatabase.collection("Stadiums").whereField("User", isEqualTo: self.currentUser?.uid).getDocuments { (snapshot, error) in
                 if error == nil {
@@ -110,6 +121,32 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
         } else {
             self.makeAlert(titleInput: "Error", messageInput: "Lütfen boş bırakmayınız.")
         }
+    }
+    @IBAction func confirmClicked(_ sender: Any) {
+        
+        if openingTimeText.text != "" && closingTimeText.text != "" {
+            self.firestoreDatabase.collection("Stadiums").whereField("User", isEqualTo: self.currentUser!.uid).getDocuments { (snapshot, error) in
+                if error == nil {
+                    for document in snapshot!.documents{
+                        let documentId=document.documentID
+                        if document.get("Opened") != nil && document.get("Closed") != nil {
+                            self.firestoreDatabase.collection("Stadiums").document(documentId).updateData(["Opened":self.openingTimeText.text!])
+                            self.firestoreDatabase.collection("Stadiums").document(documentId).updateData(["Closed":self.closingTimeText.text!])
+                            }
+                        else {
+                            let addOpened=["Opened":self.openingTimeText.text!,
+                                           "Closed":self.closingTimeText.text!] as [String:Any]
+                            self.firestoreDatabase.collection("Stadiums").document(documentId).setData(addOpened, merge: true)
+                            self.makeAlert(titleInput: "Success", messageInput: "Çalışma saatleri düzenlendi")
+                        }
+                    }
+                }
+            }
+            
+        } else {
+            self.makeAlert(titleInput: "Error", messageInput: "Lütfen boş bırakmayınız.")
+            }
+        
     }
     
     func makeAlert(titleInput: String,messageInput: String){
