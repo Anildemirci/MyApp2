@@ -16,6 +16,7 @@ class AppoitmentViewController: UIViewController,UITableViewDelegate,UITableView
     var stadiumName=""
     var nameFields=[String]()
     var selectedField=""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate=self

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -13,12 +14,18 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     @IBOutlet weak var fieldName: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var firestoreDatabase=Firestore.firestore()
+    var currentUser=Auth.auth().currentUser
+    
     var hourArray=[String]()
     var nameLabel=""
     var selectedHour=""
     var selectedDay=""
     var stadium=""
     var daysArray=[String]()
+    var redHours=[String]()
+    var yellowHours=[String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate=self
@@ -43,11 +50,31 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             dateFormatter.dateFormat = "dd.MM.yyyy"
             let date = dateFormatter.string(from: currentDate! as Date)
             daysArray.append(date)
-            print(daysArray)
         }
+        getHourfromCalendar()
         tableView.reloadData()
     }
     
+    func getHourfromCalendar(){
+        self.firestoreDatabase.collection("Calendar").document(stadium).collection(nameLabel).whereField("Status", isEqualTo: "Onaylandı.").addSnapshotListener { (snapshot,error) in
+            if error == nil {
+                for document in snapshot!.documents {
+                    if let redhour=document.get("Hour") {
+                        self.redHours.append(redhour as! String)
+                    }
+                }
+            }
+        }
+        self.firestoreDatabase.collection("Calendar").document(stadium).collection(nameLabel).whereField("Status", isEqualTo: "Onay bekliyor.").addSnapshotListener { (snapshot,error) in
+            if error == nil {
+                for document in snapshot!.documents {
+                    if let yellowHour=document.get("Hour") {
+                        self.yellowHours.append(yellowHour as! String)
+                    }
+                }
+            }
+        }
+    }
     func getCurrentDate()->Date {
         var now=Date()
         var nowComponents = DateComponents()
@@ -65,8 +92,37 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell=tableView.dequeueReusableCell(withIdentifier: "dateCell", for: indexPath) as! DateTableViewCell
+        cell.dateLabel.backgroundColor=UIColor.green
+        if redHours.count > 1 {
+            for i in 0...redHours.count-1 {
+                if hourArray[indexPath.row].contains(redHours[i]) {
+                    cell.dateLabel.backgroundColor=UIColor.red
+                    cell.isUserInteractionEnabled=false
+                }
+            }
+        } else if redHours.count == 1 {
+            let redHour=redHours[0]
+            if hourArray[indexPath.row].contains(redHour) {
+                cell.dateLabel.backgroundColor=UIColor.red
+                cell.isUserInteractionEnabled=false
+            }
+        }
+        if yellowHours.count > 1 {
+            for i in 0...yellowHours.count-1 {
+                if hourArray[indexPath.row].contains(yellowHours[i]) {
+                    cell.dateLabel.backgroundColor=UIColor.yellow
+                    cell.isUserInteractionEnabled=false
+                }
+            }
+        } else if yellowHours.count == 1 {
+            let yellowHour=yellowHours[0]
+            if hourArray[indexPath.row].contains(yellowHour) {
+                cell.dateLabel.backgroundColor=UIColor.yellow
+                cell.isUserInteractionEnabled=false
+            }
+        }
+        
         cell.dateLabel.text=hourArray[indexPath.row]
-     //   cell.dateLabel.backgroundColor = .red
         return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -78,7 +134,6 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedDay=daysArray[indexPath.row]
-        print(selectedDay)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toRequestAppointment" {

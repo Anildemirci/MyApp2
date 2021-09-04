@@ -20,9 +20,14 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
     var currentUser=Auth.auth().currentUser
     var selectedName=""
     var nameStadium=""
-    var pending=[String]()
-    var confirmed=[String]()
+    var hour=""
+    var date=""
     var daysArray=[String]()
+    var redHours=[String]()
+    var redDates=[String]()
+    var yellowHours=[String]()
+    var yellowDates=[String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableview.delegate=self
@@ -31,16 +36,8 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         collectionView.dataSource=self
         // Do any additional setup after loading the view.
         fieldName.text=selectedName
-        let docRef=firestoreDatabase.collection("Stadiums").document(currentUser!.uid)
-        docRef.getDocument(source: .cache) { (document, error) in
-            if let document = document {
-                let name=document.get("Name") as! String
-                self.nameStadium=name
-            }
-    }
-        hourArray=["00:00-01:00","01:00-02:00","02:00-03:00","03:00-04:00","04:00-05:00","05:00-06:00","06:00-07:00","07:00-08:00","08:00-09:00","09:00-10:00","10:00-11:00","11:00-12:00","12:00-13:00","13:00-14:00","14:00-15:00","15:00-16:00","16:00-17:00","17:00-18:00","18:00-19:00","19:00-20:00","20:00-21:00","21:00-22:00","22:00-23:00","23:00-00:00"]
         
-
+        hourArray=["00:00-01:00","01:00-02:00","02:00-03:00","03:00-04:00","04:00-05:00","05:00-06:00","06:00-07:00","07:00-08:00","08:00-09:00","09:00-10:00","10:00-11:00","11:00-12:00","12:00-13:00","13:00-14:00","14:00-15:00","15:00-16:00","16:00-17:00","17:00-18:00","18:00-19:00","19:00-20:00","20:00-21:00","21:00-22:00","22:00-23:00","23:00-00:00"]
         
         for day in 0...13 {
             let hourToAdd=3
@@ -56,8 +53,28 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
             let date = dateFormatter.string(from: currentDate! as Date)
             daysArray.append(date)
         }
-        
-        self.tableview.reloadData()
+        getHourfromCalendar()
+    }
+    
+    func getHourfromCalendar(){
+        self.firestoreDatabase.collection("Calendar").document(nameStadium).collection(selectedName).whereField("Status", isEqualTo: "Onaylandı.").addSnapshotListener { (snapshot,error) in
+            if error == nil {
+                for document in snapshot!.documents {
+                    if let redhour=document.get("Hour") {
+                        self.redHours.append(redhour as! String)
+                    }
+                }
+            }
+        }
+        self.firestoreDatabase.collection("Calendar").document(nameStadium).collection(selectedName).whereField("Status", isEqualTo: "Onay bekliyor.").addSnapshotListener { (snapshot,error) in
+            if error == nil {
+                for document in snapshot!.documents {
+                    if let yellowHour=document.get("Hour") {
+                        self.yellowHours.append(yellowHour as! String)
+                    }
+                }
+            }
+        }
     }
     
     func getCurrentDate()->Date {
@@ -75,14 +92,61 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         return now
         
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        hour=hourArray[indexPath.row]
+    }
         
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return hourArray.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell=tableView.dequeueReusableCell(withIdentifier: "confirmDateCell", for: indexPath) as! ConfirmDateTableViewCell
-        cell.hourLabel?.text=hourArray[indexPath.row]
+        
+        //kontrol et listeyi kaydırırken indexpath hataları geliyor
+        
+        cell.hourLabel.backgroundColor=UIColor.green
+        if redHours.count > 1 {
+            for i in 0...redHours.count-1 {
+                if hourArray[indexPath.row].contains(redHours[i]) {
+                    cell.hourLabel.backgroundColor=UIColor.red
+                    cell.isUserInteractionEnabled=false
+                    cell.closeButton.isHidden=true
+                }
+            }
+        } else if redHours.count == 1 {
+            let redHour=redHours[0]
+            if hourArray[indexPath.row].contains(redHour) {
+                cell.hourLabel.backgroundColor=UIColor.red
+                cell.isUserInteractionEnabled=false
+                cell.closeButton.isHidden=true
+            }
+        }
+        
+        if yellowHours.count > 1 {
+            for i in 0...yellowHours.count-1 {
+                if hourArray[indexPath.row].contains(yellowHours[i]) {
+                    cell.hourLabel.backgroundColor=UIColor.yellow
+                    cell.isUserInteractionEnabled=false
+                    cell.closeButton.isHidden=true
+                }
+            }
+        } else if yellowHours.count == 1 {
+            let yellowHour=yellowHours[0]
+            if hourArray[indexPath.row].contains(yellowHour) {
+                cell.hourLabel.backgroundColor=UIColor.yellow
+                cell.isUserInteractionEnabled=false
+                cell.closeButton.isHidden=true
+            }
+        }
+        cell.hourLabel.text=hourArray[indexPath.row]
+        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        date=daysArray[indexPath.row]
+        print(date)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -95,9 +159,45 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         cell.datesLabel.text=daysArray[indexPath.row]
         return cell
     }
- 
+    
     @IBAction func editClicked(_ sender: Any) {
+        
+    }
+    @IBAction func closeClicked(_ sender: Any) {
+        
+        if date != "" && hour != "" {
+            let firestoreCalendar=["User":Auth.auth().currentUser!.uid,
+                                   "Email":Auth.auth().currentUser!.email!,
+                                   "Type":"Stadium",
+                                   "StadiumName":self.nameStadium,
+                                   "FieldName":self.selectedName,
+                                   "Hour":self.hour,
+                                   "AppointmentDate":self.date,
+                                   "Price":"Bilinmiyor.",
+                                   "Status":"Onaylandı.",
+                                   "Date":FieldValue.serverTimestamp()] as [String:Any]
+            self.firestoreDatabase.collection("Calendar").document(self.nameStadium).collection(self.selectedName).document(self.date+"-"+self.hour).setData(firestoreCalendar) {
+                error in
+                if error != nil {
+                    self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
+                }
+                else {
+                    self.makeAlert(titleInput: "Başarılı", messageInput: "Saati randevulara kapattınız.")
+                }
+            }
+        } else {
+            self.makeAlert(titleInput: "Hata", messageInput: "Tarih/saat seçiniz.")
+        }
+        
+
+        }
+    
+    func makeAlert(titleInput: String,messageInput: String){
+        let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)
+        let okButton=UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+        alert.addAction(okButton)
+        self.present(alert, animated: true, completion: nil)
+    }
     
 }
 
-}

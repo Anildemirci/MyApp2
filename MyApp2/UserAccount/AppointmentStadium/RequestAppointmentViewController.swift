@@ -86,7 +86,7 @@ class RequestAppointmentViewController: UIViewController {
         }
         
         let firestoreStadium=["User":Auth.auth().currentUser!.uid,
-                              "Email":Auth.auth().currentUser!.email,
+                              "Email":Auth.auth().currentUser!.email!,
                               "Type":"User",
                               "StadiumName":stadiumNameLabel.text!,
                               "FieldName":fieldNameLabel.text!,
@@ -104,9 +104,26 @@ class RequestAppointmentViewController: UIViewController {
             if error != nil {
                 self.makeAlert(titleInput: "Error!", messageInput: error?.localizedDescription ?? "Error")
             } else {
-                self.makeAlert(titleInput: "Başarılı", messageInput: "Randevu talebiniz gönderildi.")
                 //kontrolleri gerçekleştir.
+                self.makeAlert(titleInput: "Başarılı", messageInput: "Randevu talebiniz gönderildi.")
             }
+        }
+        
+        let firestoreCalendar=["User":Auth.auth().currentUser!.uid,
+                               "Email":Auth.auth().currentUser!.email!,
+                               "Type":"User",
+                               "StadiumName":stadiumNameLabel.text!,
+                               "FieldName":fieldNameLabel.text!,
+                               "Hour":hourLabel.text!,
+                               "AppointmentDate":dateLabel.text!,
+                               "Price":priceLabel.text!,
+                               "Status":"Onay bekliyor.",
+                               "Date":FieldValue.serverTimestamp()] as [String:Any]
+        firestoreDatabase.collection("Calendar").document(stadiumNameLabel.text!).collection(fieldNameLabel.text!).document(dateLabel.text!+"-"+hourLabel.text!).setData(firestoreCalendar) {
+            error in
+            if error != nil {
+                self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
+            } 
         }
     }
     

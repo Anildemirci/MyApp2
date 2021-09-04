@@ -31,7 +31,7 @@ class FavoritesViewController: UIViewController,UITableViewDelegate,UITableViewD
                     docRef.getDocument(source: .cache) { (document, error) in
                         if let document = document {
                             
-                            if var favName=document.get("FavoriteStadiums") as? [String] {
+                            if let favName=document.get("FavoriteStadiums") as? [String] {
                                 self.favStadium=favName
                                 self.tableView.reloadData()
                             }

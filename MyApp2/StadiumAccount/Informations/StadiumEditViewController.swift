@@ -30,7 +30,10 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
     var chosenLongitude=Double()
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
-    
+    var nameStadium=""
+    var town=""
+    var city=""
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +46,18 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
         addButton.setTitleColor(UIColor.white, for: .disabled)
         addButton.backgroundColor = .blue
         addButton.layer.cornerRadius=20
+        
+        let docRef=firestoreDatabase.collection("Stadiums").document(currentUser!.uid)
+        docRef.getDocument(source: .cache) { (document, error) in
+            if let document = document {
+                let name=document.get("Name") as! String
+                self.nameStadium=name
+                let town=document.get("Town") as! String
+                self.town=town
+                let city=document.get("City") as! String
+                self.city=city
+            }
+    }
         
         mapKit.delegate=self
         locationManager.delegate=self
@@ -57,6 +72,7 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
         gestureRecognizer.minimumPressDuration = 2.5
         mapKit.addGestureRecognizer(gestureRecognizer)
     }
+    
     @objc func hideKeyboard(){
         view.endEditing(true)
     }
@@ -66,14 +82,35 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
             let touchedCoordinates=self.mapKit.convert(touchedPoint, toCoordinateFrom: self.mapKit)
             let annotation=MKPointAnnotation()
             annotation.coordinate=touchedCoordinates  // dokunduğun yeri işaretliyor.
+            chosenLatitude=touchedCoordinates.latitude
+            chosenLongitude=touchedCoordinates.longitude
+            annotation.title=nameStadium
             self.mapKit.addAnnotation(annotation)
-           
+            
+            let firestoreUser=["User":Auth.auth().currentUser!.uid,
+                               "Email":Auth.auth().currentUser!.email,
+                               "StadiumName":nameStadium,
+                               "Town":town,
+                               "City":city,
+                               "Latitude":chosenLatitude,
+                               "Longitude":chosenLongitude,
+                               "AnnotationTitle":nameStadium,
+                               "Date":FieldValue.serverTimestamp()] as [String:Any]
+            
+            firestoreDatabase.collection("Locations").document(currentUser!.uid).setData(firestoreUser) {
+                    error in
+                    if error != nil {
+                        self.makeAlert(titleInput: "Error!", messageInput: error?.localizedDescription ?? "Error")
+                    } else {
+                        self.makeAlert(titleInput: "Başarılı", messageInput: "Konumunuz eklendi.")
+                    }
+                }
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location=CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
-        let span=MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
+        let span=MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
         let region=MKCoordinateRegion(center: location, span: span)          //anlık konum alıyor.
         mapKit.setRegion(region, animated: true)
     }

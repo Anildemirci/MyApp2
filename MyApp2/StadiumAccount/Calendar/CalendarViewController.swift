@@ -16,6 +16,7 @@ class CalendarViewController: UIViewController,UITableViewDelegate,UITableViewDa
     var currentUser=Auth.auth().currentUser
     var nameFields=[String]()
     var chosenName=""
+    var stadiumName=""
     override func viewDidLoad() {
         tableView.delegate=self
         tableView.dataSource=self
@@ -24,6 +25,8 @@ class CalendarViewController: UIViewController,UITableViewDelegate,UITableViewDa
         let docRef=firestoreDatabase.collection("Stadiums").document(currentUser!.uid)
         docRef.getDocument(source: .cache) { (document, error) in
             if let document = document {
+                let name=document.get("Name") as! String
+                self.stadiumName=name
                 let fields=document.get("NumberOfField") as! String
                 let intFields=Int(fields)
                 for number in 1...intFields! {
@@ -46,6 +49,7 @@ class CalendarViewController: UIViewController,UITableViewDelegate,UITableViewDa
         if segue.identifier == "toConfirmDate" {
             let destinationVC=segue.destination as! ConfirmDateViewController
             destinationVC.selectedName=chosenName
+            destinationVC.nameStadium=stadiumName
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

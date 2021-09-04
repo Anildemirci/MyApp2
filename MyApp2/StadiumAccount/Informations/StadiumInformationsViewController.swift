@@ -7,6 +7,9 @@
 
 import UIKit
 import Firebase
+import CoreLocation
+import MapKit
+
 class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var backButton: UIButton!
@@ -15,6 +18,8 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
     @IBOutlet weak var featuresTableView: UITableView!
     @IBOutlet weak var openingTime: UILabel!
     @IBOutlet weak var closingTime: UILabel!
+    @IBOutlet weak var navigationButton: UIButton!
+    
     
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
@@ -22,6 +27,8 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
     var stadiumTypeArray=[String]()
     var equalName=""
     var infoArray = [String]()
+    var annotationLatitude=Double()
+    var annotationLongitude=Double()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +45,8 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
                         if self.userTypeArray.contains(self.currentUser!.uid) {
                             self.backButton.isHidden=true
                             self.editButton.isHidden=true
+                            self.navigationButton.isHidden=false
+                          //  self.navigationButton.isHidden=false
                             self.featuresTableView.isUserInteractionEnabled=false
                             self.firestoreDatabase.collection("Stadiums").whereField("Name", isEqualTo: self.equalName).getDocuments { (snapshot, error) in
                                 if error == nil {
@@ -66,9 +75,33 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
                                     }
                                 }
                             }
+                            
+                            self.firestoreDatabase.collection("Locations").whereField("StadiumName", isEqualTo: self.equalName).getDocuments { (snapshot, error) in
+                                if error == nil {
+                                    for document in snapshot!.documents{
+                                        let documentId=document.documentID
+                                        let docRef=self.firestoreDatabase.collection("Locations").document(documentId)
+                                        docRef.getDocument(source: .cache) { (document, error) in
+                                            if let document = document {
+                                                if let longitude=document.get("Longitude") {
+                                                    self.annotationLongitude=longitude as! Double
+                                                } else  {
+                                                    self.annotationLongitude=0
+                                                }
+                                                if let latitude=document.get("Latitude") {
+                                                    self.annotationLatitude=latitude as! Double
+                                                } else {
+                                                    self.annotationLatitude=0
+                                                }
+                                            }
+                                    }
+                                    }
+                                }
+                            }
                         }else {//saha girişi ise
                             let docRef=self.firestoreDatabase.collection("Stadiums").document(self.currentUser!.uid)
                             docRef.getDocument(source: .cache) { (document, error) in
+                               // self.navigationButton.isHidden=true
                                 if let document = document {
                                     let address=document.get("Address") as? String
                                     self.addressLabel.text=address
@@ -86,6 +119,7 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
                                     }
                                 }
                         }
+                            
                         }
                     }
                 }
@@ -130,6 +164,25 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
     }
     
     @IBAction func navigationClicked(_ sender: Any) {
+
+        if annotationLatitude != 0 && annotationLongitude != 0 {
+            let requestLocation=CLLocation(latitude: annotationLatitude, longitude: annotationLongitude)
+            CLGeocoder().reverseGeocodeLocation(requestLocation) { (placemarks, error) in
+                if let placemark = placemarks {
+                    if placemark.count > 0 {
+                        let newPlacemark=MKPlacemark(placemark: placemarks![0])
+                        let item=MKMapItem(placemark: newPlacemark)
+                        item.name=self.equalName
+                        let launchOptions=[MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving]
+                        item.openInMaps(launchOptions: launchOptions)
+                    }
+                }
+            }
+        } else {
+            self.makeAlert(titleInput: "Hata", messageInput: "Sahanın konumu henüz kayıtlı değil.")
+        }
+        
+        
     }
     
     func makeAlert(titleInput: String,messageInput: String){

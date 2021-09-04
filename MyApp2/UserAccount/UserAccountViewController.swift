@@ -18,8 +18,16 @@ class UserAccountViewController: UIViewController,UIImagePickerControllerDelegat
     var firedatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
     var userName=""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+      //  profileImageView.contentMode=UIView.ContentMode.scaleAspectFill
+      //  profileImageView.layer.masksToBounds=false
+        profileImageView.layer.borderWidth = 2.0
+        profileImageView.layer.borderColor = UIColor.white.cgColor
+        profileImageView.layer.cornerRadius = (profileImageView.frame.size.width)/2
+        profileImageView.clipsToBounds = true
         
         trashButton.titleLabel?.text=""
         profileImageView.isUserInteractionEnabled=true
@@ -44,6 +52,7 @@ class UserAccountViewController: UIViewController,UIImagePickerControllerDelegat
             }
         }
         getPhoto()
+        
     }
     
     @objc func choosePicture(){

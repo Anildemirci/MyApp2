@@ -6,11 +6,16 @@
 //
 
 import UIKit
+import Firebase
 
 class ConfirmDateTableViewCell: UITableViewCell {
 
     @IBOutlet weak var hourLabel: UILabel!
+    @IBOutlet weak var closeButton: UIButton!
     
+    
+    var firestoreDatabase=Firestore.firestore()
+    var currentUser=Auth.auth().currentUser
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,5 +26,7 @@ class ConfirmDateTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+
 
 }
