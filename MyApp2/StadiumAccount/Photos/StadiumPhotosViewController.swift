@@ -53,6 +53,7 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
                         self.stadiumTypeArray.append(userType)
                         if self.stadiumTypeArray.contains(self.currentUser!.uid) {
                             self.getDataFromStadium()
+                            
                         }
                     }
                 }
@@ -106,8 +107,7 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
                   }
               }
     }
-
-    
+        
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             let firestoreDatabase=Firestore.firestore()
             firestoreDatabase.collection("Stadiums").addSnapshotListener { [self] (snapshot, error) in
@@ -119,7 +119,7 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
                         }
                     }
                     if stadiumTypeArray.contains(currentUser!.uid) {
-                        if editingStyle == .delete {
+                        if editingStyle == UITableViewCell.EditingStyle.delete {
                             let delPhoto=imageUrl[indexPath.row]
                             firestoreDatabase.collection("StadiumPhotos").document(currentUser!.uid).collection("Photos").whereField("photoUrl", isEqualTo: delPhoto).getDocuments() { (query, error) in
                                 if error == nil {
@@ -134,16 +134,15 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
                                         }
                                     }
                                 }
-                                
                                 }
                         }
-                        
                     } else {
-                        //değilse yana kaydırmayı kapat.
+                        
                     }
             }
             }
     }
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return imageUrl.count
@@ -152,6 +151,7 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
         let cell=tableView.dequeueReusableCell(withIdentifier: "stadiumPhotosCell", for: indexPath) as! StadiumPhotosViewCell
         cell.commentLabel.text=photoStatement[indexPath.row]
         cell.stadiumPhotosView.sd_setImage(with: URL(string: imageUrl[indexPath.row]))
+        
         return cell
     }
     
@@ -208,4 +208,16 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
         alert.addAction(okButton)
         self.present(alert, animated: true, completion: nil)
     }
+    
+ /*   func confirmAlert(titleInput: String,messageInput: String) {
+        let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.actionSheet)
+        let deleteButton=UIAlertAction(title: "Sil", style: UIAlertAction.Style.destructive, handler: nil)
+        let cancelButton=UIAlertAction(title: "İptal", style: UIAlertAction.Style.cancel, handler: nil)
+        
+        alert.addAction(deleteButton)
+        alert.addAction(cancelButton)
+        self.present(alert, animated: true, completion: nil)
+        
+        seçenek sunmak için
+    } */
 }

@@ -26,6 +26,7 @@ class CommentsViewController: UIViewController,UITableViewDelegate,UITableViewDa
     var commentArray=[String]()
     var documentID=""
     var userName=[String]()
+    var totalScore=Double()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,23 +46,16 @@ class CommentsViewController: UIViewController,UITableViewDelegate,UITableViewDa
             }
         }
         
-        firestoreDatabase.collection("Evaluation").document(name).collection(name).addSnapshotListener{ (snapshot, error) in
-            if error == nil {
-                for document in snapshot!.documents {
-                    self.commentArray.append(document.documentID)
-                }
-                }
-            }
-        
             firestoreDatabase.collection("Evaluation").document(name).collection(name).addSnapshotListener { (snapshot, error) in
                 if error != nil {
                     self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
                 } else {
                         for document in snapshot!.documents {
+                            self.commentArray.append(document.documentID)
                             if let comments = document.get("Comment") as? String {
                                 self.comment.append(comments)
                             }
-                            if let username = document.get("Email") as? String {
+                            if let username = document.get("FullName") as? String {
                                 self.userName.append(username)
                             }
                             if let commentDate = document.get("Date") as? String {
@@ -69,12 +63,29 @@ class CommentsViewController: UIViewController,UITableViewDelegate,UITableViewDa
                             }
                             if let scorePoint = document.get("Score") as? String {
                                 self.score.append(scorePoint)
+                                if self.score.contains("5-Çok iyi") {
+                                    self.totalScore=self.totalScore+5
+                                } else if self.score.contains("4-İyi") {
+                                    self.totalScore=self.totalScore+4
+                                } else if self.score.contains("3-Orta") {
+                                    self.totalScore=self.totalScore+3
+                                } else if self.score.contains("2-Kötü") {
+                                    self.totalScore=self.totalScore+2
+                                } else if self.score.contains("1-Çok kötü") {
+                                    self.totalScore=self.totalScore+1
+                                }
                             }
                         }
+                    if self.commentArray.count == 0 {
+                        self.scoringLabel.text="Henüz oy verilmemiştir."
+                    } else {
+                        let averageScore=self.totalScore/Double(self.commentArray.count)
+                        self.scoringLabel.text="\(String(self.commentArray.count)) müşteri oyu ile \(averageScore)/5 puan."
                         self.tableView.reloadData()
+                    }
                 }
             }
-
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

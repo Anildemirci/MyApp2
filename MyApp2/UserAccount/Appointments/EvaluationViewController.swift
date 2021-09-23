@@ -26,11 +26,22 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var documentID=""
     var chosenPoint=""
     var points=["","5-Çok iyi","4-İyi","3-Orta","2-Kötü","1-Çok kötü"]
+    var fullName=""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         scoringPicker.delegate=self
         scoringPicker.dataSource=self
         // Do any additional setup after loading the view.
+        let docref=firestoreDatabase.collection("Users").document(currentUser!.uid)
+        docref.getDocument(source: .cache) { (document, error) in
+            if let document = document {
+                let name=document.get("Name") as! String
+                let surname=document.get("Surname") as! String
+                self.fullName=name+" "+surname
+            }
+        }
+        
         firestoreDatabase.collection("UserAppointments").document(currentUser!.uid).collection(currentUser!.uid).document(documentID).getDocument(source: .cache) { (snapshot, error) in
                     if let document = snapshot {
                         let fieldName=document.get("FieldName") as! String
@@ -84,6 +95,7 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
                            "Status":statusLabel.text!,
                            "Comment":commentText.text!,
                            "Score":chosenPoint,
+                           "FullName":fullName,
                            "CommentDate":FieldValue.serverTimestamp()] as [String:Any]
         if chosenPoint != "" && commentText.text != "" {
             firestoreDatabase.collection("Evaluation").document(stadiumName.text!).collection(stadiumName.text!).document(dateLabel.text!+"-"+hourLabel.text!).setData(firestoreUser) {

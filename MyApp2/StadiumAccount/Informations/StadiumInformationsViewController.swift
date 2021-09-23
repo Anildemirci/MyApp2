@@ -46,8 +46,7 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
                             self.backButton.isHidden=true
                             self.editButton.isHidden=true
                             self.navigationButton.isHidden=false
-                          //  self.navigationButton.isHidden=false
-                            self.featuresTableView.isUserInteractionEnabled=false
+                         //   self.featuresTableView.isUserInteractionEnabled=false
                             self.firestoreDatabase.collection("Stadiums").whereField("Name", isEqualTo: self.equalName).getDocuments { (snapshot, error) in
                                 if error == nil {
                                     for document in snapshot!.documents{
@@ -101,7 +100,6 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
                         }else {//saha girişi ise
                             let docRef=self.firestoreDatabase.collection("Stadiums").document(self.currentUser!.uid)
                             docRef.getDocument(source: .cache) { (document, error) in
-                               // self.navigationButton.isHidden=true
                                 if let document = document {
                                     let address=document.get("Address") as? String
                                     self.addressLabel.text=address

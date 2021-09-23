@@ -19,11 +19,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyApp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mi-1s-H60">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0mw-dT-j94">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <imageReference key="image" image="çim"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PASLA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mi-1s-H60">
                                 <rect key="frame" x="75" y="94" width="264" height="42"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                <nil key="textColor"/>
+                                <color key="backgroundColor" red="0.024465336670606797" green="0.5" blue="0.055105896321313463" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="35"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6X-rB-YcZ">
@@ -82,23 +86,28 @@
                             <constraint firstItem="7mi-1s-H60" firstAttribute="leading" secondItem="vOO-IV-nb0" secondAttribute="leading" constant="75" id="2JQ-dS-aIp"/>
                             <constraint firstItem="vOO-IV-nb0" firstAttribute="bottom" secondItem="uyp-jr-503" secondAttribute="bottom" constant="50" id="9MT-5q-vKR"/>
                             <constraint firstItem="7mi-1s-H60" firstAttribute="top" secondItem="vOO-IV-nb0" secondAttribute="top" constant="50" id="B09-Fa-CZl"/>
+                            <constraint firstItem="0mw-dT-j94" firstAttribute="leading" secondItem="vOO-IV-nb0" secondAttribute="leading" id="JCJ-Vm-75W"/>
                             <constraint firstItem="vOO-IV-nb0" firstAttribute="trailing" secondItem="uyp-jr-503" secondAttribute="trailing" constant="50" id="LO3-Sb-zNL"/>
                             <constraint firstItem="uyp-jr-503" firstAttribute="leading" secondItem="vOO-IV-nb0" secondAttribute="leading" constant="50" id="Tmr-Br-37M"/>
+                            <constraint firstItem="0mw-dT-j94" firstAttribute="trailing" secondItem="vOO-IV-nb0" secondAttribute="trailing" id="Vrd-tw-jnU"/>
                             <constraint firstItem="R6X-rB-YcZ" firstAttribute="leading" secondItem="vOO-IV-nb0" secondAttribute="leading" constant="50" id="WAz-Ry-fD7"/>
                             <constraint firstItem="vOO-IV-nb0" firstAttribute="trailing" secondItem="7mi-1s-H60" secondAttribute="trailing" constant="75" id="Wpg-SO-IZQ"/>
                             <constraint firstItem="uyp-jr-503" firstAttribute="top" secondItem="R6X-rB-YcZ" secondAttribute="bottom" constant="25" id="eYf-ib-WeX"/>
+                            <constraint firstItem="0mw-dT-j94" firstAttribute="top" secondItem="egU-Yu-Exh" secondAttribute="top" id="kEm-HO-6z0"/>
+                            <constraint firstAttribute="bottom" secondItem="0mw-dT-j94" secondAttribute="bottom" id="sRb-cp-gG6"/>
                             <constraint firstItem="vOO-IV-nb0" firstAttribute="trailing" secondItem="R6X-rB-YcZ" secondAttribute="trailing" constant="50" id="tur-RO-bVc"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="MyAppLabel" destination="7mi-1s-H60" id="eFV-Zb-Yad"/>
+                        <outlet property="imageView" destination="0mw-dT-j94" id="FtH-g4-KMY"/>
                         <outlet property="loginButton" destination="R6X-rB-YcZ" id="U2S-5I-kpe"/>
                         <outlet property="signUpButton" destination="uyp-jr-503" id="G7K-OO-l5T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ctd-0h-H5Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2851" y="243"/>
+            <point key="canvasLocation" x="548" y="-2147"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="bTq-pk-eLu">
@@ -213,7 +222,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ZI-h3-Boq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-726.08695652173924" y="-220.3125"/>
+            <point key="canvasLocation" x="-726" y="-1517"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="B2q-2O-hc9">
@@ -324,7 +333,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YOs-uM-Nzc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-726.08695652173924" y="569.86607142857144"/>
+            <point key="canvasLocation" x="1886" y="-1517"/>
         </scene>
         <!--Stadium Login View Controller-->
         <scene sceneID="5rj-uQ-nkP">
@@ -403,7 +412,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pf8-XC-gXU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1342" y="-877"/>
+            <point key="canvasLocation" x="-1230" y="-732"/>
         </scene>
         <!--User Sign Up View Controller-->
         <scene sceneID="5oh-ab-NRf">
@@ -491,7 +500,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7vB-xn-2GG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-75" y="1219"/>
+            <point key="canvasLocation" x="2293" y="-733"/>
         </scene>
         <!--User Info View Controller-->
         <scene sceneID="Xst-bH-mCJ">
@@ -593,7 +602,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="28q-zq-1mm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="671.01449275362324" y="1218.75"/>
+            <point key="canvasLocation" x="2293" y="1"/>
         </scene>
         <!--Favoriler-->
         <scene sceneID="Wqy-Pa-Zb1">
@@ -654,7 +663,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oJM-gO-pLb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2389.8550724637685" y="1543.5267857142856"/>
+            <point key="canvasLocation" x="4628" y="1478"/>
         </scene>
         <!--Hesabım-->
         <scene sceneID="T0K-fZ-nhd">
@@ -748,7 +757,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CnF-8k-nMq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2389.8550724637685" y="914.73214285714278"/>
+            <point key="canvasLocation" x="3248" y="1478"/>
         </scene>
         <!--User Information View Controller-->
         <scene sceneID="hma-eI-Wc2">
@@ -832,7 +841,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0fz-GU-Bwq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3153.6231884057975" y="545.75892857142856"/>
+            <point key="canvasLocation" x="2712" y="2247"/>
         </scene>
         <!--User Appointments View Controller-->
         <scene sceneID="RG2-oZ-BRN">
@@ -921,14 +930,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6aH-6c-MAp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3247.826086956522" y="1220.7589285714284"/>
+            <point key="canvasLocation" x="3732" y="2247"/>
         </scene>
         <!--Evaluation View Controller-->
         <scene sceneID="0dT-SQ-8B3">
             <objects>
                 <viewController id="Tma-Qs-2gl" customClass="EvaluationViewController" customModule="MyApp2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="W2A-pa-d06">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxd-ga-Zzx">
@@ -1070,7 +1079,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ab7-rf-xaz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4008.6956521739135" y="1220.7589285714284"/>
+            <point key="canvasLocation" x="3732" y="2950"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="wTo-nx-RT4">
@@ -1090,7 +1099,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QZb-qg-CL5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1510" y="1122"/>
+            <point key="canvasLocation" x="5103" y="746"/>
         </scene>
         <!--Takvim-->
         <scene sceneID="tZO-Og-rIU">
@@ -1160,7 +1169,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NzM-g7-Q8L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1162.3188405797102" y="2544.6428571428569"/>
+            <point key="canvasLocation" x="-2700" y="1478"/>
         </scene>
         <!--Stadium Informations View Controller-->
         <scene sceneID="I3g-DW-tUn">
@@ -1338,7 +1347,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gTm-7d-Bhj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-230.43478260869566" y="2569.4196428571427"/>
+            <point key="canvasLocation" x="-5620" y="2204"/>
         </scene>
         <!--Stadium Edit View Controller-->
         <scene sceneID="KUa-7M-mRB">
@@ -1587,7 +1596,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yA6-VR-EaX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="671" y="2619"/>
+            <point key="canvasLocation" x="-5620" y="2932"/>
         </scene>
         <!--Date Edit View Controller-->
         <scene sceneID="cea-au-D4v">
@@ -1629,7 +1638,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bjy-Ke-BhO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2903" y="3159"/>
+            <point key="canvasLocation" x="-2700" y="2932"/>
         </scene>
         <!--Confirm Date View Controller-->
         <scene sceneID="vLU-vC-tFE">
@@ -1817,7 +1826,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rm5-aL-DPi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2026.0869565217392" y="3158.7053571428569"/>
+            <point key="canvasLocation" x="-2700" y="2204"/>
         </scene>
         <!--Ayarlar-->
         <scene sceneID="aPf-eA-IIi">
@@ -1996,7 +2005,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E8j-xF-Prr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1162.3188405797102" y="3182.8125"/>
+            <point key="canvasLocation" x="-794" y="1478"/>
         </scene>
         <!--Comments View Controller-->
         <scene sceneID="XaE-s0-XHA">
@@ -2183,7 +2192,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zpc-cu-00J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-230" y="3281"/>
+            <point key="canvasLocation" x="-4765" y="2204"/>
         </scene>
         <!--Hesabım-->
         <scene sceneID="kum-u4-GSH">
@@ -2364,18 +2373,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sc8-Cm-kbv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1162.3188405797102" y="1918.5267857142856"/>
+            <point key="canvasLocation" x="-5199" y="1478"/>
         </scene>
         <!--Stadium Photos View Controller-->
         <scene sceneID="X9O-o4-2lL">
             <objects>
                 <viewController id="AS7-O5-AZQ" customClass="StadiumPhotosViewController" customModule="MyApp2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZeJ-jT-2mO">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WUN-Ux-iUg">
-                                <rect key="frame" x="0.0" y="0.0" width="75" height="43"/>
+                                <rect key="frame" x="0.0" y="44" width="75" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="75" id="zH0-ul-S1o"/>
                                 </constraints>
@@ -2395,7 +2404,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="qd0-CZ-ENJ">
-                                <rect key="frame" x="0.0" y="43" width="414" height="765"/>
+                                <rect key="frame" x="0.0" y="87" width="414" height="775"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="stadiumPhotosCell" rowHeight="300" id="chz-Ql-s3c" customClass="StadiumPhotosViewCell" customModule="MyApp2" customModuleProvider="target">
@@ -2438,7 +2447,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gqi-gX-xpy">
-                                <rect key="frame" x="368" y="0.0" width="46" height="43"/>
+                                <rect key="frame" x="368" y="44" width="46" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="6Ae-pl-c1X"/>
                                 </constraints>
@@ -2478,14 +2487,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fGX-Tm-aJp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-230.43478260869566" y="1875.6696428571427"/>
+            <point key="canvasLocation" x="-6867" y="2204"/>
         </scene>
         <!--Upload Photos View Controller-->
         <scene sceneID="Um3-2D-Gij">
             <objects>
                 <viewController id="0s3-sa-ITG" customClass="UploadPhotosViewController" customModule="MyApp2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dbp-M0-4Cr">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sQK-dX-r9f">
@@ -2545,7 +2554,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LDa-uM-ZaY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="669.56521739130437" y="1918.5267857142856"/>
+            <point key="canvasLocation" x="-6442" y="2932"/>
         </scene>
         <!--The Photo View Controller-->
         <scene sceneID="bVJ-s5-dGk">
@@ -2560,7 +2569,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="17N-eG-aCu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1509" y="1787"/>
+            <point key="canvasLocation" x="-7222" y="2932"/>
         </scene>
         <!--Confirm Appointment View Controller-->
         <scene sceneID="lWN-Xk-Sab">
@@ -2751,7 +2760,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XIR-DS-G93" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3814" y="2223"/>
+            <point key="canvasLocation" x="-3965" y="2932"/>
         </scene>
         <!--Pending Appointments View Controller-->
         <scene sceneID="eMm-Hs-lvs">
@@ -2833,7 +2842,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G1i-bU-l5i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2971" y="2205"/>
+            <point key="canvasLocation" x="-3965" y="2204"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="sTM-em-okM">
@@ -2852,7 +2861,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AGq-sA-xdP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2052" y="2223"/>
+            <point key="canvasLocation" x="-2700" y="746"/>
         </scene>
         <!--Stadium Info View Controller-->
         <scene sceneID="DTb-OY-ZGL">
@@ -2952,7 +2961,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aq3-Ce-8cp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2051" y="1221"/>
+            <point key="canvasLocation" x="1509" y="1"/>
         </scene>
         <!--Stadium Sign Up View Controller-->
         <scene sceneID="arb-3w-liU">
@@ -3039,7 +3048,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CxR-Oi-NSI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1342.0289855072465" y="1218.75"/>
+            <point key="canvasLocation" x="1509" y="-733"/>
         </scene>
         <!--User Login View Controller-->
         <scene sceneID="Ug4-Wb-ydp">
@@ -3122,7 +3131,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B15-DZ-eh0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-125" y="-877"/>
+            <point key="canvasLocation" x="-317" y="-733"/>
         </scene>
         <!--Ayarlar-->
         <scene sceneID="7p5-ka-K1i">
@@ -3300,7 +3309,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CYL-gO-MXf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3247.826086956522" y="2443.5267857142858"/>
+            <point key="canvasLocation" x="6894" y="1478"/>
         </scene>
         <!--Stadiums Name View Controller-->
         <scene sceneID="2FE-se-raL">
@@ -3379,7 +3388,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tFw-Ha-lTl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1581" y="2444"/>
+            <point key="canvasLocation" x="5858" y="2247"/>
         </scene>
         <!--Selected Stadium View Controller-->
         <scene sceneID="Beh-gN-eC6">
@@ -3564,7 +3573,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d07-ul-Ad7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1790" y="3160"/>
+            <point key="canvasLocation" x="4625" y="2950"/>
         </scene>
         <!--Appoitment View Controller-->
         <scene sceneID="AWx-8h-974">
@@ -3652,7 +3661,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w4a-7L-ffr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2648" y="3159"/>
+            <point key="canvasLocation" x="4626" y="3656"/>
         </scene>
         <!--Date View Controller-->
         <scene sceneID="8p8-FE-BoM">
@@ -3778,7 +3787,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Zk-aN-phX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3515.9420289855075" y="3158.7053571428569"/>
+            <point key="canvasLocation" x="4625" y="4358"/>
         </scene>
         <!--Request Appointment View Controller-->
         <scene sceneID="1Fp-Js-hYc">
@@ -3902,7 +3911,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1rV-Xl-9Gc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4404" y="3159"/>
+            <point key="canvasLocation" x="5503" y="4357"/>
         </scene>
         <!--Sahalar-->
         <scene sceneID="Pau-Db-fae">
@@ -3982,26 +3991,27 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UBh-uf-lDN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2511.594202898551" y="2443.5267857142858"/>
+            <point key="canvasLocation" x="5858" y="1478"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="se8-qb-aW2"/>
         <segue reference="tJh-gL-yq9"/>
-        <segue reference="30C-sA-k4J"/>
-        <segue reference="t9W-dD-CPh"/>
-        <segue reference="GOd-mi-9XF"/>
+        <segue reference="Fqc-cu-lxY"/>
+        <segue reference="qQv-z8-5PN"/>
+        <segue reference="kXZ-Ax-4JK"/>
         <segue reference="A8k-RD-86m"/>
-        <segue reference="4Qq-LH-JtK"/>
+        <segue reference="zrD-gO-94n"/>
         <segue reference="Wxm-oT-ArP"/>
         <segue reference="DWS-iB-vSn"/>
         <segue reference="aGo-RH-s7J"/>
         <segue reference="agI-v0-niQ"/>
         <segue reference="diS-Z9-HKf"/>
-        <segue reference="BtJ-oV-qtT"/>
+        <segue reference="UCr-Ni-FeX"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
+        <image name="çim" width="992" height="1434"/>
         <image name="futbolculogo" width="900" height="900"/>
         <image name="location.fill" catalog="system" width="128" height="121"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>

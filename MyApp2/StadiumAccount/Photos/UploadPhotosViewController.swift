@@ -33,8 +33,22 @@ class UploadPhotosViewController: UIViewController,UIImagePickerControllerDelega
     @objc func choosePhoto(){
         let picker=UIImagePickerController()
         picker.delegate=self
-        picker.sourceType = .photoLibrary
-        self.present(picker, animated: true, completion: nil)
+        let actionSheet=UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Kamera", style: .default, handler: { (action:UIAlertAction) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera){
+                picker.sourceType = .camera
+                self.present(picker, animated: true, completion: nil)
+            } else {
+                self.makeAlert(titleInput: "Hata", messageInput: "Kamera müsait değil.")
+            }
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Galeri", style: .default, handler: { (action:UIAlertAction) in
+            picker.sourceType = .photoLibrary
+            self.present(picker, animated: true, completion: nil)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "İptal", style: .cancel, handler: nil))
+        self.present(actionSheet, animated: true, completion: nil)
+        
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -44,7 +58,6 @@ class UploadPhotosViewController: UIViewController,UIImagePickerControllerDelega
     }
     
     @IBAction func uploadClicked(_ sender: Any) {
-        //galeriden fotoğraf seçmeden de yüklüyor + resmini.
         let storage=Storage.storage()
         let storageReference=storage.reference()
         let mediaFolder=storageReference.child("StadiumPhotos").child(currentUser!.uid)

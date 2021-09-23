@@ -61,9 +61,21 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
     @objc func choosePicture(){
         let picker=UIImagePickerController()
         picker.delegate=self
-        picker.sourceType = .photoLibrary
-      //  picker.sourceType = .camera daha sonra ekle
-        self.present(picker, animated: true, completion: nil)
+        let actionSheet=UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Kamera", style: .default, handler: { (action:UIAlertAction) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera){
+                picker.sourceType = .camera
+                self.present(picker, animated: true, completion: nil)
+            } else {
+                self.makeAlert(titleInput: "Hata", messageInput: "Kamera müsait değil.")
+            }
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Galeri", style: .default, handler: { (action:UIAlertAction) in
+            picker.sourceType = .photoLibrary
+            self.present(picker, animated: true, completion: nil)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "İptal", style: .cancel, handler: nil))
+        self.present(actionSheet, animated: true, completion: nil)
     }
     
     func getPhoto(){

@@ -99,24 +99,25 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return hourArray.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell=tableView.dequeueReusableCell(withIdentifier: "confirmDateCell", for: indexPath) as! ConfirmDateTableViewCell
         
         //kontrol et listeyi kaydırırken indexpath hataları geliyor
-        
         cell.hourLabel.backgroundColor=UIColor.green
         if redHours.count > 1 {
             for i in 0...redHours.count-1 {
-                if hourArray[indexPath.row].contains(redHours[i]) {
+                
+                if hourArray[indexPath.row]==(redHours[i]) {
                     cell.hourLabel.backgroundColor=UIColor.red
                     cell.isUserInteractionEnabled=false
                     cell.closeButton.isHidden=true
+
                 }
             }
         } else if redHours.count == 1 {
             let redHour=redHours[0]
-            if hourArray[indexPath.row].contains(redHour) {
+            if hourArray[indexPath.row]==(redHour) {
                 cell.hourLabel.backgroundColor=UIColor.red
                 cell.isUserInteractionEnabled=false
                 cell.closeButton.isHidden=true
@@ -125,7 +126,7 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         
         if yellowHours.count > 1 {
             for i in 0...yellowHours.count-1 {
-                if hourArray[indexPath.row].contains(yellowHours[i]) {
+                if hourArray[indexPath.row]==(yellowHours[i]) {
                     cell.hourLabel.backgroundColor=UIColor.yellow
                     cell.isUserInteractionEnabled=false
                     cell.closeButton.isHidden=true
@@ -133,7 +134,7 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
             }
         } else if yellowHours.count == 1 {
             let yellowHour=yellowHours[0]
-            if hourArray[indexPath.row].contains(yellowHour) {
+            if hourArray[indexPath.row]==(yellowHour) {
                 cell.hourLabel.backgroundColor=UIColor.yellow
                 cell.isUserInteractionEnabled=false
                 cell.closeButton.isHidden=true
