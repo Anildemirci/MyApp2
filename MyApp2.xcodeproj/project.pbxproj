@@ -59,6 +59,7 @@
 		048E056F26C366FD00591E14 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E056E26C366FD00591E14 /* DateCollectionViewCell.swift */; };
 		04B3F66226D44C9900690C69 /* PendingAppointmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B3F66126D44C9900690C69 /* PendingAppointmentsViewController.swift */; };
 		04B3F66426D44CB400690C69 /* PendingAppointmentsCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B3F66326D44CB400690C69 /* PendingAppointmentsCellTableViewCell.swift */; };
+		04B908C227080CC70069A09E /* AllAppointmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B908C127080CC70069A09E /* AllAppointmentsViewController.swift */; };
 		04DB3BED26842A4500FEEBBB /* StadiumsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3BEC26842A4500FEEBBB /* StadiumsTableViewCell.swift */; };
 		04DB3BF12684319A00FEEBBB /* StadiumsNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3BF02684319A00FEEBBB /* StadiumsNameViewController.swift */; };
 		8ECFE33E50AC2E467C3BFABE /* Pods_MyApp2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5654FBA08BE38F6619C8625A /* Pods_MyApp2.framework */; };
@@ -119,6 +120,7 @@
 		048E056E26C366FD00591E14 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
 		04B3F66126D44C9900690C69 /* PendingAppointmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingAppointmentsViewController.swift; sourceTree = "<group>"; };
 		04B3F66326D44CB400690C69 /* PendingAppointmentsCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingAppointmentsCellTableViewCell.swift; sourceTree = "<group>"; };
+		04B908C127080CC70069A09E /* AllAppointmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAppointmentsViewController.swift; sourceTree = "<group>"; };
 		04DB3BEC26842A4500FEEBBB /* StadiumsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumsTableViewCell.swift; sourceTree = "<group>"; };
 		04DB3BF02684319A00FEEBBB /* StadiumsNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumsNameViewController.swift; sourceTree = "<group>"; };
 		0D1BC8249D5FAAC0B10D3EC1 /* Pods-MyApp2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyApp2.release.xcconfig"; path = "Target Support Files/Pods-MyApp2/Pods-MyApp2.release.xcconfig"; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				04686BD326D5E51700509DE3 /* UserAppointmentsViewController.swift */,
 				04686BDD26D5F09800509DE3 /* UserAppointmentTableViewCell.swift */,
 				04686BDF26D5F5A300509DE3 /* EvaluationViewController.swift */,
+				04B908C127080CC70069A09E /* AllAppointmentsViewController.swift */,
 			);
 			path = Appointments;
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 				044357DA26919AC900BD7659 /* FavoriteStadiumsTableViewCell.swift in Sources */,
 				045FB4DA2693B7CF00C063C9 /* StadiumInformationsViewController.swift in Sources */,
 				048955C726B8E2E1009B2B6A /* RequestAppointmentViewController.swift in Sources */,
+				04B908C227080CC70069A09E /* AllAppointmentsViewController.swift in Sources */,
 				047F059B2681941F00F6853E /* LoginViewController.swift in Sources */,
 				045FB4DC2693B7E500C063C9 /* CommentsViewController.swift in Sources */,
 				04686BD426D5E51700509DE3 /* UserAppointmentsViewController.swift in Sources */,
@@ -662,7 +666,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4H7485JNQW;
 				INFOPLIST_FILE = MyApp2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -683,7 +687,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4H7485JNQW;
 				INFOPLIST_FILE = MyApp2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

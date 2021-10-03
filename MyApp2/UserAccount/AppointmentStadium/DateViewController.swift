@@ -25,6 +25,10 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var daysArray=[String]()
     var redHours=[String]()
     var yellowHours=[String]()
+    var preDay=""
+    var redDates=[String]()
+    var yellowDates=[String]()
+    var selectedIndex=Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +55,8 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             let date = dateFormatter.string(from: currentDate! as Date)
             daysArray.append(date)
         }
-        getHourfromCalendar()
+        
+      //  getHourfromCalendar()
         tableView.reloadData()
     }
     
@@ -75,6 +80,7 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
         }
     }
+    
     func getCurrentDate()->Date {
         var now=Date()
         var nowComponents = DateComponents()
@@ -90,50 +96,127 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         return now
     }
     
+    func getDatefromCalendar(day: String){
+        
+        if preDay != day {
+            redDates.removeAll()
+            yellowDates.removeAll()
+            self.firestoreDatabase.collection("Calendar").document(stadium).collection(nameLabel).whereField("AppointmentDate", isEqualTo: day).addSnapshotListener { (snapshot, error) in
+                if error == nil {
+                    for document in snapshot!.documents {
+                        if let status=document.get("Status") {
+                            if status as! String == "Onaylandı." {
+                                let redhours=document.get("Hour")
+                                if self.redDates.contains(redhours as! String) {
+                                } else {
+                                    self.redDates.append(redhours as! String)
+                                }
+                            }
+                            else if status as! String == "Onay bekliyor." {
+                                let yellowhours=document.get("Hour")
+                                if self.yellowDates.contains(yellowhours as! String) {
+                                } else {
+                                    self.yellowDates.append(yellowhours as! String)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            self.firestoreDatabase.collection("Calendar").document(stadium).collection(nameLabel).whereField("AppointmentDate", isEqualTo: day).addSnapshotListener { (snapshot, error) in
+                if error == nil {
+                    for document in snapshot!.documents {
+                        if let status=document.get("Status") {
+                            if status as! String == "Onaylandı." {
+                                let redhours=document.get("Hour")
+                                if self.redDates.contains(redhours as! String) {
+                                } else {
+                                    self.redDates.append(redhours as! String)
+                                }
+                            }
+                            else if status as! String == "Onay bekliyor." {
+                                let yellowhours=document.get("Hour")
+                                if self.yellowDates.contains(yellowhours as! String) {
+                                } else {
+                                    self.yellowDates.append(yellowhours as! String)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell=tableView.dequeueReusableCell(withIdentifier: "dateCell", for: indexPath) as! DateTableViewCell
-        cell.dateLabel.backgroundColor=UIColor.green
-        if redHours.count > 1 {
-            for i in 0...redHours.count-1 {
-                if hourArray[indexPath.row].contains(redHours[i]) {
-                    cell.dateLabel.backgroundColor=UIColor.red
-                    cell.isUserInteractionEnabled=false
-                }
-            }
-        } else if redHours.count == 1 {
-            let redHour=redHours[0]
-            if hourArray[indexPath.row].contains(redHour) {
-                cell.dateLabel.backgroundColor=UIColor.red
-                cell.isUserInteractionEnabled=false
-            }
-        }
-        if yellowHours.count > 1 {
-            for i in 0...yellowHours.count-1 {
-                if hourArray[indexPath.row].contains(yellowHours[i]) {
-                    cell.dateLabel.backgroundColor=UIColor.yellow
-                    cell.isUserInteractionEnabled=false
-                }
-            }
-        } else if yellowHours.count == 1 {
-            let yellowHour=yellowHours[0]
-            if hourArray[indexPath.row].contains(yellowHour) {
-                cell.dateLabel.backgroundColor=UIColor.yellow
-                cell.isUserInteractionEnabled=false
-            }
-        }
         
+        //kontrol et listeyi kaydırırken indexpath hataları geliyor
+        cell.dateLabel.backgroundColor=UIColor.green
+        
+        
+        if redDates.count > 1 {
+            for i in 0...redDates.count-1 {
+                
+                if hourArray[indexPath.row]==(redDates[i]) {
+                    cell.dateLabel.backgroundColor=UIColor.red
+                 //   cell.isUserInteractionEnabled=false
+                 //   cell.closeButton.isHidden=true
+
+                }
+            }
+        } else if redDates.count == 1 {
+            let redHour=redDates[0]
+            if hourArray[indexPath.row]==(redHour) {
+                cell.dateLabel.backgroundColor=UIColor.red
+              //  cell.isUserInteractionEnabled=false
+              //  cell.closeButton.isHidden=true
+            }
+        }
+        //kırmızılar gibi yap
+        if yellowDates.count > 1 {
+            for i in 0...yellowDates.count-1 {
+                
+                if hourArray[indexPath.row]==(yellowDates[i]) {
+                    cell.dateLabel.backgroundColor=UIColor.yellow
+                 //   cell.isUserInteractionEnabled=false
+                 //   cell.closeButton.isHidden=true
+
+                }
+            }
+        } else if yellowDates.count == 1 {
+            let yellowHour=yellowDates[0]
+            if hourArray[indexPath.row]==(yellowHour) {
+                cell.dateLabel.backgroundColor=UIColor.yellow
+              //  cell.isUserInteractionEnabled=false
+              //  cell.closeButton.isHidden=true
+            }
+        }
+
         cell.dateLabel.text=hourArray[indexPath.row]
+        
         return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return hourArray.count
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedHour=hourArray[indexPath.row]
-        performSegue(withIdentifier: "toRequestAppointment", sender: nil)
+        
+        if selectedDay == "" {
+            self.makeAlert(titleInput: "Hata", messageInput: "Lütfen tarih seçiniz.")
+        } else {
+            selectedHour=hourArray[indexPath.row]
+            performSegue(withIdentifier: "toRequestAppointment", sender: nil)
+        }
+
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedIndex=indexPath.row
         selectedDay=daysArray[indexPath.row]
+        getDatefromCalendar(day: selectedDay)
+        self.tableView.reloadData()
+        self.collectionView.reloadData()
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toRequestAppointment" {
@@ -150,10 +233,21 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "DateCollectionViewCell", for: indexPath) as! DateCollectionViewCell
         cell.datesLabel.text=daysArray[indexPath.row]
+        if selectedIndex==indexPath.row {
+            cell.backgroundColor=UIColor.brown
+        } else {
+            cell.backgroundColor=UIColor.white
+        }
         return cell
+
     }
 
+    func makeAlert(titleInput: String,messageInput: String){
+        let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)
+        let okButton=UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+        alert.addAction(okButton)
+        self.present(alert, animated: true, completion: nil)
+    }
 }

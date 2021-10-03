@@ -46,7 +46,7 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
                             self.backButton.isHidden=true
                             self.editButton.isHidden=true
                             self.navigationButton.isHidden=false
-                         //   self.featuresTableView.isUserInteractionEnabled=false
+                            //self.featuresTableView.isUserInteractionEnabled=false
                             self.firestoreDatabase.collection("Stadiums").whereField("Name", isEqualTo: self.equalName).getDocuments { (snapshot, error) in
                                 if error == nil {
                                     for document in snapshot!.documents{
@@ -145,6 +145,15 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
             }
             }
     }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if userTypeArray.contains(self.currentUser!.uid) {
+            return UITableViewCell.EditingStyle.none
+        } else {
+            return UITableViewCell.EditingStyle.delete
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return infoArray.count
     }

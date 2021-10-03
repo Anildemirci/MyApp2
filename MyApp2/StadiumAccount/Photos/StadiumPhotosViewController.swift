@@ -142,7 +142,14 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
             }
             }
     }
-
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if userTypeArray.contains(self.currentUser!.uid) {
+            return UITableViewCell.EditingStyle.none
+        } else {
+            return UITableViewCell.EditingStyle.delete
+        }
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return imageUrl.count

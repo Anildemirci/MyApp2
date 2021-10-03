@@ -16,10 +16,10 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         stadiumSignUpButton.setTitleColor(UIColor.white, for: .disabled)
-        stadiumSignUpButton.backgroundColor = .green
+        stadiumSignUpButton.backgroundColor = .systemGreen
         stadiumSignUpButton.layer.cornerRadius=20
         userSignUpButton.setTitleColor(UIColor.white, for: .disabled)
-        userSignUpButton.backgroundColor = .green
+        userSignUpButton.backgroundColor = .systemGreen
         userSignUpButton.layer.cornerRadius=20
         // Do any additional setup after loading the view.
     }

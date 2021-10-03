@@ -27,6 +27,8 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
     var redDates=[String]()
     var yellowHours=[String]()
     var yellowDates=[String]()
+    var preDay=""
+    var selectedIndex=Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +55,7 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
             let date = dateFormatter.string(from: currentDate! as Date)
             daysArray.append(date)
         }
-        getHourfromCalendar()
+       // getHourfromCalendar()
     }
     
     func getHourfromCalendar(){
@@ -71,6 +73,59 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
                 for document in snapshot!.documents {
                     if let yellowHour=document.get("Hour") {
                         self.yellowHours.append(yellowHour as! String)
+                    }
+                }
+            }
+        }
+    }
+    
+    func getDatefromCalendar(day: String){
+        
+        if preDay != day {
+            redDates.removeAll()
+            yellowDates.removeAll()
+            self.firestoreDatabase.collection("Calendar").document(nameStadium).collection(selectedName).whereField("AppointmentDate", isEqualTo: day).addSnapshotListener { (snapshot, error) in
+                if error == nil {
+                    for document in snapshot!.documents {
+                        if let status=document.get("Status") {
+                            if status as! String == "Onaylandı." {
+                                let redhours=document.get("Hour")
+                                if self.redDates.contains(redhours as! String) {
+                                } else {
+                                    self.redDates.append(redhours as! String)
+                                }
+                            }
+                            else if status as! String == "Onay bekliyor." {
+                                let yellowhours=document.get("Hour")
+                                if self.yellowDates.contains(yellowhours as! String) {
+                                } else {
+                                    self.yellowDates.append(yellowhours as! String)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            self.firestoreDatabase.collection("Calendar").document(nameStadium).collection(selectedName).whereField("AppointmentDate", isEqualTo: day).addSnapshotListener { (snapshot, error) in
+                if error == nil {
+                    for document in snapshot!.documents {
+                        if let status=document.get("Status") {
+                            if status as! String == "Onaylandı." {
+                                let redhours=document.get("Hour")
+                                if self.redDates.contains(redhours as! String) {
+                                } else {
+                                    self.redDates.append(redhours as! String)
+                                }
+                            }
+                            else if status as! String == "Onay bekliyor." {
+                                let yellowhours=document.get("Hour")
+                                if self.yellowDates.contains(yellowhours as! String) {
+                                } else {
+                                    self.yellowDates.append(yellowhours as! String)
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -105,49 +160,56 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         
         //kontrol et listeyi kaydırırken indexpath hataları geliyor
         cell.hourLabel.backgroundColor=UIColor.green
-        if redHours.count > 1 {
-            for i in 0...redHours.count-1 {
+        
+        if redDates.count > 1 {
+            for i in 0...redDates.count-1 {
                 
-                if hourArray[indexPath.row]==(redHours[i]) {
+                if hourArray[indexPath.row]==(redDates[i]) {
                     cell.hourLabel.backgroundColor=UIColor.red
-                    cell.isUserInteractionEnabled=false
-                    cell.closeButton.isHidden=true
+                    //cell.isUserInteractionEnabled=false
+                    //cell.closeButton.isHidden=true
 
                 }
             }
-        } else if redHours.count == 1 {
-            let redHour=redHours[0]
+        } else if redDates.count == 1 {
+            let redHour=redDates[0]
             if hourArray[indexPath.row]==(redHour) {
                 cell.hourLabel.backgroundColor=UIColor.red
-                cell.isUserInteractionEnabled=false
-                cell.closeButton.isHidden=true
+                //cell.isUserInteractionEnabled=false
+                //cell.closeButton.isHidden=true
+            }
+        }
+        if yellowDates.count > 1 {
+            for i in 0...yellowDates.count-1 {
+                
+                if hourArray[indexPath.row]==(yellowDates[i]) {
+                    cell.hourLabel.backgroundColor=UIColor.yellow
+                    //cell.isUserInteractionEnabled=false
+                    //cell.closeButton.isHidden=true
+
+                }
+            }
+        } else if yellowDates.count == 1 {
+            let yellowHour=yellowDates[0]
+            if hourArray[indexPath.row]==(yellowHour) {
+                cell.hourLabel.backgroundColor=UIColor.yellow
+                //cell.isUserInteractionEnabled=false
+                //cell.closeButton.isHidden=true
             }
         }
         
-        if yellowHours.count > 1 {
-            for i in 0...yellowHours.count-1 {
-                if hourArray[indexPath.row]==(yellowHours[i]) {
-                    cell.hourLabel.backgroundColor=UIColor.yellow
-                    cell.isUserInteractionEnabled=false
-                    cell.closeButton.isHidden=true
-                }
-            }
-        } else if yellowHours.count == 1 {
-            let yellowHour=yellowHours[0]
-            if hourArray[indexPath.row]==(yellowHour) {
-                cell.hourLabel.backgroundColor=UIColor.yellow
-                cell.isUserInteractionEnabled=false
-                cell.closeButton.isHidden=true
-            }
-        }
         cell.hourLabel.text=hourArray[indexPath.row]
+        
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedIndex=indexPath.row
         date=daysArray[indexPath.row]
-        print(date)
+        getDatefromCalendar(day: date)
+        self.tableview.reloadData()
+        self.collectionView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -158,6 +220,11 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "DatesCollectionViewCell", for: indexPath) as! DatesCollectionViewCell
         cell.datesLabel.text=daysArray[indexPath.row]
+        if selectedIndex==indexPath.row {
+            cell.backgroundColor=UIColor.brown
+        } else {
+            cell.backgroundColor=UIColor.white
+        }
         return cell
     }
     

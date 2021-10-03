@@ -61,12 +61,14 @@ class ConfirmAppointmentViewController: UIViewController {
     @IBAction func confirmClicked(_ sender: Any) {
         self.firestoreDatabase.collection("StadiumAppointments").document(name).collection(name).document(documentID).updateData(["Status":"Onaylandı."])
         self.firestoreDatabase.collection("UserAppointments").document(userID).collection(userID).document(documentID).updateData(["Status":"Onaylandı."])
+        self.firestoreDatabase.collection("Calendar").document(name).collection(name).document(documentID).updateData(["Status":"Onaylandı."])
         self.makeAlert(titleInput: "Başarılı", messageInput: "Randevu onaylanmıştır.")
     }
     
     @IBAction func rejectClicked(_ sender: Any) {
         self.firestoreDatabase.collection("StadiumAppointments").document(name).collection(name).document(documentID).updateData(["Status":"Reddedildi."])
         self.firestoreDatabase.collection("UserAppointments").document(userID).collection(userID).document(documentID).updateData(["Status":"Reddedildi."])
+        self.firestoreDatabase.collection("Calendar").document(name).collection(name).document(documentID).updateData(["Status":"Onaylandı."])
         self.makeAlert(titleInput: "Başarılı", messageInput: "Randevu reddedilmiştir.")
     }
     

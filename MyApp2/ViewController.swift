@@ -9,24 +9,21 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var MyAppLabel: UILabel!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
-    @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         loginButton.setTitleColor(UIColor.white, for: .disabled)
-        loginButton.backgroundColor = .blue
+        loginButton.backgroundColor = .systemBlue
         loginButton.layer.cornerRadius=20
         signUpButton.setTitleColor(UIColor.white, for: .disabled)
-        signUpButton.backgroundColor = .green
+        signUpButton.backgroundColor = .systemGreen
         signUpButton.layer.cornerRadius=20
-        MyAppLabel.layer.cornerRadius=20
-        imageView.isHidden=false
-        print("didload")
+        
     }
+    /*
     override func viewWillAppear(_ animated: Bool) {
         print("willappear")
       //  imageView.isHidden=false
@@ -41,7 +38,7 @@ class ViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         print("diddisappear")
     }
-    
+    */
     @IBAction func loginButtonClicked(_ sender: Any) {
     }
     @IBAction func signUpButtonClicked(_ sender: Any) {

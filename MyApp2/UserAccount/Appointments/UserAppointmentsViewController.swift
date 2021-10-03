@@ -16,12 +16,14 @@ class UserAppointmentsViewController: UIViewController,UITableViewDelegate,UITab
     var currentUser=Auth.auth().currentUser
     var appointmentsArray=[String]()
     var appointmentDate=""
+    var status=""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource=self
         tableView.delegate=self
         // Do any additional setup after loading the view.
-        firestoreDatabase.collection("UserAppointments").document(currentUser!.uid).collection(currentUser!.uid).addSnapshotListener { (snapshot, error) in
+        firestoreDatabase.collection("UserAppointments").document(currentUser!.uid).collection(currentUser!.uid).whereField("Status", isEqualTo: status).addSnapshotListener { (snapshot, error) in
             if error == nil {
                 for document in snapshot!.documents {
                     self.appointmentsArray.append(document.documentID)
