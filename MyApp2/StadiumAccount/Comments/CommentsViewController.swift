@@ -58,7 +58,7 @@ class CommentsViewController: UIViewController,UITableViewDelegate,UITableViewDa
                             if let username = document.get("FullName") as? String {
                                 self.userName.append(username)
                             }
-                            if let commentDate = document.get("Date") as? String {
+                            if let commentDate = document.get("CommentDate") as? String {
                                 self.date.append(commentDate)
                             }
                             if let scorePoint = document.get("Score") as? String {

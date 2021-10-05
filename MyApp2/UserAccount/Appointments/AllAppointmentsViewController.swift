@@ -11,7 +11,7 @@ import Firebase
 class AllAppointmentsViewController: UIViewController {
     
     var appointmentStatus=""
-    
+    var today=""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,10 +20,12 @@ class AllAppointmentsViewController: UIViewController {
     
     @IBAction func pastAppointments(_ sender: Any) {
         appointmentStatus="Onaylandı."
+        today="past"
         performSegue(withIdentifier: "toAppointments", sender: nil)
     }
     @IBAction func approvedAppointments(_ sender: Any) {
         appointmentStatus="Onaylandı."
+        today="next"
         performSegue(withIdentifier: "toAppointments", sender: nil)
     }
     @IBAction func pendingAppointments(_ sender: Any) {
@@ -35,6 +37,7 @@ class AllAppointmentsViewController: UIViewController {
         if segue.identifier=="toAppointments" {
             let destinationVC=segue.destination as! UserAppointmentsViewController
             destinationVC.status=appointmentStatus
+            destinationVC.today=today
             
         }
     }

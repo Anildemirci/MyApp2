@@ -220,11 +220,14 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "DatesCollectionViewCell", for: indexPath) as! DatesCollectionViewCell
         cell.datesLabel.text=daysArray[indexPath.row]
+       // let backgroundView=UIView()
+      //  backgroundView.backgroundColor=UIColor.orange
+       // cell.selectedBackgroundView=backgroundView
         if selectedIndex==indexPath.row {
             cell.backgroundColor=UIColor.brown
         } else {
             cell.backgroundColor=UIColor.white
-        }
+        } 
         return cell
     }
     
@@ -257,7 +260,6 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
             self.makeAlert(titleInput: "Hata", messageInput: "Tarih/saat seçiniz.")
         }
         
-
         }
     
     func makeAlert(titleInput: String,messageInput: String){

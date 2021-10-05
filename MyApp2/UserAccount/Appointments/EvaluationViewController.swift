@@ -20,6 +20,7 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var scoringPicker: UIPickerView!
+    @IBOutlet weak var cancelButton: UIButton!
     
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
@@ -27,6 +28,8 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var chosenPoint=""
     var points=["","5-Çok iyi","4-İyi","3-Orta","2-Kötü","1-Çok kötü"]
     var fullName=""
+    var currentTime=""
+    var daysArray=[String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +45,21 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
         }
         
+        for day in 0...13 {
+            let hourToAdd=3
+            let daysToAdd=0 + day
+            let UTCDate = getCurrentDate()
+            var dateComponent = DateComponents()
+            dateComponent.hour=hourToAdd
+            dateComponent.day = daysToAdd
+            let currentDate = Calendar.current.date(byAdding: dateComponent, to: UTCDate)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.dateFormat = "dd.MM.yyyy"
+            let date = dateFormatter.string(from: currentDate! as Date)
+            daysArray.append(date)
+        }
+        
         firestoreDatabase.collection("UserAppointments").document(currentUser!.uid).collection(currentUser!.uid).document(documentID).getDocument(source: .cache) { (snapshot, error) in
                     if let document = snapshot {
                         let fieldName=document.get("FieldName") as! String
@@ -55,13 +73,26 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
                         let status=document.get("Status") as! String
                         self.statusLabel.text=status
                         if self.statusLabel.text == "Onaylandı." {
-                            self.scoringPicker.isHidden=false
-                            self.commentText.isHidden=false
-                            self.sendButton.isHidden=false
-                            self.commentLabel.isHidden=false
+                            if self.daysArray.contains(date) {
+                                //yorum yapamazsın.
+                            } else {
+                                self.scoringPicker.isHidden=false
+                                self.commentText.isHidden=false
+                                self.sendButton.isHidden=false
+                                self.commentLabel.isHidden=false
+                                self.cancelButton.isHidden=true
+                            }
                         }
+                        self.getDataFromDatabase()
                     }
                 }
+        
+        let date=Date()
+        let formatter=DateFormatter()
+        formatter.dateFormat="dd-MM-yyyy HH:mm:ss"
+        formatter.timeZone=TimeZone(abbreviation: "UTC+3")
+        currentTime=formatter.string(from: date)
+        
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
         
@@ -70,6 +101,43 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
 @objc func hideKeyboard(){
     view.endEditing(true)
 }
+    func getCurrentDate()->Date {
+        var now=Date()
+        var nowComponents = DateComponents()
+        let calendar = Calendar.current
+        nowComponents.year = Calendar.current.component(.year, from: now)
+        nowComponents.month = Calendar.current.component(.month, from: now)
+        nowComponents.day = Calendar.current.component(.day, from: now)
+        nowComponents.hour = Calendar.current.component(.hour, from: now)
+        nowComponents.minute = Calendar.current.component(.minute, from: now)
+        nowComponents.second = Calendar.current.component(.second, from: now)
+        nowComponents.timeZone = NSTimeZone.local
+        now = calendar.date(from: nowComponents)!
+        return now
+        
+    }
+    
+    func getDataFromDatabase(){
+        firestoreDatabase.collection("Evaluation").document(stadiumName.text!).collection(stadiumName.text!).document(dateLabel.text!+"-"+hourLabel.text!).getDocument(source: .cache) { (snapshot, error) in
+                    if let document = snapshot {
+                        let comment=document.get("Comment") as! String
+                        if comment != "" {
+                            self.commentText.isHidden=true
+                            self.commentLabel.isHidden=true
+                            self.cancelButton.isHidden=true
+                            self.sendButton.isHidden=false
+                        }
+                        let score=document.get("Score") as! String
+                        if score != "" {
+                            self.scoringPicker.isHidden=true
+                            self.sendButton.isHidden=false
+                        }
+                        if score != "" && comment != "" {
+                            self.sendButton.isHidden=true
+                        }
+                    }
+                }
+    }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -96,8 +164,9 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
                            "Comment":commentText.text!,
                            "Score":chosenPoint,
                            "FullName":fullName,
-                           "CommentDate":FieldValue.serverTimestamp()] as [String:Any]
+                           "CommentDate":currentTime] as [String:Any]
         if chosenPoint != "" && commentText.text != "" {
+            //sadece yorum ya da oylama yaptırırsan güncelleme yaptır database'e.
             firestoreDatabase.collection("Evaluation").document(stadiumName.text!).collection(stadiumName.text!).document(dateLabel.text!+"-"+hourLabel.text!).setData(firestoreUser) {
                 error in
                 if error != nil {
@@ -112,6 +181,12 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
     }
     
+    @IBAction func cancelClicked(_ sender: Any) {
+        self.firestoreDatabase.collection("StadiumAppointments").document(stadiumName.text!).collection(stadiumName.text!).document(documentID).updateData(["Status":"İptal edildi."])
+        self.firestoreDatabase.collection("UserAppointments").document(currentUser!.uid).collection(currentUser!.uid).document(documentID).updateData(["Status":"İptal edildi."])
+        self.firestoreDatabase.collection("Calendar").document(stadiumName.text!).collection(fieldName.text!).document(dateLabel.text!+"-"+hourLabel.text!).updateData(["Status":"İptal edildi."])
+        self.makeAlert(titleInput: "Başarılı", messageInput: "Randevunuz iptal edilmiştir.")
+    }
     
     func makeAlert(titleInput: String,messageInput: String){
         let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)

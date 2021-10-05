@@ -13,7 +13,11 @@ class UserInformationViewController: UIViewController {
     @IBOutlet weak var phone: UILabel!
     @IBOutlet weak var city: UILabel!
     @IBOutlet weak var town: UILabel!
+    @IBOutlet weak var confirmedAppointments: UILabel!
+    @IBOutlet weak var canceledAppointments: UILabel!
     
+    var confirmedNumber=Int()
+    var canceledNumber=Int()
     var firedatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
     
@@ -26,18 +30,30 @@ class UserInformationViewController: UIViewController {
             if let document = document {
                 let name=document.get("Name") as! String
                 let surname=document.get("Surname") as! String
-                self.userFullname.text=name+" "+surname
+                self.userFullname.text="Ad Soyad: \(name) \(surname)"
                 let mobilePhone=document.get("Phone") as! String
-                self.phone.text=mobilePhone
+                self.phone.text="Telefon: \(mobilePhone)"
                 let userCity=document.get("City") as! String
-                self.city.text=userCity
+                self.city.text="Şehir: \(userCity)"
                 let userTown=document.get("Town") as! String
-                self.town.text=userTown
+                self.town.text="İlçe: \(userTown)"
                 
-                //bugüne kadar aldığı maç sayısı ekleyebilirsin.
+                
             }
         }
+        firedatabase.collection("UserAppointments").document(currentUser!.uid).collection(currentUser!.uid).whereField("Status", isEqualTo:"İptal edildi.").addSnapshotListener { (snapshot, error) in
+            if error == nil {
+                self.canceledNumber=snapshot!.count
+                self.canceledAppointments.text=("İptal ettiğin randevu sayısı: \(self.canceledNumber)")
+            }
     }
-    
-
+        firedatabase.collection("UserAppointments").document(currentUser!.uid).collection(currentUser!.uid).whereField("Status", isEqualTo:"Onaylandı.").addSnapshotListener { (snapshot, error) in
+            if error == nil {
+                self.confirmedNumber=snapshot!.count
+                self.confirmedAppointments.text=("Aldığın randevu sayısı: \(self.confirmedNumber)")
+            }
+    }
+        
+        
+}
 }

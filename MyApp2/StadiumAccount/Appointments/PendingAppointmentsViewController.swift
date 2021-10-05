@@ -17,23 +17,60 @@ class PendingAppointmentsViewController: UIViewController,UITableViewDelegate,UI
     var stadiumName=""
     var appointmentsArray=[String]()
     var chosenAppointment=""
+    var currentTime=""
+    var daysArray=[String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource=self
         tableView.delegate=self
         // Do any additional setup after loading the view.
+        
+        for day in 0...13 {
+            let hourToAdd=3
+            let daysToAdd=0 + day
+            let UTCDate = getCurrentDate()
+            var dateComponent = DateComponents()
+            dateComponent.hour=hourToAdd
+            dateComponent.day = daysToAdd
+            let currentDate = Calendar.current.date(byAdding: dateComponent, to: UTCDate)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.dateFormat = "dd.MM.yyyy"
+            let date = dateFormatter.string(from: currentDate! as Date)
+            daysArray.append(date)
+        }
+        
         firestoreDatabase.collection("StadiumAppointments").document(stadiumName).collection(stadiumName).whereField("Status", isEqualTo: "Onay bekliyor.").addSnapshotListener { (snapshot, error) in
             if error == nil {
                 for document in snapshot!.documents {
-                    self.appointmentsArray.append(document.documentID)
+                    let date=document.get("AppointmentDate") as! String
+                    if self.daysArray.contains(date) {
+                        self.appointmentsArray.append(document.documentID)
+                    }
                 }
                 if self.appointmentsArray.count == 0 {
                     self.tableView.isUserInteractionEnabled=false
                 }
-                self.tableView.reloadData()
+                //self.tableView.reloadData() life cycle'da incele
             }
         }
+        
+    }
+    
+    func getCurrentDate()->Date {
+        var now=Date()
+        var nowComponents = DateComponents()
+        let calendar = Calendar.current
+        nowComponents.year = Calendar.current.component(.year, from: now)
+        nowComponents.month = Calendar.current.component(.month, from: now)
+        nowComponents.day = Calendar.current.component(.day, from: now)
+        nowComponents.hour = Calendar.current.component(.hour, from: now)
+        nowComponents.minute = Calendar.current.component(.minute, from: now)
+        nowComponents.second = Calendar.current.component(.second, from: now)
+        nowComponents.timeZone = NSTimeZone.local
+        now = calendar.date(from: nowComponents)!
+        return now
         
     }
     

@@ -21,12 +21,17 @@ class ConfirmAppointmentViewController: UIViewController {
     @IBOutlet weak var downPaymentLabel: UILabel!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var rejectButton: UIButton!
+    @IBOutlet weak var confirmNumberLabel: UILabel!
+    @IBOutlet weak var cancelNumberLabel: UILabel!
     
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
     var documentID=""
     var name=""
     var userID=""
+    var cancelNumber=Int()
+    var confirmNumber=Int()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         confirmButton.setTitleColor(UIColor.white, for: .disabled)
@@ -39,36 +44,61 @@ class ConfirmAppointmentViewController: UIViewController {
         firestoreDatabase.collection("StadiumAppointments").document(name).collection(name).document(documentID).getDocument(source: .cache) { (snapshot, error) in
                     if let document = snapshot {
                         let fieldName=document.get("FieldName") as! String
-                        self.fieldNameLabel.text=fieldName
+                        self.fieldNameLabel.text=("Saha Adı: \(fieldName)")
                         let date=document.get("AppointmentDate") as! String
-                        self.dateLabel.text=date
+                        self.dateLabel.text=("Tarih: \(date)")
                         let hour=document.get("Hour") as! String
-                        self.hourLabel.text=hour
+                        self.hourLabel.text=("Saat: \(hour)")
                         let price=document.get("Price") as! String
-                        self.priceLabel.text=price
+                        self.priceLabel.text=("Fiyat: \(price)")
                         let note=document.get("Note") as! String
-                        self.noteLabel.text=note
+                        self.noteLabel.text=("Not: \(note)")
                         let userName=document.get("UserFullName") as! String
-                        self.userFullNameLabel.text=userName
+                        self.userFullNameLabel.text=("Adı: \(userName)")
                         let userPhone=document.get("UserPhone") as! String
-                        self.userPhoneLabel.text=userPhone
-                        let userId=document.get("User") as! String
-                        self.userID=userId
+                        self.userPhoneLabel.text=("Telefon: \(userPhone)")
                     }
                 }
+        firestoreDatabase.collection("StadiumAppointments").document(name).collection(name).addSnapshotListener { (snapshot, error) in
+            if error == nil {
+                for document in snapshot!.documents {
+                    if document.documentID == self.documentID {
+                        let userId=document.get("User") as! String
+                        self.userID=userId
+                        
+                    }
+                }
+            }
+            self.getFromData()
+        }
+    }
+    
+    func getFromData(){
+        firestoreDatabase.collection("UserAppointments").document(userID).collection(userID).whereField("Status", isEqualTo:"İptal edildi.").addSnapshotListener { (snapshot, error) in
+            if error == nil {
+                self.cancelNumber=snapshot!.count
+                self.cancelNumberLabel.text!=("İptal ettiği randevu sayısı: \(self.cancelNumber)")
+            }
+    }
+        firestoreDatabase.collection("UserAppointments").document(currentUser!.uid).collection(currentUser!.uid).whereField("Status", isEqualTo:"Onaylandı.").addSnapshotListener { (snapshot, error) in
+            if error == nil {
+                self.confirmNumber=snapshot!.count
+                self.confirmNumberLabel.text!=("Tamamladığı randevu sayısı: \(self.confirmNumber)")
+            }
+    }
     }
     
     @IBAction func confirmClicked(_ sender: Any) {
         self.firestoreDatabase.collection("StadiumAppointments").document(name).collection(name).document(documentID).updateData(["Status":"Onaylandı."])
         self.firestoreDatabase.collection("UserAppointments").document(userID).collection(userID).document(documentID).updateData(["Status":"Onaylandı."])
-        self.firestoreDatabase.collection("Calendar").document(name).collection(name).document(documentID).updateData(["Status":"Onaylandı."])
+        self.firestoreDatabase.collection("Calendar").document(name).collection(fieldNameLabel.text!).document(dateLabel.text!+"-"+hourLabel.text!).updateData(["Status":"Onaylandı."])
         self.makeAlert(titleInput: "Başarılı", messageInput: "Randevu onaylanmıştır.")
     }
     
     @IBAction func rejectClicked(_ sender: Any) {
         self.firestoreDatabase.collection("StadiumAppointments").document(name).collection(name).document(documentID).updateData(["Status":"Reddedildi."])
         self.firestoreDatabase.collection("UserAppointments").document(userID).collection(userID).document(documentID).updateData(["Status":"Reddedildi."])
-        self.firestoreDatabase.collection("Calendar").document(name).collection(name).document(documentID).updateData(["Status":"Onaylandı."])
+        self.firestoreDatabase.collection("Calendar").document(name).collection(fieldNameLabel.text!).document(dateLabel.text!+"-"+hourLabel.text!).updateData(["Status":"Reddedildi."])
         self.makeAlert(titleInput: "Başarılı", messageInput: "Randevu reddedilmiştir.")
     }
     
