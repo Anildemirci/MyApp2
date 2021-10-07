@@ -23,27 +23,10 @@ class ViewController: UIViewController {
         signUpButton.layer.cornerRadius=20
         
     }
-    /*
-    override func viewWillAppear(_ animated: Bool) {
-        print("willappear")
-      //  imageView.isHidden=false
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        print("willdisappear")
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        print("didappear")
-        imageView.isHidden=true
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        print("diddisappear")
-    }
-    */
     @IBAction func loginButtonClicked(_ sender: Any) {
     }
     @IBAction func signUpButtonClicked(_ sender: Any) {
     }
     
-
+    
 }
-

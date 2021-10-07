@@ -25,7 +25,7 @@ class FindStadiumViewController: UIViewController,UITableViewDelegate,UITableVie
     
      func getDataFromFirestore(){
         let firestoreDatabase=Firestore.firestore()
-        firestoreDatabase.collection("Stadiums").addSnapshotListener { (snapshot, error) in
+         firestoreDatabase.collection("Stadiums").order(by: "Town",descending: false) .addSnapshotListener { (snapshot, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "Error")
             } else {
@@ -34,7 +34,7 @@ class FindStadiumViewController: UIViewController,UITableViewDelegate,UITableVie
                         
                         if let Town = document.get("Town") as? String {
                             if self.nameArray.contains(Town) {
-                                print("Zaten içeriyor")
+                                //zaten içeriyor.
                             } else {
                                 self.nameArray.append(Town)
                             }

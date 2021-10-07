@@ -13,6 +13,7 @@ import Firebase
 
 class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate {
 
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var villageText: UITextField!
     @IBOutlet weak var streetText: UITextField!
     @IBOutlet weak var townText: UITextField!
@@ -33,7 +34,7 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
     var nameStadium=""
     var town=""
     var city=""
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +66,9 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDisappear), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
         let hideKeyboard=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(hideKeyboard)
         
@@ -73,9 +77,26 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
         mapKit.addGestureRecognizer(gestureRecognizer)
     }
     
+    
+    var isExpand:Bool=false
+    @objc func keyboardAppear(){
+        if isExpand {
+            self.scrollView.contentSize=CGSize(width: self.view.frame.width, height: self.scrollView.frame.height+300)
+        }
+    }
+    
+    @objc func keyboardDisappear(){
+        if isExpand{
+            self.scrollView.contentSize=CGSize(width: self.view.frame.height, height: self.scrollView.frame.height+300)
+            isExpand=true
+        }
+    }
+    
     @objc func hideKeyboard(){
         view.endEditing(true)
     }
+    
+    
     @objc func chooseLocation(gestureRecognizer:UILongPressGestureRecognizer){
         if gestureRecognizer.state == .began {
             let touchedPoint=gestureRecognizer.location(in: self.mapKit)

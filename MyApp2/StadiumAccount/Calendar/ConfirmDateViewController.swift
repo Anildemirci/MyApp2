@@ -220,9 +220,6 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "DatesCollectionViewCell", for: indexPath) as! DatesCollectionViewCell
         cell.datesLabel.text=daysArray[indexPath.row]
-       // let backgroundView=UIView()
-      //  backgroundView.backgroundColor=UIColor.orange
-       // cell.selectedBackgroundView=backgroundView
         if selectedIndex==indexPath.row {
             cell.backgroundColor=UIColor.brown
         } else {
@@ -231,9 +228,6 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         return cell
     }
     
-    @IBAction func editClicked(_ sender: Any) {
-        
-    }
     @IBAction func closeClicked(_ sender: Any) {
         
         if date != "" && hour != "" {
@@ -261,6 +255,18 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         }
         
         }
+    @IBAction func editClicked(_ sender: Any) {
+        performSegue(withIdentifier: "toEditFromField", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "toEditFromField" {
+            let destinationVC=segue.destination as! DateEditViewController
+            destinationVC.chosenField=selectedName
+            destinationVC.chosenStadium=nameStadium
+        }
+    }
     
     func makeAlert(titleInput: String,messageInput: String){
         let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)

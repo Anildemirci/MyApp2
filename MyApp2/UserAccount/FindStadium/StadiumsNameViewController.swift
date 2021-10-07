@@ -24,7 +24,7 @@ class StadiumsNameViewController: UIViewController,UITableViewDelegate,UITableVi
  
     func getDataFromFirestore(){
        let firestoreDatabase=Firestore.firestore()
-       firestoreDatabase.collection("Stadiums").addSnapshotListener { (snapshot, error) in
+        firestoreDatabase.collection("Stadiums").order(by: "Name",descending: false).addSnapshotListener { (snapshot, error) in
            if error != nil {
                print(error?.localizedDescription ?? "Error")
            } else {

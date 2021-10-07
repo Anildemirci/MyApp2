@@ -46,7 +46,7 @@ class CommentsViewController: UIViewController,UITableViewDelegate,UITableViewDa
             }
         }
         
-            firestoreDatabase.collection("Evaluation").document(name).collection(name).addSnapshotListener { (snapshot, error) in
+        firestoreDatabase.collection("Evaluation").document(name).collection(name).order(by: "CommentDate",descending: true).addSnapshotListener { (snapshot, error) in
                 if error != nil {
                     self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
                 } else {

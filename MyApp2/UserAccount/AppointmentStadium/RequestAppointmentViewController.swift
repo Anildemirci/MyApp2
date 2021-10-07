@@ -53,7 +53,7 @@ class RequestAppointmentViewController: UIViewController {
         view.endEditing(true)
     }
     
-    @IBAction func confirmClicked(_ sender: Any) {
+    func confirmFunc(){
         let firestoreDatabase=Firestore.firestore()
         let firestoreUser=["User":Auth.auth().currentUser!.uid,
                            "Email":Auth.auth().currentUser?.email,
@@ -123,14 +123,34 @@ class RequestAppointmentViewController: UIViewController {
             error in
             if error != nil {
                 self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
-            } 
+            }
         }
     }
     
+    @IBAction func confirmClicked(_ sender: Any) {
+        confirmAlert(titleInput: "Onaylama", messageInput: "Randevu talebiniz gönderilsin mi?")
+    }
     
-    func makeAlert(titleInput:String,messageInput:String){
+    
+    func confirmAlert(titleInput: String,messageInput: String) {
+           let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.actionSheet)
+        
+        let yesButton=UIAlertAction(title: "Evet", style: UIAlertAction.Style.default, handler: {(action) -> Void in
+            self.confirmFunc()
+        })
+        let noButton=UIAlertAction(title: "Hayır", style: UIAlertAction.Style.default, handler: nil)
+           
+           alert.addAction(yesButton)
+           alert.addAction(noButton)
+           self.present(alert, animated: true, completion: nil)
+       }
+    
+    
+    func makeAlert(titleInput: String,messageInput: String){
         let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)
-        let okButton=UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+        let okButton=UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) -> Void in
+            self.performSegue(withIdentifier: "toUserProfileFromConfirm", sender: nil)
+        })
         alert.addAction(okButton)
         self.present(alert, animated: true, completion: nil)
     }

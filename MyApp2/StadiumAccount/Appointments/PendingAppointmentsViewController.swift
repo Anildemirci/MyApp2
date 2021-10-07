@@ -41,21 +41,25 @@ class PendingAppointmentsViewController: UIViewController,UITableViewDelegate,UI
             daysArray.append(date)
         }
         
+        getFromDatabase()
+    }
+    
+    func getFromDatabase(){
         firestoreDatabase.collection("StadiumAppointments").document(stadiumName).collection(stadiumName).whereField("Status", isEqualTo: "Onay bekliyor.").addSnapshotListener { (snapshot, error) in
             if error == nil {
                 for document in snapshot!.documents {
                     let date=document.get("AppointmentDate") as! String
                     if self.daysArray.contains(date) {
                         self.appointmentsArray.append(document.documentID)
+                        print(self.appointmentsArray)
                     }
                 }
                 if self.appointmentsArray.count == 0 {
                     self.tableView.isUserInteractionEnabled=false
                 }
-                //self.tableView.reloadData() life cycle'da incele
+                self.tableView.reloadData()
             }
         }
-        
     }
     
     func getCurrentDate()->Date {
@@ -91,6 +95,7 @@ class PendingAppointmentsViewController: UIViewController,UITableViewDelegate,UI
             cell.appointmentLabel.text=appointmentsArray[indexPath.row]
             return cell
         }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

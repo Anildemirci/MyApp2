@@ -63,7 +63,7 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
     }
     
     func getDataFromStadium(){
-        firestoreDatabase.collection("StadiumPhotos").document(currentUser!.uid).collection("Photos").addSnapshotListener { (snapshot, error) in
+        firestoreDatabase.collection("StadiumPhotos").document(currentUser!.uid).collection("Photos").order(by: "Date",descending: true).addSnapshotListener { (snapshot, error) in
                   if error != nil{
                       self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
                   } else {

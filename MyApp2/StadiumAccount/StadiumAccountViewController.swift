@@ -58,6 +58,8 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
         getPhoto()
         
     }
+    
+    
     @objc func choosePicture(){
         let picker=UIImagePickerController()
         picker.delegate=self

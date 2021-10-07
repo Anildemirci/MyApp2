@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0409502626BFD5CF00E572CF /* DateEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0409502526BFD5CF00E572CF /* DateEditViewController.swift */; };
+		04303157270EAC160054C12B /* FieldInformationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04303156270EAC150054C12B /* FieldInformationsViewController.swift */; };
 		04389296269684CF00A43B26 /* CommentsCellViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04389295269684CF00A43B26 /* CommentsCellViewCell.swift */; };
 		043B5D58268189D20085A68A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B5D57268189D20085A68A /* AppDelegate.swift */; };
 		043B5D5A268189D20085A68A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B5D59268189D20085A68A /* SceneDelegate.swift */; };
@@ -67,6 +68,7 @@
 
 /* Begin PBXFileReference section */
 		0409502526BFD5CF00E572CF /* DateEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEditViewController.swift; sourceTree = "<group>"; };
+		04303156270EAC150054C12B /* FieldInformationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldInformationsViewController.swift; sourceTree = "<group>"; };
 		04389295269684CF00A43B26 /* CommentsCellViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsCellViewCell.swift; sourceTree = "<group>"; };
 		043B5D54268189D20085A68A /* MyApp2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyApp2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		043B5D57268189D20085A68A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				048955C426B8DD46009B2B6A /* DateViewController.swift */,
 				048E056E26C366FD00591E14 /* DateCollectionViewCell.swift */,
 				048955D426B8F5BF009B2B6A /* DateTableViewCell.swift */,
+				04303156270EAC150054C12B /* FieldInformationsViewController.swift */,
 			);
 			path = AppointmentStadium;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 				044357D626918B6700BD7659 /* SelectedStadiumViewController.swift in Sources */,
 				048CB3242696A7B200BC3CC0 /* WorkingHoursCell.swift in Sources */,
 				048955BD26B8CD4C009B2B6A /* AppoitmentViewController.swift in Sources */,
+				04303157270EAC160054C12B /* FieldInformationsViewController.swift in Sources */,
 				047F05A62681A72500F6853E /* UserInfoViewController.swift in Sources */,
 				045FB4D82693B7B900C063C9 /* StadiumPhotosViewController.swift in Sources */,
 				04B3F66226D44C9900690C69 /* PendingAppointmentsViewController.swift in Sources */,
@@ -674,7 +678,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.anildemirci.MyApp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -695,7 +699,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.anildemirci.MyApp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
