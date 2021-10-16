@@ -22,9 +22,12 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
     var chosenPhoto=""
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
+    var storage=Storage.storage()
     var userTypeArray=[String]()
     var stadiumTypeArray=[String]()
     var ID=""
+    var delStorage=""
+    var storageId=[String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +75,9 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
                       self.imageUrl.removeAll(keepingCapacity: false)
                       
                           for document in snapshot!.documents{
+                              if let storagee=document.get("StorageID") as? String {
+                                  self.storageId.append(storagee)
+                              }
                               if let photoComment=document.get("Statement") as? String {
                                   self.photoStatement.append(photoComment)
                                   
@@ -110,6 +116,7 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
         
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             let firestoreDatabase=Firestore.firestore()
+            delStorage=storageId[indexPath.row]
             firestoreDatabase.collection("Stadiums").addSnapshotListener { [self] (snapshot, error) in
                 if error == nil {
                     for document in snapshot!.documents
@@ -127,7 +134,13 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
                                         let delDocID=document.documentID
                                         firestoreDatabase.collection("StadiumPhotos").document(currentUser!.uid).collection("Photos").document(delDocID).delete(){ error in
                                             if error == nil {
-                                                self.makeAlert(titleInput: "Başarılı", messageInput: "Fotoğraf silindi.")
+                                                storage.reference().child("StadiumPhotos").child(currentUser!.uid).child("\(delStorage).jpg").delete { error in
+                                                    if error != nil {
+                                                        self.makeAlert(titleInput: "Hata", messageInput: error?.localizedDescription ?? "Bilinmeyen hata.")
+                                                    } else {
+                                                        self.makeAlert(titleInput: "Başarılı", messageInput: "Fotoğraf silindi.")
+                                                    }
+                                                }
                                             }else {
                                                 self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
                                             }
@@ -158,7 +171,6 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
         let cell=tableView.dequeueReusableCell(withIdentifier: "stadiumPhotosCell", for: indexPath) as! StadiumPhotosViewCell
         cell.commentLabel.text=photoStatement[indexPath.row]
         cell.stadiumPhotosView.sd_setImage(with: URL(string: imageUrl[indexPath.row]))
-        
         return cell
     }
     
@@ -215,16 +227,5 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
         alert.addAction(okButton)
         self.present(alert, animated: true, completion: nil)
     }
-    
- /*   func confirmAlert(titleInput: String,messageInput: String) {
-        let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.actionSheet)
-        let deleteButton=UIAlertAction(title: "Sil", style: UIAlertAction.Style.destructive, handler: nil)
-        let cancelButton=UIAlertAction(title: "İptal", style: UIAlertAction.Style.cancel, handler: nil)
-        
-        alert.addAction(deleteButton)
-        alert.addAction(cancelButton)
-        self.present(alert, animated: true, completion: nil)
-        
-        seçenek sunmak için
-    } */
+
 }

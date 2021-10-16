@@ -17,9 +17,18 @@ class UserSignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        signUpButton.setTitleColor(UIColor.white, for: .disabled)
-        signUpButton.backgroundColor = .green
-        signUpButton.layer.cornerRadius=20
+        signUpButton.setTitleColor(UIColor.white, for: .normal)
+        signUpButton.backgroundColor = .systemGreen
+        signUpButton.layer.cornerRadius=25
+        emailText.layer.cornerRadius=25
+        emailText.layer.borderWidth = 1
+        emailText.layer.borderColor=UIColor.systemBlue.cgColor
+        passwordText.layer.cornerRadius=25
+        passwordText.layer.borderWidth=1
+        passwordText.layer.borderColor=UIColor.systemBlue.cgColor
+        password2Text.layer.cornerRadius=25
+        password2Text.layer.borderWidth=1
+        password2Text.layer.borderColor=UIColor.systemBlue.cgColor
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
         
@@ -35,13 +44,32 @@ class UserSignUpViewController: UIViewController {
     
     @IBAction func signUpButtonClicked(_ sender: Any) {
         
+        
         if emailText.text != "" && passwordText.text != "" && password2Text.text != "" {
             if passwordText.text == password2Text.text {
                 Auth.auth().createUser(withEmail: emailText.text!, password: passwordText.text!) { (authdata, error) in
                     if error != nil {
                         self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
                     } else {
-                        self.performSegue(withIdentifier: "toUserInfoVC", sender: nil)
+                        let firestoreDatabase=Firestore.firestore()
+                        let firestoreUser=["User":Auth.auth().currentUser!.uid,
+                                           "Email":Auth.auth().currentUser?.email,
+                                           "Name":"",
+                                           "Surname":"",
+                                           "DateofBirth":"",
+                                           "City":"",
+                                           "Town":"",
+                                           "Phone":"",
+                                           "Type":"User",
+                                           "Date":FieldValue.serverTimestamp()] as [String:Any]
+                        firestoreDatabase.collection("Users").document(Auth.auth().currentUser!.uid).setData(firestoreUser) {
+                            error in
+                            if error != nil {
+                                self.makeAlert(titleInput: "Error!", messageInput: error?.localizedDescription ?? "Error")
+                            } else {
+                                self.performSegue(withIdentifier: "toUserInfoVC", sender: nil)
+                            }
+                        }
                     }
                 }
             } else {

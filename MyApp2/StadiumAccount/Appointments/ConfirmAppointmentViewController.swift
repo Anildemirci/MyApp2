@@ -37,13 +37,34 @@ class ConfirmAppointmentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        confirmButton.setTitleColor(UIColor.white, for: .disabled)
+        confirmButton.setTitleColor(UIColor.white, for: .normal)
         confirmButton.backgroundColor = .green
-        confirmButton.layer.cornerRadius=20
-        rejectButton.setTitleColor(UIColor.white, for: .disabled)
+        confirmButton.layer.cornerRadius=30
+        rejectButton.setTitleColor(UIColor.white, for: .normal)
         rejectButton.backgroundColor = .red
-        rejectButton.layer.cornerRadius=20
+        rejectButton.layer.cornerRadius=30
+        fieldNameLabel.layer.borderWidth=1
+        fieldNameLabel.layer.borderColor=UIColor.black.cgColor
+        dateLabel.layer.borderWidth=1
+        dateLabel.layer.borderColor=UIColor.black.cgColor
+        hourLabel.layer.borderWidth=1
+        hourLabel.layer.borderColor=UIColor.black.cgColor
+        priceLabel.layer.borderWidth=1
+        priceLabel.layer.borderColor=UIColor.black.cgColor
+        noteLabel.layer.borderWidth=1
+        noteLabel.layer.borderColor=UIColor.black.cgColor
+        userFullNameLabel.layer.borderWidth=1
+        userFullNameLabel.layer.borderColor=UIColor.black.cgColor
+        userPhoneLabel.layer.borderWidth=1
+        userPhoneLabel.layer.borderColor=UIColor.black.cgColor
+        downPaymentLabel.layer.borderWidth=1
+        downPaymentLabel.layer.borderColor=UIColor.black.cgColor
+        confirmNumberLabel.layer.borderWidth=1
+        confirmNumberLabel.layer.borderColor=UIColor.black.cgColor
+        cancelNumberLabel.layer.borderWidth=1
+        cancelNumberLabel.layer.borderColor=UIColor.black.cgColor
         // Do any additional setup after loading the view.
+
         
         firestoreDatabase.collection("StadiumAppointments").document(name).collection(name).document(documentID).getDocument(source: .cache) { (snapshot, error) in
                     if let document = snapshot {
@@ -87,7 +108,7 @@ class ConfirmAppointmentViewController: UIViewController {
                 self.cancelNumberLabel.text!=("İptal ettiği randevu sayısı: \(self.cancelNumber)")
             }
     }
-        firestoreDatabase.collection("UserAppointments").document(currentUser!.uid).collection(currentUser!.uid).whereField("Status", isEqualTo:"Onaylandı.").addSnapshotListener { (snapshot, error) in
+        firestoreDatabase.collection("UserAppointments").document(userID).collection(userID).whereField("Status", isEqualTo:"Onaylandı.").addSnapshotListener { (snapshot, error) in
             if error == nil {
                 self.confirmNumber=snapshot!.count
                 self.confirmNumberLabel.text!=("Tamamladığı randevu sayısı: \(self.confirmNumber)")
@@ -143,7 +164,7 @@ class ConfirmAppointmentViewController: UIViewController {
     func makeAlert(titleInput: String,messageInput: String){
         let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)
         let okButton=UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) -> Void in
-            self.performSegue(withIdentifier: "toStadiumProfilefromConfirm", sender: nil)
+            self.performSegue(withIdentifier: "toStadiumProfileFromConfirm", sender: nil)
         })
         alert.addAction(okButton)
         self.present(alert, animated: true, completion: nil)

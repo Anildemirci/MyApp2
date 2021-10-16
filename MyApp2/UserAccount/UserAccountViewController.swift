@@ -14,20 +14,39 @@ class UserAccountViewController: UIViewController,UIImagePickerControllerDelegat
 
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var trashButton: UIButton!
+    @IBOutlet weak var myTeamButton: UIButton!
+    @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet weak var appointmentsButton: UIButton!
     
     var firedatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
+    var storage=Storage.storage()
     var userName=""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-      //  profileImageView.contentMode=UIView.ContentMode.scaleAspectFill
-      //  profileImageView.layer.masksToBounds=false
-        profileImageView.layer.borderWidth = 2.0
-        profileImageView.layer.borderColor = UIColor.white.cgColor
-        profileImageView.layer.cornerRadius = (profileImageView.frame.size.width)/2
+        profileImageView.layer.masksToBounds=false
+        profileImageView.layer.cornerRadius = profileImageView.frame.width/2
         profileImageView.clipsToBounds = true
+        profileImageView.layer.borderWidth=2.0
+        profileImageView.layer.borderColor=UIColor.black.cgColor
+        myTeamButton.layer.borderWidth = 3
+        myTeamButton.layer.borderColor=UIColor.black.cgColor
+        myTeamButton.backgroundColor=UIColor.systemRed
+        infoButton.layer.borderWidth = 3
+        infoButton.layer.borderColor=UIColor.black.cgColor
+        infoButton.backgroundColor=UIColor.systemRed
+        appointmentsButton.layer.borderWidth = 3
+        appointmentsButton.layer.borderColor=UIColor.black.cgColor
+        appointmentsButton.backgroundColor=UIColor.systemRed
+        
+        let navBar=UINavigationBar(frame: CGRect(x: 0, y: 0, width: Int(view.frame.size.width), height: 50))
+        view.addSubview(navBar)
+        let navItem=UINavigationItem(title: "Hesabım")
+        //let doneItem=UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(backButton))
+        //navItem.leftBarButtonItem=doneItem
+        navBar.setItems([navItem], animated: false)
         
         trashButton.titleLabel?.text=""
         profileImageView.isUserInteractionEnabled=true
@@ -94,7 +113,6 @@ class UserAccountViewController: UIViewController,UIImagePickerControllerDelegat
         profileImageView.image=info[.originalImage] as? UIImage
         self.dismiss(animated: true, completion: nil)
         
-        let storage=Storage.storage()
         let storageReference=storage.reference()
         let mediaFolder=storageReference.child("UserProfile")
         if let data=profileImageView.image?.jpegData(compressionQuality: 0.5) {
@@ -121,14 +139,6 @@ class UserAccountViewController: UIViewController,UIImagePickerControllerDelegat
                                         self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
                                     }
                                 }
-                            self.firedatabase.collection("UserProfilePhoto").whereField("User", isEqualTo: self.currentUser?.email).getDocuments { (snapshot, error) in
-                                if error == nil {
-                                    for document in snapshot!.documents{
-                                        let documentId=document.documentID
-                                        self.firedatabase.collection("UserProfilePhoto").document(documentId).updateData(["imageUrl": imageUrl])
-                                    }
-                                }
-                            }
                         }
                     }
                 }
@@ -137,12 +147,20 @@ class UserAccountViewController: UIViewController,UIImagePickerControllerDelegat
     }
     
     @IBAction func trashClicked(_ sender: Any) {
-        firedatabase.collection("UserProfilePhoto").document(currentUser!.uid).updateData(["imageUrl":FieldValue.delete(),]) {
-            error in
+        firedatabase.collection("UserProfilePhoto").document(currentUser!.uid).delete { error in
             if error != nil {
                 self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
             } else {
-                self.makeAlert(titleInput: "Başarılı", messageInput: "Profil fotoğrafınız silindi.")
+                let storageRef=self.storage.reference()
+                let uuid=self.currentUser!.uid
+                let deleteRef=storageRef.child("UserProfile").child("\(uuid).jpg")
+                deleteRef.delete { error in
+                    if error != nil {
+                        self.makeAlert(titleInput: "Hata", messageInput: error?.localizedDescription ?? "Fotoğraf silinemedi.")
+                    } else {
+                        self.makeAlert(titleInput: "Başarılı", messageInput: "Profil fotoğrafınız silindi.")
+                    }
+                }
             }
         }
     }

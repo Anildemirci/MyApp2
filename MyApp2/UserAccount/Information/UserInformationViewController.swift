@@ -23,6 +23,19 @@ class UserInformationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        userFullname.layer.borderWidth=1
+        userFullname.layer.borderColor=UIColor.black.cgColor
+        phone.layer.borderWidth=1
+        phone.layer.borderColor=UIColor.black.cgColor
+        city.layer.borderWidth=1
+        city.layer.borderColor=UIColor.black.cgColor
+        town.layer.borderWidth=1
+        town.layer.borderColor=UIColor.black.cgColor
+        confirmedAppointments.layer.borderWidth=1
+        confirmedAppointments.layer.borderColor=UIColor.black.cgColor
+        canceledAppointments.layer.borderWidth=1
+        canceledAppointments.layer.borderColor=UIColor.black.cgColor
 
         // Do any additional setup after loading the view.
         let docref=firedatabase.collection("Users").document(currentUser!.uid)

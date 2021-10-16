@@ -164,39 +164,32 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 
                 if hourArray[indexPath.row]==(redDates[i]) {
                     cell.dateLabel.backgroundColor=UIColor.red
-                 //   cell.isUserInteractionEnabled=false
-                 //   cell.closeButton.isHidden=true
-
+                    cell.isUserInteractionEnabled=false
                 }
             }
         } else if redDates.count == 1 {
             let redHour=redDates[0]
             if hourArray[indexPath.row]==(redHour) {
                 cell.dateLabel.backgroundColor=UIColor.red
-              //  cell.isUserInteractionEnabled=false
-              //  cell.closeButton.isHidden=true
+                cell.isUserInteractionEnabled=false
             }
         }
-        //kırmızılar gibi yap
+        
         if yellowDates.count > 1 {
             for i in 0...yellowDates.count-1 {
                 
                 if hourArray[indexPath.row]==(yellowDates[i]) {
                     cell.dateLabel.backgroundColor=UIColor.yellow
-                 //   cell.isUserInteractionEnabled=false
-                 //   cell.closeButton.isHidden=true
-
+                    cell.isUserInteractionEnabled=false
                 }
             }
         } else if yellowDates.count == 1 {
             let yellowHour=yellowDates[0]
             if hourArray[indexPath.row]==(yellowHour) {
                 cell.dateLabel.backgroundColor=UIColor.yellow
-              //  cell.isUserInteractionEnabled=false
-              //  cell.closeButton.isHidden=true
+                cell.isUserInteractionEnabled=false
             }
         }
-
         cell.dateLabel.text=hourArray[indexPath.row]
         
         return cell

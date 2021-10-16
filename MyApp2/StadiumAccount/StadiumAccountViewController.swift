@@ -17,20 +17,36 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
     @IBOutlet weak var uploadButton: UIButton!
     @IBOutlet weak var trashButton: UIButton!
     @IBOutlet weak var appointmentButton: UIButton!
+    @IBOutlet weak var photosButton: UIButton!
+    @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet weak var commentButton: UIButton!
     
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
+    var storage=Storage.storage()
+    
     var appointmentArray=[String]()
     var nameStadium=""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        uploadButton.setTitleColor(UIColor.white, for: .disabled)
+        photosButton.setTitleColor(UIColor.white, for: .normal)
+        photosButton.backgroundColor = .systemYellow
+        photosButton.layer.borderWidth=3
+        infoButton.setTitleColor(UIColor.white, for: .normal)
+        infoButton.backgroundColor = .systemYellow
+        infoButton.layer.borderWidth=3
+        commentButton.setTitleColor(UIColor.white, for: .normal)
+        commentButton.backgroundColor = .systemRed
+        commentButton.layer.borderWidth=3
+        uploadButton.setTitleColor(UIColor.white, for: .normal)
         uploadButton.backgroundColor = .green
-        uploadButton.layer.cornerRadius=20
-        appointmentButton.setTitleColor(UIColor.white, for: .disabled)
+        uploadButton.layer.cornerRadius=30
+        appointmentButton.setTitleColor(UIColor.white, for: .normal)
         appointmentButton.backgroundColor = .green
-        appointmentButton.layer.cornerRadius=20
+        appointmentButton.layer.cornerRadius=30
+        profileImageView.layer.borderWidth=1
+        profileImageView.layer.borderColor=UIColor.black.cgColor
         // Do any additional setup after loading the view.
         
         trashButton.titleLabel?.text=""
@@ -83,7 +99,7 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
     func getPhoto(){
         
         let imageRef=firestoreDatabase.collection("ProfilePhoto").document(currentUser!.uid)
-               imageRef.getDocument(source: .cache) { (document, error) in
+            imageRef.getDocument(source: .cache) { (document, error) in
                    if let document = document {
                        if error == nil {
                            if document.get("imageUrl") != nil {
@@ -102,8 +118,6 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         profileImageView.image=info[.originalImage] as? UIImage
         self.dismiss(animated: true, completion: nil)
-        
-        let storage=Storage.storage()
         let storageReference=storage.reference()
         let mediaFolder=storageReference.child("Profile")
         if let data=profileImageView.image?.jpegData(compressionQuality: 0.5) {
@@ -130,14 +144,6 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
                                         self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
                                     }
                                 }
-                            self.firestoreDatabase.collection("ProfilePhoto").whereField("User", isEqualTo: self.currentUser?.email).getDocuments { (snapshot, error) in
-                                if error == nil {
-                                    for document in snapshot!.documents{
-                                        let documentId=document.documentID
-                                        self.firestoreDatabase.collection("ProfilePhoto").document(documentId).updateData(["imageUrl": imageUrl])
-                                    }
-                                }
-                            }
                         }
                     }
                 }
@@ -153,13 +159,21 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
     @IBAction func commentClicked(_ sender: Any) {
     }
     @IBAction func trashButtonClicked(_ sender: Any) {
-
-        firestoreDatabase.collection("ProfilePhoto").document(currentUser!.uid).updateData(["imageUrl":FieldValue.delete(),]) {
-            error in
+        
+        firestoreDatabase.collection("ProfilePhoto").document(currentUser!.uid).delete { error in
             if error != nil {
                 self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
             } else {
-                self.makeAlert(titleInput: "Başarılı", messageInput: "Profil fotoğrafınız silindi.")
+                let storageRef=self.storage.reference()
+                let uuid=self.currentUser!.uid
+                let deleteRef=storageRef.child("Profile").child("\(uuid).jpg")
+                deleteRef.delete { error in
+                    if error != nil {
+                        self.makeAlert(titleInput: "Hata", messageInput: error?.localizedDescription ?? "Fotoğraf silinemedi.")
+                    } else {
+                        self.makeAlert(titleInput: "Başarılı", messageInput: "Profil fotoğrafınız silindi.")
+                    }
+                }
             }
         }
     }

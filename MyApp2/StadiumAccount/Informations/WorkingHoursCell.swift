@@ -10,10 +10,12 @@ import UIKit
 class WorkingHoursCell: UITableViewCell {
     
     @IBOutlet weak var dayLabel: UILabel!
+    @IBOutlet weak var deleteView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

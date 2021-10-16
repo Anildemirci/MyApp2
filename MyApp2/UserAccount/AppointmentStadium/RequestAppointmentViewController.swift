@@ -16,6 +16,7 @@ class RequestAppointmentViewController: UIViewController {
     @IBOutlet weak var hourLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var noteText: UITextField!
+    @IBOutlet weak var confirmButton: UIButton!
     
     var chosenHour=""
     var chosenDay=""
@@ -30,10 +31,23 @@ class RequestAppointmentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        hourLabel.text=chosenHour
-        fieldNameLabel.text=chosenField
+        hourLabel.text=("Saat: \(chosenHour)")
+        fieldNameLabel.text=("Saha numarası: \(chosenField)")
         stadiumNameLabel.text=chosenStadiumName
-        dateLabel.text=chosenDay
+        dateLabel.text=("Tarih: \(chosenDay)")
+        
+        hourLabel.layer.borderWidth=1
+        hourLabel.layer.borderColor=UIColor.black.cgColor
+        fieldNameLabel.layer.borderWidth=1
+        fieldNameLabel.layer.borderColor=UIColor.black.cgColor
+        stadiumNameLabel.layer.borderWidth=1
+        stadiumNameLabel.layer.borderColor=UIColor.black.cgColor
+        dateLabel.layer.borderWidth=1
+        dateLabel.layer.borderColor=UIColor.black.cgColor
+        confirmButton.layer.cornerRadius=30
+        confirmButton.backgroundColor=UIColor.systemGreen
+        confirmButton.setTitleColor(UIColor.white, for: .disabled)
+        
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
         

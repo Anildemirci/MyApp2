@@ -12,6 +12,7 @@ class ConfirmDateTableViewCell: UITableViewCell {
 
     @IBOutlet weak var hourLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var openButton: UIButton!
     
     
     var firestoreDatabase=Firestore.firestore()
@@ -27,6 +28,12 @@ class ConfirmDateTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        isUserInteractionEnabled=true
+        closeButton.isHidden=false
+        openButton.isHidden=true
+    }
 
 
 }

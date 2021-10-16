@@ -9,20 +9,38 @@ import UIKit
 import Firebase
 
 class UserInfoViewController: UIViewController {
-
+    
     @IBOutlet weak var nameText: UITextField!
     @IBOutlet weak var surnameText: UITextField!
-    @IBOutlet weak var dateOfBirthText: UITextField!
     @IBOutlet weak var cityText: UITextField!
     @IBOutlet weak var townText: UITextField!
     @IBOutlet weak var phoneText: UITextField!
     @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet weak var dateOfBirthText: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        confirmButton.setTitleColor(UIColor.white, for: .disabled)
-        confirmButton.backgroundColor = .blue
-        confirmButton.layer.cornerRadius=20
+        confirmButton.setTitleColor(UIColor.white, for: .normal)
+        confirmButton.backgroundColor = .systemBlue
+        confirmButton.layer.cornerRadius=25
+        nameText.layer.cornerRadius=25
+        nameText.layer.borderWidth = 1
+        nameText.layer.borderColor=UIColor.systemBlue.cgColor
+        surnameText.layer.cornerRadius=25
+        surnameText.layer.borderWidth=1
+        surnameText.layer.borderColor=UIColor.systemBlue.cgColor
+        cityText.layer.cornerRadius=25
+        cityText.layer.borderWidth=1
+        cityText.layer.borderColor=UIColor.systemBlue.cgColor
+        townText.layer.cornerRadius=25
+        townText.layer.borderWidth = 1
+        townText.layer.borderColor=UIColor.systemBlue.cgColor
+        phoneText.layer.cornerRadius=25
+        phoneText.layer.borderWidth=1
+        phoneText.layer.borderColor=UIColor.systemBlue.cgColor
+        dateOfBirthText.layer.cornerRadius=25
+        dateOfBirthText.layer.borderWidth=1
+        dateOfBirthText.layer.borderColor=UIColor.systemBlue.cgColor
         // Do any additional setup after loading the view.
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
@@ -30,6 +48,7 @@ class UserInfoViewController: UIViewController {
     @objc func hideKeyboard(){
         view.endEditing(true)
     }
+    
     
     @IBAction func confirmButtonClicked(_ sender: Any) {
         
@@ -44,7 +63,7 @@ class UserInfoViewController: UIViewController {
                            "Phone":phoneText.text!,
                            "Type":"User",
                            "Date":FieldValue.serverTimestamp()] as [String:Any]
-        if nameText.text != "" && surnameText.text != "" && dateOfBirthText.text != "" && cityText.text != "" && townText.text != "" && phoneText.text != "" {
+        if nameText.text != "" && surnameText.text != "" && cityText.text != "" && townText.text != "" && phoneText.text != "" && dateOfBirthText.text != "" {
             firestoreDatabase.collection("Users").document(Auth.auth().currentUser!.uid).setData(firestoreUser) {
                 error in
                 if error != nil {
@@ -57,6 +76,7 @@ class UserInfoViewController: UIViewController {
             self.makeAlert(titleInput: "Error", messageInput: "Lütfen tüm bilgileri giriniz.")
         }
     }
+    
     
     func makeAlert(titleInput:String,messageInput:String){
         let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)

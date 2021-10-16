@@ -29,6 +29,7 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
     var yellowDates=[String]()
     var preDay=""
     var selectedIndex=Int()
+    var closedByStadium=[String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,22 +85,34 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         if preDay != day {
             redDates.removeAll()
             yellowDates.removeAll()
+            closedByStadium.removeAll()
             self.firestoreDatabase.collection("Calendar").document(nameStadium).collection(selectedName).whereField("AppointmentDate", isEqualTo: day).addSnapshotListener { (snapshot, error) in
                 if error == nil {
                     for document in snapshot!.documents {
-                        if let status=document.get("Status") {
-                            if status as! String == "Onaylandı." {
-                                let redhours=document.get("Hour")
-                                if self.redDates.contains(redhours as! String) {
+                        if let type=document.get("Type") {
+                            if type as! String == "Stadium" {
+                                let closedStadium=document.get("Hour") as! String
+                                if self.closedByStadium.contains(closedStadium) {
+                                    
                                 } else {
-                                    self.redDates.append(redhours as! String)
+                                    self.closedByStadium.append(closedStadium)
                                 }
-                            }
-                            else if status as! String == "Onay bekliyor." {
-                                let yellowhours=document.get("Hour")
-                                if self.yellowDates.contains(yellowhours as! String) {
-                                } else {
-                                    self.yellowDates.append(yellowhours as! String)
+                            } else if type as! String == "User" {
+                                if let status=document.get("Status") {
+                                    if status as! String == "Onaylandı." {
+                                        let redhours=document.get("Hour")
+                                        if self.redDates.contains(redhours as! String) {
+                                        } else {
+                                            self.redDates.append(redhours as! String)
+                                        }
+                                    }
+                                    else if status as! String == "Onay bekliyor." {
+                                        let yellowhours=document.get("Hour")
+                                        if self.yellowDates.contains(yellowhours as! String) {
+                                        } else {
+                                            self.yellowDates.append(yellowhours as! String)
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -110,19 +123,30 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
             self.firestoreDatabase.collection("Calendar").document(nameStadium).collection(selectedName).whereField("AppointmentDate", isEqualTo: day).addSnapshotListener { (snapshot, error) in
                 if error == nil {
                     for document in snapshot!.documents {
-                        if let status=document.get("Status") {
-                            if status as! String == "Onaylandı." {
-                                let redhours=document.get("Hour")
-                                if self.redDates.contains(redhours as! String) {
+                        if let type=document.get("Type") {
+                            if type as! String == "Stadium" {
+                                let closedStadium=document.get("Hour") as! String
+                                if self.closedByStadium.contains(closedStadium) {
+                                    
                                 } else {
-                                    self.redDates.append(redhours as! String)
+                                    self.closedByStadium.append(closedStadium)
                                 }
-                            }
-                            else if status as! String == "Onay bekliyor." {
-                                let yellowhours=document.get("Hour")
-                                if self.yellowDates.contains(yellowhours as! String) {
-                                } else {
-                                    self.yellowDates.append(yellowhours as! String)
+                            } else if type as! String == "User" {
+                                if let status=document.get("Status") {
+                                    if status as! String == "Onaylandı." {
+                                        let redhours=document.get("Hour")
+                                        if self.redDates.contains(redhours as! String) {
+                                        } else {
+                                            self.redDates.append(redhours as! String)
+                                        }
+                                    }
+                                    else if status as! String == "Onay bekliyor." {
+                                        let yellowhours=document.get("Hour")
+                                        if self.yellowDates.contains(yellowhours as! String) {
+                                        } else {
+                                            self.yellowDates.append(yellowhours as! String)
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -131,6 +155,7 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
             }
         }
     }
+    
     
     func getCurrentDate()->Date {
         var now=Date()
@@ -155,28 +180,44 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         return hourArray.count
     }
 
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell=tableView.dequeueReusableCell(withIdentifier: "confirmDateCell", for: indexPath) as! ConfirmDateTableViewCell
-        
-        //kontrol et listeyi kaydırırken indexpath hataları geliyor
         cell.hourLabel.backgroundColor=UIColor.green
+        
+        if closedByStadium.count > 1 {
+            for i in 0...closedByStadium.count-1 {
+                if hourArray[indexPath.row]==(closedByStadium[i]) {
+                    cell.hourLabel.backgroundColor=UIColor.purple
+                    cell.isUserInteractionEnabled=true
+                    cell.closeButton.isHidden=true
+                    cell.openButton.isHidden=false
+                }
+            }
+        } else if closedByStadium.count == 1 {
+            let redHour=closedByStadium[0]
+            if hourArray[indexPath.row]==(redHour) {
+                cell.hourLabel.backgroundColor=UIColor.purple
+                cell.isUserInteractionEnabled=true
+                cell.closeButton.isHidden=true
+                cell.openButton.isHidden=false
+            }
+        }
         
         if redDates.count > 1 {
             for i in 0...redDates.count-1 {
-                
                 if hourArray[indexPath.row]==(redDates[i]) {
                     cell.hourLabel.backgroundColor=UIColor.red
-                    //cell.isUserInteractionEnabled=false
-                    //cell.closeButton.isHidden=true
-
+                    cell.isUserInteractionEnabled=false
+                    cell.closeButton.isHidden=true
                 }
             }
         } else if redDates.count == 1 {
             let redHour=redDates[0]
             if hourArray[indexPath.row]==(redHour) {
                 cell.hourLabel.backgroundColor=UIColor.red
-                //cell.isUserInteractionEnabled=false
-                //cell.closeButton.isHidden=true
+                cell.isUserInteractionEnabled=false
+                cell.closeButton.isHidden=true
             }
         }
         if yellowDates.count > 1 {
@@ -184,8 +225,8 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
                 
                 if hourArray[indexPath.row]==(yellowDates[i]) {
                     cell.hourLabel.backgroundColor=UIColor.yellow
-                    //cell.isUserInteractionEnabled=false
-                    //cell.closeButton.isHidden=true
+                    cell.isUserInteractionEnabled=false
+                    cell.closeButton.isHidden=true
 
                 }
             }
@@ -193,13 +234,12 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
             let yellowHour=yellowDates[0]
             if hourArray[indexPath.row]==(yellowHour) {
                 cell.hourLabel.backgroundColor=UIColor.yellow
-                //cell.isUserInteractionEnabled=false
-                //cell.closeButton.isHidden=true
+                cell.isUserInteractionEnabled=false
+                cell.closeButton.isHidden=true
             }
         }
         
         cell.hourLabel.text=hourArray[indexPath.row]
-        
         
         return cell
     }
@@ -208,8 +248,8 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         selectedIndex=indexPath.row
         date=daysArray[indexPath.row]
         getDatefromCalendar(day: date)
-        self.tableview.reloadData()
         self.collectionView.reloadData()
+        self.tableview.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -248,6 +288,8 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
                 }
                 else {
                     self.makeAlert(titleInput: "Başarılı", messageInput: "Saati randevulara kapattınız.")
+                    self.hour=""
+                    self.tableview.reloadData()
                 }
             }
         } else {
@@ -255,6 +297,23 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         }
         
         }
+    
+    @IBAction func openClicked(_ sender: Any) {
+        if date != "" && hour != "" {
+            self.firestoreDatabase.collection("Calendar").document(self.nameStadium).collection(self.selectedName).document(self.date+"-"+self.hour).delete { error in
+                if error != nil {
+                    self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
+                } else {
+                    self.makeAlert(titleInput: "Başarılı", messageInput: "Saati randevulara açtınız.")
+                    self.hour=""
+                    self.tableview.reloadData()
+                }
+            }
+        } else {
+            self.makeAlert(titleInput: "Hata", messageInput: "Tarih/saat seçiniz.")
+        }
+    }
+    
     @IBAction func editClicked(_ sender: Any) {
         performSegue(withIdentifier: "toEditFromField", sender: nil)
     }

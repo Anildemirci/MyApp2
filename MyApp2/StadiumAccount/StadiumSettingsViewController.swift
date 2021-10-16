@@ -56,7 +56,7 @@ class StadiumSettingsViewController: UIViewController {
                 if error != nil {
                     self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Lütfen geçerli mail adresi giriniz.")
                 } else {
-                    self.firestoreDatabase.collection("Stadiums").whereField("User", isEqualTo: self.currentUser?.uid).getDocuments { (snapshot, error) in
+                    self.firestoreDatabase.collection("Stadiums").whereField("User", isEqualTo: self.currentUser!.uid).getDocuments { (snapshot, error) in
                         if error == nil {
                             for document in snapshot!.documents{
                                 let documentId=document.documentID

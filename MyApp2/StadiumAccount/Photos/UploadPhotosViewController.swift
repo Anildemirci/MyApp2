@@ -17,6 +17,7 @@ class UploadPhotosViewController: UIViewController,UIImagePickerControllerDelega
     
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
+    var uuid=""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +28,17 @@ class UploadPhotosViewController: UIViewController,UIImagePickerControllerDelega
         uploadButton.setTitleColor(UIColor.white, for: .disabled)
         uploadButton.backgroundColor = .blue
         uploadButton.layer.cornerRadius=20
+        imageView.layer.borderWidth=1
+        imageView.layer.borderColor=UIColor.black.cgColor
+        statementText.layer.borderWidth=1
+        statementText.layer.borderColor=UIColor.black.cgColor
         // Do any additional setup after loading the view.
+        let gestureRecognizer2=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(gestureRecognizer2)
+    }
+    
+    @objc func hideKeyboard(){
+        view.endEditing(true)
     }
     
     @objc func choosePhoto(){
@@ -62,7 +73,7 @@ class UploadPhotosViewController: UIViewController,UIImagePickerControllerDelega
         let storageReference=storage.reference()
         let mediaFolder=storageReference.child("StadiumPhotos").child(currentUser!.uid)
         if let data=imageView.image?.jpegData(compressionQuality: 0.5) {
-            let uuid=UUID().uuidString
+             uuid=UUID().uuidString
             
             let imageReference=mediaFolder.child("\(uuid).jpg")
             imageReference.putData(data, metadata: nil) { (metedata, error) in
@@ -78,13 +89,13 @@ class UploadPhotosViewController: UIViewController,UIImagePickerControllerDelega
                                                  "ID":self.currentUser!.uid,
                                                  "User":self.currentUser!.email!,
                                                  "Date":FieldValue.serverTimestamp(),
-                                                 "Statement":self.statementText.text!] as [String:Any]
+                                                 "Statement":self.statementText.text!,
+                                                 "StorageID":self.uuid] as [String:Any]
                                 firestoreReference=self.firestoreDatabase.collection("StadiumPhotos").document(self.currentUser!.uid).collection("Photos").addDocument(data: firestorePhotos) { (error) in
                                 if error != nil {
                                     self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
                                 } else {
                                     self.makeAlert(titleInput: "Başarılı", messageInput: "Fotoğraf yüklendi.")
-                                    
                                 }
                             }
                             

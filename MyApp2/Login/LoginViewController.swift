@@ -15,12 +15,13 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        stadiumLoginButton.setTitleColor(UIColor.white, for: .disabled)
+        stadiumLoginButton.setTitleColor(UIColor.white, for: .normal)
         stadiumLoginButton.backgroundColor = .systemGreen
-        stadiumLoginButton.layer.cornerRadius=20
-        userLoginButton.setTitleColor(UIColor.white, for: .disabled)
+        stadiumLoginButton.layer.cornerRadius=25
+        userLoginButton.setTitleColor(UIColor.white, for: .normal)
         userLoginButton.backgroundColor = .systemGreen
-        userLoginButton.layer.cornerRadius=20
+        userLoginButton.layer.cornerRadius=25
+        
         // Do any additional setup after loading the view.
         
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))

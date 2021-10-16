@@ -22,6 +22,15 @@ class FieldInformationsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fieldNameLabel.layer.borderWidth=1
+        fieldNameLabel.layer.borderColor=UIColor.black.cgColor
+        sizeFieldLabel.layer.borderWidth=1
+        sizeFieldLabel.layer.borderColor=UIColor.black.cgColor
+        priceLabel.layer.borderWidth=1
+        priceLabel.layer.borderColor=UIColor.black.cgColor
+        downPaymenLabel.layer.borderWidth=1
+        downPaymenLabel.layer.borderColor=UIColor.black.cgColor
+        
         fieldNameLabel.text=chosenFieldName
         
         self.firestoreDatabase.collection("FieldInfo").document(chosenStadiumName).collection(chosenStadiumName).whereField("FieldName", isEqualTo: chosenFieldName).addSnapshotListener { (snapshot,error) in

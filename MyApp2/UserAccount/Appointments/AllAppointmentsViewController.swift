@@ -10,12 +10,26 @@ import Firebase
 
 class AllAppointmentsViewController: UIViewController {
     
+    @IBOutlet weak var pastButton: UIButton!
+    @IBOutlet weak var confirmedButton: UIButton!
+    @IBOutlet weak var pendingButton: UIButton!
+    
     var appointmentStatus=""
     var today=""
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        pastButton.layer.borderWidth=3
+        pastButton.layer.borderColor=UIColor.black.cgColor
+        confirmedButton.layer.borderWidth=3
+        confirmedButton.layer.borderColor=UIColor.black.cgColor
+        pendingButton.layer.borderWidth=3
+        pendingButton.layer.borderColor=UIColor.black.cgColor
         // Do any additional setup after loading the view.
+        
+    }
+    
+    @objc func backButton(){
+        performSegue(withIdentifier: "toProfileFromAllAppointments", sender: nil)
     }
     
     @IBAction func pastAppointments(_ sender: Any) {

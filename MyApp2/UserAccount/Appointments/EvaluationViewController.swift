@@ -36,6 +36,19 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
         scoringPicker.delegate=self
         scoringPicker.dataSource=self
         // Do any additional setup after loading the view.
+        stadiumName.layer.borderWidth=1
+        stadiumName.layer.borderColor=UIColor.black.cgColor
+        fieldName.layer.borderWidth=1
+        fieldName.layer.borderColor=UIColor.black.cgColor
+        dateLabel.layer.borderWidth=1
+        dateLabel.layer.borderColor=UIColor.black.cgColor
+        hourLabel.layer.borderWidth=1
+        hourLabel.layer.borderColor=UIColor.black.cgColor
+        statusLabel.layer.borderWidth=1
+        statusLabel.layer.borderColor=UIColor.black.cgColor
+        //cancelButton.layer.borderWidth=3
+        //cancelButton.layer.borderColor=UIColor.black.cgColor
+        cancelButton.backgroundColor=UIColor.systemRed
         let docref=firestoreDatabase.collection("Users").document(currentUser!.uid)
         docref.getDocument(source: .cache) { (document, error) in
             if let document = document {
@@ -63,15 +76,15 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
         firestoreDatabase.collection("UserAppointments").document(currentUser!.uid).collection(currentUser!.uid).document(documentID).getDocument(source: .cache) { (snapshot, error) in
                     if let document = snapshot {
                         let fieldName=document.get("FieldName") as! String
-                        self.fieldName.text=fieldName
+                        self.fieldName.text=("Saha adı: \(fieldName)")
                         let date=document.get("AppointmentDate") as! String
-                        self.dateLabel.text=date
+                        self.dateLabel.text=("Maç tarihi: \(date)")
                         let hour=document.get("Hour") as! String
-                        self.hourLabel.text=hour
+                        self.hourLabel.text=("Maç saati: \(hour)")
                         let stadiumName=document.get("StadiumName") as! String
-                        self.stadiumName.text=stadiumName
+                        self.stadiumName.text=("Saha numarası: \(stadiumName)")
                         let status=document.get("Status") as! String
-                        self.statusLabel.text=status
+                        self.statusLabel.text=("Durum: \(status)")
                         if self.statusLabel.text == "Onaylandı." {
                             if self.daysArray.contains(date) {
                                 //yorum yapamazsın.
@@ -182,15 +195,30 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     @IBAction func cancelClicked(_ sender: Any) {
-        self.firestoreDatabase.collection("StadiumAppointments").document(stadiumName.text!).collection(stadiumName.text!).document(documentID).updateData(["Status":"İptal edildi."])
-        self.firestoreDatabase.collection("UserAppointments").document(currentUser!.uid).collection(currentUser!.uid).document(documentID).updateData(["Status":"İptal edildi."])
-        self.firestoreDatabase.collection("Calendar").document(stadiumName.text!).collection(fieldName.text!).document(dateLabel.text!+"-"+hourLabel.text!).updateData(["Status":"İptal edildi."])
-        self.makeAlert(titleInput: "Başarılı", messageInput: "Randevunuz iptal edilmiştir.")
+        confirmAlert(titleInput: "Onaylama", messageInput: "İptal etmek istiyor musunuz?")
     }
+    
+    func confirmAlert(titleInput: String,messageInput: String) {
+           let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.actionSheet)
+        
+        let yesButton=UIAlertAction(title: "Evet", style: UIAlertAction.Style.default, handler: {(action) -> Void in
+            self.firestoreDatabase.collection("StadiumAppointments").document(self.stadiumName.text!).collection(self.stadiumName.text!).document(self.documentID).updateData(["Status":"İptal edildi."])
+            self.firestoreDatabase.collection("UserAppointments").document(self.currentUser!.uid).collection(self.currentUser!.uid).document(self.documentID).updateData(["Status":"İptal edildi."])
+            self.firestoreDatabase.collection("Calendar").document(self.stadiumName.text!).collection(self.fieldName.text!).document(self.self.dateLabel.text!+"-"+self.hourLabel.text!).updateData(["Status":"İptal edildi."])
+            self.makeAlert(titleInput: "Başarılı", messageInput: "Randevunuz iptal edildi.")
+        })
+        let noButton=UIAlertAction(title: "Hayır", style: UIAlertAction.Style.default, handler: nil)
+           
+           alert.addAction(yesButton)
+           alert.addAction(noButton)
+           self.present(alert, animated: true, completion: nil)
+       }
     
     func makeAlert(titleInput: String,messageInput: String){
         let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)
-        let okButton=UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+        let okButton=UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) -> Void in
+            self.performSegue(withIdentifier: "toUserProfileFromComment", sender: nil)
+        })
         alert.addAction(okButton)
         self.present(alert, animated: true, completion: nil)
     }

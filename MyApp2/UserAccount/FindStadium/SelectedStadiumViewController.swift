@@ -16,19 +16,34 @@ class SelectedStadiumViewController: UIViewController {
     @IBOutlet weak var addedFavButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var appointmentButton: UIButton!
+    @IBOutlet weak var photosButton: UIButton!
+    @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet weak var commentButton: UIButton!
+    
     var name=""
     var favStadium=[String]()
     var ID=""
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        appointmentButton.setTitleColor(UIColor.white, for: .disabled)
-        appointmentButton.backgroundColor = .blue
-        appointmentButton.layer.cornerRadius=20
+        appointmentButton.setTitleColor(UIColor.white, for: .normal)
+        appointmentButton.backgroundColor = .systemBlue
+        appointmentButton.layer.cornerRadius=30
+        photosButton.setTitleColor(UIColor.white, for: .normal)
+        photosButton.backgroundColor = .systemYellow
+        photosButton.layer.borderWidth=3
+        infoButton.setTitleColor(UIColor.white, for: .normal)
+        infoButton.backgroundColor = .systemYellow
+        infoButton.layer.borderWidth=3
+        commentButton.setTitleColor(UIColor.white, for: .normal)
+        commentButton.backgroundColor = .systemRed
+        commentButton.layer.borderWidth=3
+        
         nameLabel.text=name
         
-        let imageRef=firestoreDatabase.collection("ProfilePhoto").whereField("StadiumName", isEqualTo: name).getDocuments { (snapshot, error) in
+        firestoreDatabase.collection("ProfilePhoto").whereField("StadiumName", isEqualTo: name).getDocuments { (snapshot, error) in
             if error == nil {
                 for document in snapshot!.documents {
                     if document.get("imageUrl") != nil {
@@ -46,7 +61,7 @@ class SelectedStadiumViewController: UIViewController {
                 }
             }
         }
-        self.firestoreDatabase.collection("Users").whereField("User", isEqualTo: self.currentUser?.uid).getDocuments { (snapshot, error) in
+        firestoreDatabase.collection("Users").whereField("User", isEqualTo: self.currentUser!.uid).getDocuments { (snapshot, error) in
             if error == nil {
                 for document in snapshot!.documents{
                     if let favArray=document.get("FavoriteStadiums") as? [String] {

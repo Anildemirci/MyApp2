@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let firebaseDatabase=Firestore.firestore()
         var userTypeArray=[String]()
         var stadiumTypeArray=[String]()
-        // eğer info kısmı boş ise infodan başlat değilse bu şekilde devam
+        
         if currentUser != nil {
             firebaseDatabase.collection("Users").addSnapshotListener { (snapshot, error) in
                 if error == nil {
@@ -29,9 +29,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         if let userType=document.get("User") as? String{
                             userTypeArray.append(userType)
                             if userTypeArray.contains(currentUser!.uid) {
-                                let board=UIStoryboard(name: "Main", bundle: nil)
-                                let userInfo=board.instantiateViewController(withIdentifier: "userProfile") as! UITabBarController
-                                self.window?.rootViewController=userInfo
+                                firebaseDatabase.collection("Users").whereField("User", isEqualTo: currentUser!.uid).addSnapshotListener { (snapshot, error) in
+                                    if error == nil {
+                                        for document in snapshot!.documents {
+                                            if let userName=document.get("Name") as? String{
+                                                if userName == "" {
+                                                    let board=UIStoryboard(name: "Main", bundle: nil)
+                                                    let userInfo=board.instantiateViewController(withIdentifier: "userInfo")
+                                                    self.window?.rootViewController=userInfo
+                                                } else {
+                                                    let board=UIStoryboard(name: "Main", bundle: nil)
+                                                    let userInfo=board.instantiateViewController(withIdentifier: "userProfile") as! UITabBarController
+                                                    self.window?.rootViewController=userInfo
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -43,9 +57,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         if let userType=document.get("User") as? String{
                             stadiumTypeArray.append(userType)
                             if stadiumTypeArray.contains(currentUser!.uid) {
-                                let board=UIStoryboard(name: "Main", bundle: nil)
-                                let stadiumInfo=board.instantiateViewController(withIdentifier: "stadiumProfile") as! UITabBarController
-                                self.window?.rootViewController=stadiumInfo
+                                
+                                firebaseDatabase.collection("Stadiums").whereField("User", isEqualTo: currentUser!.uid).addSnapshotListener { (snapshot, error) in
+                                    if error == nil {
+                                        for document in snapshot!.documents {
+                                            if let stadiumName=document.get("Name") as? String{
+                                                if stadiumName == "" {
+                                                    let board=UIStoryboard(name: "Main", bundle: nil)
+                                                    let stadiumInfo=board.instantiateViewController(withIdentifier: "stadiumInfo")
+                                                    self.window?.rootViewController=stadiumInfo
+                                                } else {
+                                                    let board=UIStoryboard(name: "Main", bundle: nil)
+                                                    let stadiumInfo=board.instantiateViewController(withIdentifier: "stadiumProfile") as! UITabBarController
+                                                    self.window?.rootViewController=stadiumInfo
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

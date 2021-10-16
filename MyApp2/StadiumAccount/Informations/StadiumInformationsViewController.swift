@@ -29,7 +29,7 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
     var infoArray = [String]()
     var annotationLatitude=Double()
     var annotationLongitude=Double()
-    
+    var user=""
     override func viewDidLoad() {
         super.viewDidLoad()
         featuresTableView.delegate=self
@@ -43,6 +43,7 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
                     if let userType=document.get("User") as? String{
                         self.userTypeArray.append(userType)
                         if self.userTypeArray.contains(self.currentUser!.uid) {
+                            self.user="1"
                             self.backButton.isHidden=true
                             self.editButton.isHidden=true
                             self.navigationButton.isHidden=false
@@ -160,6 +161,9 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell=featuresTableView.dequeueReusableCell(withIdentifier: "WorkingHoursCell", for: indexPath) as! WorkingHoursCell
         cell.dayLabel.text=infoArray[indexPath.row]
+        if user == "1" {
+            cell.deleteView.isHidden=true
+        }
         return cell
     }
     

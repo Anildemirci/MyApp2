@@ -80,7 +80,12 @@ class CommentsViewController: UIViewController,UITableViewDelegate,UITableViewDa
                         self.scoringLabel.text="Henüz oy verilmemiştir."
                     } else {
                         let averageScore=self.totalScore/Double(self.commentArray.count)
-                        self.scoringLabel.text="\(String(self.commentArray.count)) müşteri oyu ile \(averageScore)/5 puan."
+                        let numberFormatter=NumberFormatter()
+                        numberFormatter.numberStyle = .decimal
+                        guard let number=numberFormatter.string(from: NSNumber(value: averageScore)) else {
+                            fatalError("Çevrilemedi.")
+                        }
+                        self.scoringLabel.text="\(String(self.commentArray.count)) müşteri oyu ile \(number)/5 puan."
                         self.tableView.reloadData()
                     }
                 }

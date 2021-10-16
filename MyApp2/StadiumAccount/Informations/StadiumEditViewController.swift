@@ -47,6 +47,18 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
         addButton.setTitleColor(UIColor.white, for: .disabled)
         addButton.backgroundColor = .blue
         addButton.layer.cornerRadius=20
+        villageText.layer.borderWidth=1
+        villageText.layer.borderColor=UIColor.black.cgColor
+        streetText.layer.borderWidth=1
+        streetText.layer.borderColor=UIColor.black.cgColor
+        townText.layer.borderWidth=1
+        townText.layer.borderColor=UIColor.black.cgColor
+        cityText.layer.borderWidth=1
+        cityText.layer.borderColor=UIColor.black.cgColor
+        infoText.layer.borderWidth=1
+        infoText.layer.borderColor=UIColor.black.cgColor
+        openingTimeText.layer.borderWidth=1
+        openingTimeText.layer.borderColor=UIColor.black.cgColor
         
         let docRef=firestoreDatabase.collection("Stadiums").document(currentUser!.uid)
         docRef.getDocument(source: .cache) { (document, error) in
@@ -138,7 +150,7 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
     
     @IBAction func editClicked(_ sender: Any) {
         if villageText.text != "" && streetText.text != "" && townText.text! != "" && cityText.text != "" {
-            self.firestoreDatabase.collection("Stadiums").whereField("User", isEqualTo: self.currentUser?.uid).getDocuments { (snapshot, error) in
+            self.firestoreDatabase.collection("Stadiums").whereField("User", isEqualTo: self.currentUser!.uid).getDocuments { (snapshot, error) in
                 if error == nil {
                     for document in snapshot!.documents{
                         let documentId=document.documentID
@@ -156,7 +168,7 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
     
     @IBAction func addClicked(_ sender: Any) {
         if infoText.text != "" {
-            self.firestoreDatabase.collection("Stadiums").whereField("User", isEqualTo: self.currentUser?.uid).getDocuments { (snapshot, error) in
+            self.firestoreDatabase.collection("Stadiums").whereField("User", isEqualTo: self.currentUser!.uid).getDocuments { (snapshot, error) in
                 if error == nil {
                     for document in snapshot!.documents{
                         let documentId=document.documentID

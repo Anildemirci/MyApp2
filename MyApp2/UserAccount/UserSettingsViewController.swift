@@ -21,15 +21,16 @@ class UserSettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        changeEmailButton.setTitleColor(UIColor.white, for: .disabled)
-        changeEmailButton.backgroundColor = .blue
-        changeEmailButton.layer.cornerRadius=20
-        changePasswordButton.setTitleColor(UIColor.white, for: .disabled)
-        changePasswordButton.backgroundColor = .blue
-        changePasswordButton.layer.cornerRadius=20
-        logoutButton.setTitleColor(UIColor.white, for: .disabled)
+        changeEmailButton.setTitleColor(UIColor.white, for: .normal)
+        changeEmailButton.backgroundColor = .systemBlue
+        changeEmailButton.layer.cornerRadius=30
+        changePasswordButton.setTitleColor(UIColor.white, for: .normal)
+        changePasswordButton.backgroundColor = .systemBlue
+        changePasswordButton.layer.cornerRadius=30
+        logoutButton.setTitleColor(UIColor.white, for: .normal)
         logoutButton.backgroundColor = .red
-        logoutButton.layer.cornerRadius=20
+        logoutButton.layer.cornerRadius=30
+        
         // Do any additional setup after loading the view.
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
@@ -55,7 +56,7 @@ class UserSettingsViewController: UIViewController {
                 if error != nil {
                     self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Lütfen geçerli mail adresi giriniz.")
                 } else {
-                    self.firestoreDatabase.collection("Users").whereField("User", isEqualTo: self.currentUser?.uid).getDocuments { (snapshot, error) in
+                    self.firestoreDatabase.collection("Users").whereField("User", isEqualTo: self.currentUser!.uid).getDocuments { (snapshot, error) in
                         if error == nil {
                             for document in snapshot!.documents{
                                 let documentId=document.documentID

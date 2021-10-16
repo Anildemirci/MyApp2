@@ -20,12 +20,13 @@ class UserAppointmentsViewController: UIViewController,UITableViewDelegate,UITab
     var daysArray=[String]()
     var pastAppointments=[String]()
     var today=""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource=self
         tableView.delegate=self
         // Do any additional setup after loading the view.
-        
         for day in 0...13 {
             let hourToAdd=3
             let daysToAdd=0 + day

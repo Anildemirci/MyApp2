@@ -17,9 +17,18 @@ class StadiumSignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        signUpButton.setTitleColor(UIColor.white, for: .disabled)
-        signUpButton.backgroundColor = .green
-        signUpButton.layer.cornerRadius=20
+        signUpButton.setTitleColor(UIColor.white, for: .normal)
+        signUpButton.backgroundColor = .systemGreen
+        signUpButton.layer.cornerRadius=25
+        emailText.layer.cornerRadius=25
+        emailText.layer.borderWidth = 1
+        emailText.layer.borderColor=UIColor.systemBlue.cgColor
+        passwordText.layer.cornerRadius=25
+        passwordText.layer.borderWidth=1
+        passwordText.layer.borderColor=UIColor.systemBlue.cgColor
+        passwordText2.layer.cornerRadius=25
+        passwordText2.layer.borderWidth=1
+        passwordText2.layer.borderColor=UIColor.systemBlue.cgColor
         // Do any additional setup after loading the view.
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
@@ -39,7 +48,26 @@ class StadiumSignUpViewController: UIViewController {
                     if error != nil {
                         self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
                     } else {
-                        self.performSegue(withIdentifier: "toStadiumInfo", sender: nil)
+                        
+                        let firestoreDatabese=Firestore.firestore()
+                        let firestoreStadium=["User":Auth.auth().currentUser!.uid,
+                                              "Email":Auth.auth().currentUser?.email,
+                                              "Name":"",
+                                              "City":"",
+                                              "Town":"",
+                                              "Phone":"",
+                                              "Address":"",
+                                              "NumberOfField":"",
+                                              "Type":"Stadium",
+                                              "Date":FieldValue.serverTimestamp()] as [String:Any]
+                        firestoreDatabese.collection("Stadiums").document(Auth.auth().currentUser!.uid).setData(firestoreStadium) {
+                            error in
+                            if error != nil {
+                                self.makeAlert(titleInput: "Error!", messageInput: error?.localizedDescription ?? "Error")
+                            } else {
+                                self.performSegue(withIdentifier: "toStadiumInfoVC", sender: nil)
+                            }
+                        }
                     }
                 }
             } else {

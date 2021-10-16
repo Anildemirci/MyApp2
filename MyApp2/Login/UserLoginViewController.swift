@@ -14,11 +14,18 @@ class UserLoginViewController: UIViewController {
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     var userTypeArray=[String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        loginButton.setTitleColor(UIColor.white, for: .disabled)
-        loginButton.backgroundColor = .blue
-        loginButton.layer.cornerRadius=20
+        loginButton.setTitleColor(UIColor.white, for: .normal)
+        loginButton.backgroundColor = .systemBlue
+        loginButton.layer.cornerRadius=25
+        emailText.layer.cornerRadius=25
+        emailText.layer.borderWidth = 1
+        emailText.layer.borderColor=UIColor.systemBlue.cgColor
+        passwordText.layer.cornerRadius=25
+        passwordText.layer.borderWidth=1
+        passwordText.layer.borderColor=UIColor.systemBlue.cgColor
         // Do any additional setup after loading the view.
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
@@ -44,11 +51,29 @@ class UserLoginViewController: UIViewController {
                         }
                     }
                     if userTypeArray.contains(emailText.text!) {
-                        Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { (authdata, errorr) in
-                            if errorr != nil {
-                                makeAlert(titleInput: "Error", messageInput: errorr?.localizedDescription ?? "Error")
-                            } else {
-                                performSegue(withIdentifier: "toUserProfileBC", sender: nil)
+                        firestoreDatabase.collection("Users").whereField("Email", isEqualTo: emailText.text!).addSnapshotListener { (snapshot, error) in
+                            if error == nil {
+                                for document in snapshot!.documents {
+                                    if let name=document.get("Name") as? String {
+                                        if name == "" {
+                                            Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { (authdata, errorr) in
+                                                if errorr != nil {
+                                                    makeAlert(titleInput: "Error", messageInput: errorr?.localizedDescription ?? "Error")
+                                                } else {
+                                                    performSegue(withIdentifier: "toUserInfoFromLogin", sender: nil)
+                                                }
+                                            }
+                                        } else {
+                                            Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { (authdata, errorr) in
+                                                if errorr != nil {
+                                                    makeAlert(titleInput: "Error", messageInput: errorr?.localizedDescription ?? "Error")
+                                                } else {
+                                                    performSegue(withIdentifier: "toUserProfileBC", sender: nil)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     } else {
