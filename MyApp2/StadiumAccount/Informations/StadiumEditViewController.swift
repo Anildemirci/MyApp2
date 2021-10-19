@@ -25,6 +25,10 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var view1: UIView!
+    @IBOutlet weak var view2: UIView!
+    @IBOutlet weak var view3: UIView!
+    
     
     var locationManager=CLLocationManager()
     var chosenLatitude=Double()
@@ -59,6 +63,11 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
         infoText.layer.borderColor=UIColor.black.cgColor
         openingTimeText.layer.borderWidth=1
         openingTimeText.layer.borderColor=UIColor.black.cgColor
+        closingTimeText.layer.borderWidth=1
+        closingTimeText.layer.borderColor=UIColor.black.cgColor
+        view1.layer.cornerRadius=30
+        view2.layer.cornerRadius=30
+        view3.layer.cornerRadius=30
         
         let docRef=firestoreDatabase.collection("Stadiums").document(currentUser!.uid)
         docRef.getDocument(source: .cache) { (document, error) in

@@ -19,6 +19,8 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
     @IBOutlet weak var openingTime: UILabel!
     @IBOutlet weak var closingTime: UILabel!
     @IBOutlet weak var navigationButton: UIButton!
+    @IBOutlet weak var view1: UIView!
+    @IBOutlet weak var view2: UIView!
     
     
     var firestoreDatabase=Firestore.firestore()
@@ -35,7 +37,8 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
         featuresTableView.delegate=self
         featuresTableView.dataSource=self
         // Do any additional setup after loading the view.
-        
+        view1.layer.cornerRadius=30
+        view2.layer.cornerRadius=30
         //user girişi ise
         firestoreDatabase.collection("Users").addSnapshotListener { (snapshot, error) in
             if error == nil {

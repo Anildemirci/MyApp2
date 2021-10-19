@@ -32,13 +32,13 @@ class UserAccountViewController: UIViewController,UIImagePickerControllerDelegat
         profileImageView.layer.borderWidth=2.0
         profileImageView.layer.borderColor=UIColor.black.cgColor
         myTeamButton.layer.borderWidth = 3
-        myTeamButton.layer.borderColor=UIColor.black.cgColor
+        myTeamButton.layer.borderColor=UIColor.systemGreen.cgColor
         myTeamButton.backgroundColor=UIColor.systemRed
         infoButton.layer.borderWidth = 3
-        infoButton.layer.borderColor=UIColor.black.cgColor
+        infoButton.layer.borderColor=UIColor.systemGreen.cgColor
         infoButton.backgroundColor=UIColor.systemRed
         appointmentsButton.layer.borderWidth = 3
-        appointmentsButton.layer.borderColor=UIColor.black.cgColor
+        appointmentsButton.layer.borderColor=UIColor.systemGreen.cgColor
         appointmentsButton.backgroundColor=UIColor.systemRed
         
         let navBar=UINavigationBar(frame: CGRect(x: 0, y: 0, width: Int(view.frame.size.width), height: 50))

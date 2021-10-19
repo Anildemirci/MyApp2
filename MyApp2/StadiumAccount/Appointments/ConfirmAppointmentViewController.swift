@@ -23,6 +23,9 @@ class ConfirmAppointmentViewController: UIViewController {
     @IBOutlet weak var rejectButton: UIButton!
     @IBOutlet weak var confirmNumberLabel: UILabel!
     @IBOutlet weak var cancelNumberLabel: UILabel!
+    @IBOutlet weak var view1: UIView!
+    @IBOutlet weak var view2: UIView!
+    
     
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
@@ -38,31 +41,33 @@ class ConfirmAppointmentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         confirmButton.setTitleColor(UIColor.white, for: .normal)
-        confirmButton.backgroundColor = .green
+        confirmButton.backgroundColor = .systemGreen
         confirmButton.layer.cornerRadius=30
         rejectButton.setTitleColor(UIColor.white, for: .normal)
         rejectButton.backgroundColor = .red
         rejectButton.layer.cornerRadius=30
         fieldNameLabel.layer.borderWidth=1
-        fieldNameLabel.layer.borderColor=UIColor.black.cgColor
+        fieldNameLabel.layer.borderColor=UIColor.systemGreen.cgColor
         dateLabel.layer.borderWidth=1
-        dateLabel.layer.borderColor=UIColor.black.cgColor
+        dateLabel.layer.borderColor=UIColor.systemGreen.cgColor
         hourLabel.layer.borderWidth=1
-        hourLabel.layer.borderColor=UIColor.black.cgColor
+        hourLabel.layer.borderColor=UIColor.systemGreen.cgColor
         priceLabel.layer.borderWidth=1
-        priceLabel.layer.borderColor=UIColor.black.cgColor
+        priceLabel.layer.borderColor=UIColor.systemGreen.cgColor
         noteLabel.layer.borderWidth=1
-        noteLabel.layer.borderColor=UIColor.black.cgColor
+        noteLabel.layer.borderColor=UIColor.systemGreen.cgColor
         userFullNameLabel.layer.borderWidth=1
-        userFullNameLabel.layer.borderColor=UIColor.black.cgColor
+        userFullNameLabel.layer.borderColor=UIColor.systemGreen.cgColor
         userPhoneLabel.layer.borderWidth=1
-        userPhoneLabel.layer.borderColor=UIColor.black.cgColor
+        userPhoneLabel.layer.borderColor=UIColor.systemGreen.cgColor
         downPaymentLabel.layer.borderWidth=1
-        downPaymentLabel.layer.borderColor=UIColor.black.cgColor
+        downPaymentLabel.layer.borderColor=UIColor.systemGreen.cgColor
         confirmNumberLabel.layer.borderWidth=1
-        confirmNumberLabel.layer.borderColor=UIColor.black.cgColor
+        confirmNumberLabel.layer.borderColor=UIColor.systemGreen.cgColor
         cancelNumberLabel.layer.borderWidth=1
-        cancelNumberLabel.layer.borderColor=UIColor.black.cgColor
+        cancelNumberLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        view1.layer.cornerRadius=30
+        view2.layer.cornerRadius=30
         // Do any additional setup after loading the view.
 
         

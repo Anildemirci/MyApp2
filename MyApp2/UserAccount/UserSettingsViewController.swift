@@ -15,22 +15,40 @@ class UserSettingsViewController: UIViewController {
     @IBOutlet weak var changeEmailButton: UIButton!
     @IBOutlet weak var changePasswordButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var userInfoLabel: UILabel!
+    @IBOutlet weak var view1: UIView!
+    @IBOutlet weak var view2: UIView!
     
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        newMailText.layer.borderWidth=1
+        newMailText.layer.borderColor=UIColor.systemGreen.cgColor
+        newPasswordText.layer.borderWidth=1
+        newPasswordText.layer.borderColor=UIColor.systemGreen.cgColor
+        newPasswordText2.layer.borderWidth=1
+        newPasswordText2.layer.borderColor=UIColor.systemGreen.cgColor
         changeEmailButton.setTitleColor(UIColor.white, for: .normal)
-        changeEmailButton.backgroundColor = .systemBlue
+        //changeEmailButton.backgroundColor = .systemBlue
         changeEmailButton.layer.cornerRadius=30
+        //changeEmailButton.layer.borderWidth=3
+        //changeEmailButton.layer.borderColor=UIColor.systemYellow.cgColor
         changePasswordButton.setTitleColor(UIColor.white, for: .normal)
-        changePasswordButton.backgroundColor = .systemBlue
+        //changePasswordButton.backgroundColor = .systemBlue
         changePasswordButton.layer.cornerRadius=30
+        //changePasswordButton.layer.borderWidth=3
+        //changePasswordButton.layer.borderColor=UIColor.systemYellow.cgColor
         logoutButton.setTitleColor(UIColor.white, for: .normal)
         logoutButton.backgroundColor = .red
         logoutButton.layer.cornerRadius=30
-        
+        view1.layer.cornerRadius=30
+        //view1.layer.borderWidth=3
+        //view1.layer.borderColor=UIColor.systemYellow.cgColor
+        view2.layer.cornerRadius=30
+        //view2.layer.borderWidth=3
+        //view2.layer.borderColor=UIColor.systemYellow.cgColor
         // Do any additional setup after loading the view.
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)

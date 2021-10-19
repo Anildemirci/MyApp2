@@ -22,14 +22,14 @@ class StadiumSettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        changeEmailButton.setTitleColor(UIColor.white, for: .disabled)
-        changeEmailButton.backgroundColor = .blue
+        changeEmailButton.setTitleColor(UIColor.white, for: .normal)
+        changeEmailButton.backgroundColor = .systemBlue
         changeEmailButton.layer.cornerRadius=20
-        changePasswordButton.setTitleColor(UIColor.white, for: .disabled)
-        changePasswordButton.backgroundColor = .blue
+        changePasswordButton.setTitleColor(UIColor.white, for: .normal)
+        changePasswordButton.backgroundColor = .systemBlue
         changePasswordButton.layer.cornerRadius=20
-        logoutButton.setTitleColor(UIColor.white, for: .disabled)
-        logoutButton.backgroundColor = .red
+        logoutButton.setTitleColor(UIColor.white, for: .normal)
+        logoutButton.backgroundColor = .systemRed
         logoutButton.layer.cornerRadius=20
         // Do any additional setup after loading the view.
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))

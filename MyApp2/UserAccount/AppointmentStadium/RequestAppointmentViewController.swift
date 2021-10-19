@@ -17,6 +17,7 @@ class RequestAppointmentViewController: UIViewController {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var noteText: UITextField!
     @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet weak var view1: UIView!
     
     var chosenHour=""
     var chosenDay=""
@@ -37,16 +38,19 @@ class RequestAppointmentViewController: UIViewController {
         dateLabel.text=("Tarih: \(chosenDay)")
         
         hourLabel.layer.borderWidth=1
-        hourLabel.layer.borderColor=UIColor.black.cgColor
+        hourLabel.layer.borderColor=UIColor.systemGreen.cgColor
         fieldNameLabel.layer.borderWidth=1
-        fieldNameLabel.layer.borderColor=UIColor.black.cgColor
+        fieldNameLabel.layer.borderColor=UIColor.systemGreen.cgColor
         stadiumNameLabel.layer.borderWidth=1
-        stadiumNameLabel.layer.borderColor=UIColor.black.cgColor
+        stadiumNameLabel.layer.borderColor=UIColor.systemGreen.cgColor
         dateLabel.layer.borderWidth=1
-        dateLabel.layer.borderColor=UIColor.black.cgColor
+        dateLabel.layer.borderColor=UIColor.systemGreen.cgColor
         confirmButton.layer.cornerRadius=30
         confirmButton.backgroundColor=UIColor.systemGreen
         confirmButton.setTitleColor(UIColor.white, for: .disabled)
+        noteText.layer.borderWidth=1
+        noteText.layer.borderColor=UIColor.systemGreen.cgColor
+        view1.layer.cornerRadius=30
         
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
@@ -72,12 +76,12 @@ class RequestAppointmentViewController: UIViewController {
         let firestoreUser=["User":Auth.auth().currentUser!.uid,
                            "Email":Auth.auth().currentUser?.email,
                            "Type":"User",
-                           "StadiumName":stadiumNameLabel.text!,
-                           "FieldName":fieldNameLabel.text!,
-                           "Hour":hourLabel.text!,
+                           "StadiumName":chosenStadiumName,
+                           "FieldName":chosenField,
+                           "Hour":chosenHour,
                            "Price":priceLabel.text!,
                            "Note":noteText.text,
-                           "AppointmentDate":dateLabel.text!,
+                           "AppointmentDate":chosenDay,
                            "Status":"Onay bekliyor.",
                            "Date":FieldValue.serverTimestamp()] as [String:Any]
         
@@ -102,12 +106,12 @@ class RequestAppointmentViewController: UIViewController {
         let firestoreStadium=["User":Auth.auth().currentUser!.uid,
                               "Email":Auth.auth().currentUser!.email!,
                               "Type":"User",
-                              "StadiumName":stadiumNameLabel.text!,
-                              "FieldName":fieldNameLabel.text!,
-                              "Hour":hourLabel.text!,
+                              "StadiumName":chosenStadiumName,
+                              "FieldName":chosenField,
+                              "Hour":chosenHour,
                               "Price":priceLabel.text!,
                               "Note":noteText.text!,
-                              "AppointmentDate":dateLabel.text!,
+                              "AppointmentDate":chosenDay,
                               "Status":"Onay bekliyor.",
                               "UserFullName":userName+" "+userSurname,
                               "UserPhone":userPhone,
@@ -126,14 +130,14 @@ class RequestAppointmentViewController: UIViewController {
         let firestoreCalendar=["User":Auth.auth().currentUser!.uid,
                                "Email":Auth.auth().currentUser!.email!,
                                "Type":"User",
-                               "StadiumName":stadiumNameLabel.text!,
-                               "FieldName":fieldNameLabel.text!,
-                               "Hour":hourLabel.text!,
-                               "AppointmentDate":dateLabel.text!,
+                               "StadiumName":chosenStadiumName,
+                               "FieldName":chosenField,
+                               "Hour":chosenHour,
+                               "AppointmentDate":chosenDay,
                                "Price":priceLabel.text!,
                                "Status":"Onay bekliyor.",
                                "Date":FieldValue.serverTimestamp()] as [String:Any]
-        firestoreDatabase.collection("Calendar").document(stadiumNameLabel.text!).collection(fieldNameLabel.text!).document(dateLabel.text!+"-"+hourLabel.text!).setData(firestoreCalendar) {
+        firestoreDatabase.collection("Calendar").document(stadiumNameLabel.text!).collection(chosenField).document(chosenDay+"-"+chosenHour).setData(firestoreCalendar) {
             error in
             if error != nil {
                 self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")

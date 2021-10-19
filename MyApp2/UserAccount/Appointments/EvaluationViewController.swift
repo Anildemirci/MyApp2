@@ -21,6 +21,8 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var scoringPicker: UIPickerView!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var view1: UIView!
+    @IBOutlet weak var view2: UIView!
     
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
@@ -30,6 +32,11 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var fullName=""
     var currentTime=""
     var daysArray=[String]()
+    var field=""
+    var stadium=""
+    var day=""
+    var hour=""
+    var status=""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,18 +44,24 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
         scoringPicker.dataSource=self
         // Do any additional setup after loading the view.
         stadiumName.layer.borderWidth=1
-        stadiumName.layer.borderColor=UIColor.black.cgColor
+        stadiumName.layer.borderColor=UIColor.systemGreen.cgColor
         fieldName.layer.borderWidth=1
-        fieldName.layer.borderColor=UIColor.black.cgColor
+        fieldName.layer.borderColor=UIColor.systemGreen.cgColor
         dateLabel.layer.borderWidth=1
-        dateLabel.layer.borderColor=UIColor.black.cgColor
+        dateLabel.layer.borderColor=UIColor.systemGreen.cgColor
         hourLabel.layer.borderWidth=1
-        hourLabel.layer.borderColor=UIColor.black.cgColor
+        hourLabel.layer.borderColor=UIColor.systemGreen.cgColor
         statusLabel.layer.borderWidth=1
-        statusLabel.layer.borderColor=UIColor.black.cgColor
+        statusLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        commentText.layer.borderWidth=1
+        commentText.layer.borderColor=UIColor.systemGreen.cgColor
         //cancelButton.layer.borderWidth=3
         //cancelButton.layer.borderColor=UIColor.black.cgColor
         cancelButton.backgroundColor=UIColor.systemRed
+        scoringPicker.layer.borderWidth=1
+        scoringPicker.layer.borderColor=UIColor.systemGreen.cgColor
+        view1.layer.cornerRadius=30
+        view2.layer.cornerRadius=30
         let docref=firestoreDatabase.collection("Users").document(currentUser!.uid)
         docref.getDocument(source: .cache) { (document, error) in
             if let document = document {
@@ -75,25 +88,28 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         firestoreDatabase.collection("UserAppointments").document(currentUser!.uid).collection(currentUser!.uid).document(documentID).getDocument(source: .cache) { (snapshot, error) in
                     if let document = snapshot {
-                        let fieldName=document.get("FieldName") as! String
-                        self.fieldName.text=("Saha adı: \(fieldName)")
-                        let date=document.get("AppointmentDate") as! String
-                        self.dateLabel.text=("Maç tarihi: \(date)")
-                        let hour=document.get("Hour") as! String
-                        self.hourLabel.text=("Maç saati: \(hour)")
-                        let stadiumName=document.get("StadiumName") as! String
-                        self.stadiumName.text=("Saha numarası: \(stadiumName)")
-                        let status=document.get("Status") as! String
-                        self.statusLabel.text=("Durum: \(status)")
-                        if self.statusLabel.text == "Onaylandı." {
-                            if self.daysArray.contains(date) {
+                        self.field=document.get("FieldName") as! String
+                        self.fieldName.text=("Saha numarası: \(self.field)")
+                        self.day=document.get("AppointmentDate") as! String
+                        self.dateLabel.text=("Maç tarihi: \(self.day)")
+                        self.hour=document.get("Hour") as! String
+                        self.hourLabel.text=("Maç saati: \(self.hour)")
+                        self.stadium=document.get("StadiumName") as! String
+                        self.stadiumName.text=("Saha adı: \(self.stadium)")
+                        self.status=document.get("Status") as! String
+                        self.statusLabel.text=("Durum: \(self.status)")
+                        if self.status == "Onaylandı." {
+                            if self.daysArray.contains(self.day) {
                                 //yorum yapamazsın.
+                                //cancelButton.isHidden=true
                             } else {
                                 self.scoringPicker.isHidden=false
                                 self.commentText.isHidden=false
                                 self.sendButton.isHidden=false
                                 self.commentLabel.isHidden=false
                                 self.cancelButton.isHidden=true
+                                self.view2.isHidden=false
+                                
                             }
                         }
                         self.getDataFromDatabase()
@@ -131,7 +147,7 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     func getDataFromDatabase(){
-        firestoreDatabase.collection("Evaluation").document(stadiumName.text!).collection(stadiumName.text!).document(dateLabel.text!+"-"+hourLabel.text!).getDocument(source: .cache) { (snapshot, error) in
+        firestoreDatabase.collection("Evaluation").document(stadium).collection(stadium).document(day+"-"+hour).getDocument(source: .cache) { (snapshot, error) in
                     if let document = snapshot {
                         let comment=document.get("Comment") as! String
                         if comment != "" {
@@ -139,6 +155,7 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
                             self.commentLabel.isHidden=true
                             self.cancelButton.isHidden=true
                             self.sendButton.isHidden=false
+                            self.view2.isHidden=true
                         }
                         let score=document.get("Score") as! String
                         if score != "" {
@@ -169,18 +186,18 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         let firestoreUser=["User":Auth.auth().currentUser!.uid,
                            "Email":Auth.auth().currentUser?.email,
-                           "StadiumName":stadiumName.text!,
-                           "FieldName":fieldName.text!,
-                           "Date":dateLabel.text!,
-                           "Hour":hourLabel.text!,
-                           "Status":statusLabel.text!,
+                           "StadiumName":stadium,
+                           "FieldName":field,
+                           "Date":day,
+                           "Hour":hour,
+                           "Status":status,
                            "Comment":commentText.text!,
                            "Score":chosenPoint,
                            "FullName":fullName,
                            "CommentDate":currentTime] as [String:Any]
         if chosenPoint != "" && commentText.text != "" {
             //sadece yorum ya da oylama yaptırırsan güncelleme yaptır database'e.
-            firestoreDatabase.collection("Evaluation").document(stadiumName.text!).collection(stadiumName.text!).document(dateLabel.text!+"-"+hourLabel.text!).setData(firestoreUser) {
+            firestoreDatabase.collection("Evaluation").document(stadium).collection(stadium).document(day+"-"+hour).setData(firestoreUser) {
                 error in
                 if error != nil {
                     self.makeAlert(titleInput: "Error!", messageInput: error?.localizedDescription ?? "Error")
@@ -202,9 +219,9 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
            let alert=UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.actionSheet)
         
         let yesButton=UIAlertAction(title: "Evet", style: UIAlertAction.Style.default, handler: {(action) -> Void in
-            self.firestoreDatabase.collection("StadiumAppointments").document(self.stadiumName.text!).collection(self.stadiumName.text!).document(self.documentID).updateData(["Status":"İptal edildi."])
+            self.firestoreDatabase.collection("StadiumAppointments").document(self.stadium).collection(self.stadium).document(self.documentID).updateData(["Status":"İptal edildi."])
             self.firestoreDatabase.collection("UserAppointments").document(self.currentUser!.uid).collection(self.currentUser!.uid).document(self.documentID).updateData(["Status":"İptal edildi."])
-            self.firestoreDatabase.collection("Calendar").document(self.stadiumName.text!).collection(self.fieldName.text!).document(self.self.dateLabel.text!+"-"+self.hourLabel.text!).updateData(["Status":"İptal edildi."])
+            self.firestoreDatabase.collection("Calendar").document(self.stadium).collection(self.field).document(self.day+"-"+self.hour).updateData(["Status":"İptal edildi."])
             self.makeAlert(titleInput: "Başarılı", messageInput: "Randevunuz iptal edildi.")
         })
         let noButton=UIAlertAction(title: "Hayır", style: UIAlertAction.Style.default, handler: nil)

@@ -14,6 +14,7 @@ class FieldInformationsViewController: UIViewController {
     @IBOutlet weak var sizeFieldLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var downPaymenLabel: UILabel!
+    @IBOutlet weak var view1: UIView!
     
     var firestoreDatabase=Firestore.firestore()
     var chosenFieldName=""
@@ -23,13 +24,14 @@ class FieldInformationsViewController: UIViewController {
         super.viewDidLoad()
         
         fieldNameLabel.layer.borderWidth=1
-        fieldNameLabel.layer.borderColor=UIColor.black.cgColor
+        fieldNameLabel.layer.borderColor=UIColor.systemGreen.cgColor
         sizeFieldLabel.layer.borderWidth=1
-        sizeFieldLabel.layer.borderColor=UIColor.black.cgColor
+        sizeFieldLabel.layer.borderColor=UIColor.systemGreen.cgColor
         priceLabel.layer.borderWidth=1
-        priceLabel.layer.borderColor=UIColor.black.cgColor
+        priceLabel.layer.borderColor=UIColor.systemGreen.cgColor
         downPaymenLabel.layer.borderWidth=1
-        downPaymenLabel.layer.borderColor=UIColor.black.cgColor
+        downPaymenLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        view1.layer.cornerRadius=30
         
         fieldNameLabel.text=chosenFieldName
         

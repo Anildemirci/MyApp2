@@ -15,6 +15,8 @@ class UserInformationViewController: UIViewController {
     @IBOutlet weak var town: UILabel!
     @IBOutlet weak var confirmedAppointments: UILabel!
     @IBOutlet weak var canceledAppointments: UILabel!
+    @IBOutlet weak var view1: UIView!
+    @IBOutlet weak var view2: UIView!
     
     var confirmedNumber=Int()
     var canceledNumber=Int()
@@ -25,17 +27,19 @@ class UserInformationViewController: UIViewController {
         super.viewDidLoad()
         
         userFullname.layer.borderWidth=1
-        userFullname.layer.borderColor=UIColor.black.cgColor
+        userFullname.layer.borderColor=UIColor.systemGreen.cgColor
         phone.layer.borderWidth=1
-        phone.layer.borderColor=UIColor.black.cgColor
+        phone.layer.borderColor=UIColor.systemGreen.cgColor
         city.layer.borderWidth=1
-        city.layer.borderColor=UIColor.black.cgColor
+        city.layer.borderColor=UIColor.systemGreen.cgColor
         town.layer.borderWidth=1
-        town.layer.borderColor=UIColor.black.cgColor
+        town.layer.borderColor=UIColor.systemGreen.cgColor
         confirmedAppointments.layer.borderWidth=1
-        confirmedAppointments.layer.borderColor=UIColor.black.cgColor
+        confirmedAppointments.layer.borderColor=UIColor.systemGreen.cgColor
         canceledAppointments.layer.borderWidth=1
-        canceledAppointments.layer.borderColor=UIColor.black.cgColor
+        canceledAppointments.layer.borderColor=UIColor.systemGreen.cgColor
+        view1.layer.cornerRadius=30
+        view2.layer.cornerRadius=30
 
         // Do any additional setup after loading the view.
         let docref=firedatabase.collection("Users").document(currentUser!.uid)

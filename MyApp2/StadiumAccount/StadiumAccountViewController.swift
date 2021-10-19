@@ -31,19 +31,22 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         photosButton.setTitleColor(UIColor.white, for: .normal)
-        photosButton.backgroundColor = .systemYellow
+        photosButton.backgroundColor = .systemGreen
         photosButton.layer.borderWidth=3
+        photosButton.layer.borderColor=UIColor.systemGreen.cgColor
         infoButton.setTitleColor(UIColor.white, for: .normal)
-        infoButton.backgroundColor = .systemYellow
+        infoButton.backgroundColor = .systemGreen
         infoButton.layer.borderWidth=3
+        infoButton.layer.borderColor=UIColor.systemGreen.cgColor
         commentButton.setTitleColor(UIColor.white, for: .normal)
-        commentButton.backgroundColor = .systemRed
+        commentButton.backgroundColor = .systemGreen
         commentButton.layer.borderWidth=3
+        commentButton.layer.borderColor=UIColor.systemGreen.cgColor
         uploadButton.setTitleColor(UIColor.white, for: .normal)
         uploadButton.backgroundColor = .green
         uploadButton.layer.cornerRadius=30
-        appointmentButton.setTitleColor(UIColor.white, for: .normal)
-        appointmentButton.backgroundColor = .green
+        //appointmentButton.setTitleColor(UIColor.white, for: .normal)
+        //appointmentButton.backgroundColor = .systemGreen
         appointmentButton.layer.cornerRadius=30
         profileImageView.layer.borderWidth=1
         profileImageView.layer.borderColor=UIColor.black.cgColor

@@ -25,6 +25,7 @@ class SelectedStadiumViewController: UIViewController {
     var ID=""
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -32,13 +33,13 @@ class SelectedStadiumViewController: UIViewController {
         appointmentButton.backgroundColor = .systemBlue
         appointmentButton.layer.cornerRadius=30
         photosButton.setTitleColor(UIColor.white, for: .normal)
-        photosButton.backgroundColor = .systemYellow
+        photosButton.backgroundColor = .systemGreen
         photosButton.layer.borderWidth=3
         infoButton.setTitleColor(UIColor.white, for: .normal)
-        infoButton.backgroundColor = .systemYellow
+        infoButton.backgroundColor = .systemGreen
         infoButton.layer.borderWidth=3
         commentButton.setTitleColor(UIColor.white, for: .normal)
-        commentButton.backgroundColor = .systemRed
+        commentButton.backgroundColor = .systemGreen
         commentButton.layer.borderWidth=3
         
         nameLabel.text=name
