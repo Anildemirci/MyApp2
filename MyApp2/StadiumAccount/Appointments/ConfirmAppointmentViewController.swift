@@ -41,31 +41,31 @@ class ConfirmAppointmentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         confirmButton.setTitleColor(UIColor.white, for: .normal)
-        confirmButton.backgroundColor = .systemGreen
-        confirmButton.layer.cornerRadius=30
+        //confirmButton.backgroundColor = .systemGreen
+        confirmButton.layer.cornerRadius=20
         rejectButton.setTitleColor(UIColor.white, for: .normal)
-        rejectButton.backgroundColor = .red
-        rejectButton.layer.cornerRadius=30
+        //rejectButton.backgroundColor = .red
+        rejectButton.layer.cornerRadius=20
         fieldNameLabel.layer.borderWidth=1
-        fieldNameLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        fieldNameLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         dateLabel.layer.borderWidth=1
-        dateLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        dateLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         hourLabel.layer.borderWidth=1
-        hourLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        hourLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         priceLabel.layer.borderWidth=1
-        priceLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        priceLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         noteLabel.layer.borderWidth=1
-        noteLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        noteLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         userFullNameLabel.layer.borderWidth=1
-        userFullNameLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        userFullNameLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         userPhoneLabel.layer.borderWidth=1
-        userPhoneLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        userPhoneLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         downPaymentLabel.layer.borderWidth=1
-        downPaymentLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        downPaymentLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         confirmNumberLabel.layer.borderWidth=1
-        confirmNumberLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        confirmNumberLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         cancelNumberLabel.layer.borderWidth=1
-        cancelNumberLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        cancelNumberLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         view1.layer.cornerRadius=30
         view2.layer.cornerRadius=30
         // Do any additional setup after loading the view.

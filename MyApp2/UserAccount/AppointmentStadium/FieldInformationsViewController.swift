@@ -24,13 +24,13 @@ class FieldInformationsViewController: UIViewController {
         super.viewDidLoad()
         
         fieldNameLabel.layer.borderWidth=1
-        fieldNameLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        fieldNameLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         sizeFieldLabel.layer.borderWidth=1
-        sizeFieldLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        sizeFieldLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         priceLabel.layer.borderWidth=1
-        priceLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        priceLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         downPaymenLabel.layer.borderWidth=1
-        downPaymenLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        downPaymenLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         view1.layer.cornerRadius=30
         
         fieldNameLabel.text=chosenFieldName

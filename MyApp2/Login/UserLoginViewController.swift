@@ -22,10 +22,10 @@ class UserLoginViewController: UIViewController {
         loginButton.layer.cornerRadius=25
         emailText.layer.cornerRadius=25
         emailText.layer.borderWidth = 1
-        emailText.layer.borderColor=UIColor.systemBlue.cgColor
+        emailText.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         passwordText.layer.cornerRadius=25
         passwordText.layer.borderWidth=1
-        passwordText.layer.borderColor=UIColor.systemBlue.cgColor
+        passwordText.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         // Do any additional setup after loading the view.
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)

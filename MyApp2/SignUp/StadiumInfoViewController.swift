@@ -24,22 +24,22 @@ class StadiumInfoViewController: UIViewController {
         confirmButton.layer.cornerRadius=25
         nameText.layer.cornerRadius=25
         nameText.layer.borderWidth = 1
-        nameText.layer.borderColor=UIColor.systemBlue.cgColor
+        nameText.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         addressText.layer.cornerRadius=25
         addressText.layer.borderWidth=1
-        addressText.layer.borderColor=UIColor.systemBlue.cgColor
+        addressText.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         numberOfField.layer.cornerRadius=25
         numberOfField.layer.borderWidth = 1
-        numberOfField.layer.borderColor=UIColor.systemBlue.cgColor
+        numberOfField.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         cityText.layer.cornerRadius=25
         cityText.layer.borderWidth=1
-        cityText.layer.borderColor=UIColor.systemBlue.cgColor
+        cityText.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         townText.layer.cornerRadius=25
         townText.layer.borderWidth = 1
-        townText.layer.borderColor=UIColor.systemBlue.cgColor
+        townText.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         phoneText.layer.cornerRadius=25
         phoneText.layer.borderWidth=1
-        phoneText.layer.borderColor=UIColor.systemBlue.cgColor
+        phoneText.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         // Do any additional setup after loading the view.
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)

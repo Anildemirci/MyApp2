@@ -42,15 +42,15 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        confirmButton.setTitleColor(UIColor.white, for: .disabled)
-        confirmButton.backgroundColor = .blue
-        confirmButton.layer.cornerRadius=20
-        editButton.setTitleColor(UIColor.white, for: .disabled)
-        editButton.backgroundColor = .blue
-        editButton.layer.cornerRadius=20
-        addButton.setTitleColor(UIColor.white, for: .disabled)
-        addButton.backgroundColor = .blue
-        addButton.layer.cornerRadius=20
+        //confirmButton.setTitleColor(UIColor.white, for: .disabled)
+        //confirmButton.backgroundColor = .blue
+        confirmButton.layer.cornerRadius=30
+        //editButton.setTitleColor(UIColor.white, for: .disabled)
+        //editButton.backgroundColor = .blue
+        editButton.layer.cornerRadius=30
+        //addButton.setTitleColor(UIColor.white, for: .disabled)
+        //addButton.backgroundColor = .blue
+        addButton.layer.cornerRadius=30
         villageText.layer.borderWidth=1
         villageText.layer.borderColor=UIColor.black.cgColor
         streetText.layer.borderWidth=1

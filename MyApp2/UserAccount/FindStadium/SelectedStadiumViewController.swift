@@ -29,19 +29,21 @@ class SelectedStadiumViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        appointmentButton.setTitleColor(UIColor.white, for: .normal)
-        appointmentButton.backgroundColor = .systemBlue
+        //appointmentButton.setTitleColor(UIColor.white, for: .normal)
+        //appointmentButton.backgroundColor = .systemBlue
         appointmentButton.layer.cornerRadius=30
-        photosButton.setTitleColor(UIColor.white, for: .normal)
-        photosButton.backgroundColor = .systemGreen
+        //photosButton.setTitleColor(UIColor.white, for: .normal)
+        //photosButton.backgroundColor = .systemGreen
         photosButton.layer.borderWidth=3
-        infoButton.setTitleColor(UIColor.white, for: .normal)
-        infoButton.backgroundColor = .systemGreen
+        photosButton.layer.borderColor=UIColor(named: "myGreen")?.cgColor
+        //infoButton.setTitleColor(UIColor.white, for: .normal)
+        //infoButton.backgroundColor = .systemGreen
         infoButton.layer.borderWidth=3
-        commentButton.setTitleColor(UIColor.white, for: .normal)
-        commentButton.backgroundColor = .systemGreen
+        infoButton.layer.borderColor=UIColor(named: "myGreen")?.cgColor
+        //commentButton.setTitleColor(UIColor.white, for: .normal)
+        //commentButton.backgroundColor = .systemGreen
         commentButton.layer.borderWidth=3
-        
+        commentButton.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         nameLabel.text=name
         
         firestoreDatabase.collection("ProfilePhoto").whereField("StadiumName", isEqualTo: name).getDocuments { (snapshot, error) in

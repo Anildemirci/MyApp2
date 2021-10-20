@@ -10,6 +10,7 @@ import Firebase
 import SDWebImage
 import grpc
 
+@available(iOS 13.0, *)
 class UserAccountViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
     @IBOutlet weak var profileImageView: UIImageView!
@@ -31,15 +32,17 @@ class UserAccountViewController: UIViewController,UIImagePickerControllerDelegat
         profileImageView.clipsToBounds = true
         profileImageView.layer.borderWidth=2.0
         profileImageView.layer.borderColor=UIColor.black.cgColor
+        //profileImageView.image=UIImage(systemName: "person.circle")
+        //trashButton.setImage(UIImage(named: "futbolculogo"), for: .normal)
         myTeamButton.layer.borderWidth = 3
-        myTeamButton.layer.borderColor=UIColor.systemGreen.cgColor
-        myTeamButton.backgroundColor=UIColor.systemRed
+        myTeamButton.layer.borderColor=UIColor(named: "myGreen")?.cgColor
+        //myTeamButton.backgroundColor=UIColor.systemGreen
         infoButton.layer.borderWidth = 3
-        infoButton.layer.borderColor=UIColor.systemGreen.cgColor
-        infoButton.backgroundColor=UIColor.systemRed
+        infoButton.layer.borderColor=UIColor(named: "myGreen")?.cgColor
+        //infoButton.backgroundColor=UIColor.systemGreen
         appointmentsButton.layer.borderWidth = 3
-        appointmentsButton.layer.borderColor=UIColor.systemGreen.cgColor
-        appointmentsButton.backgroundColor=UIColor.systemRed
+        appointmentsButton.layer.borderColor=UIColor(named: "myGreen")?.cgColor
+        //appointmentsButton.backgroundColor=UIColor.systemRed
         
         let navBar=UINavigationBar(frame: CGRect(x: 0, y: 0, width: Int(view.frame.size.width), height: 50))
         view.addSubview(navBar)

@@ -16,6 +16,8 @@ class StadiumSettingsViewController: UIViewController {
     @IBOutlet weak var changeEmailButton: UIButton!
     @IBOutlet weak var changePasswordButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var view1: UIView!
+    @IBOutlet weak var view2: UIView!
     
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
@@ -23,14 +25,16 @@ class StadiumSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         changeEmailButton.setTitleColor(UIColor.white, for: .normal)
-        changeEmailButton.backgroundColor = .systemBlue
-        changeEmailButton.layer.cornerRadius=20
+        //changeEmailButton.backgroundColor = .systemBlue
+        changeEmailButton.layer.cornerRadius=30
         changePasswordButton.setTitleColor(UIColor.white, for: .normal)
-        changePasswordButton.backgroundColor = .systemBlue
-        changePasswordButton.layer.cornerRadius=20
+        //changePasswordButton.backgroundColor = .systemBlue
+        changePasswordButton.layer.cornerRadius=30
         logoutButton.setTitleColor(UIColor.white, for: .normal)
-        logoutButton.backgroundColor = .systemRed
-        logoutButton.layer.cornerRadius=20
+        //logoutButton.backgroundColor = .systemRed
+        logoutButton.layer.cornerRadius=30
+        view1.layer.cornerRadius=30
+        view2.layer.cornerRadius=30
         // Do any additional setup after loading the view.
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)

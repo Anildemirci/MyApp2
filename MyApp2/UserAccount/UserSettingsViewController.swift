@@ -25,11 +25,11 @@ class UserSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         newMailText.layer.borderWidth=1
-        newMailText.layer.borderColor=UIColor.systemGreen.cgColor
+        newMailText.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         newPasswordText.layer.borderWidth=1
-        newPasswordText.layer.borderColor=UIColor.systemGreen.cgColor
+        newPasswordText.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         newPasswordText2.layer.borderWidth=1
-        newPasswordText2.layer.borderColor=UIColor.systemGreen.cgColor
+        newPasswordText2.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         changeEmailButton.setTitleColor(UIColor.white, for: .normal)
         //changeEmailButton.backgroundColor = .systemBlue
         changeEmailButton.layer.cornerRadius=30
@@ -41,7 +41,7 @@ class UserSettingsViewController: UIViewController {
         //changePasswordButton.layer.borderWidth=3
         //changePasswordButton.layer.borderColor=UIColor.systemYellow.cgColor
         logoutButton.setTitleColor(UIColor.white, for: .normal)
-        logoutButton.backgroundColor = .red
+        //logoutButton.backgroundColor = .red
         logoutButton.layer.cornerRadius=30
         view1.layer.cornerRadius=30
         //view1.layer.borderWidth=3

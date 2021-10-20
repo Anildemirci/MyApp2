@@ -38,18 +38,18 @@ class RequestAppointmentViewController: UIViewController {
         dateLabel.text=("Tarih: \(chosenDay)")
         
         hourLabel.layer.borderWidth=1
-        hourLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        hourLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         fieldNameLabel.layer.borderWidth=1
-        fieldNameLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        fieldNameLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         stadiumNameLabel.layer.borderWidth=1
-        stadiumNameLabel.layer.borderColor=UIColor.systemGreen.cgColor
+        stadiumNameLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         dateLabel.layer.borderWidth=1
-        dateLabel.layer.borderColor=UIColor.systemGreen.cgColor
-        confirmButton.layer.cornerRadius=30
-        confirmButton.backgroundColor=UIColor.systemGreen
+        dateLabel.layer.borderColor=UIColor(named: "myGreen")?.cgColor
+        //confirmButton.layer.cornerRadius=30
+        //confirmButton.backgroundColor=UIColor.systemGreen
         confirmButton.setTitleColor(UIColor.white, for: .disabled)
         noteText.layer.borderWidth=1
-        noteText.layer.borderColor=UIColor.systemGreen.cgColor
+        noteText.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         view1.layer.cornerRadius=30
         
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))

@@ -30,20 +30,20 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        photosButton.setTitleColor(UIColor.white, for: .normal)
-        photosButton.backgroundColor = .systemGreen
+        //photosButton.setTitleColor(UIColor.white, for: .normal)
+        //photosButton.backgroundColor = .systemGreen
         photosButton.layer.borderWidth=3
-        photosButton.layer.borderColor=UIColor.systemGreen.cgColor
-        infoButton.setTitleColor(UIColor.white, for: .normal)
-        infoButton.backgroundColor = .systemGreen
+        photosButton.layer.borderColor=UIColor(named: "myGreen")?.cgColor
+        //infoButton.setTitleColor(UIColor.white, for: .normal)
+        //infoButton.backgroundColor = .systemGreen
         infoButton.layer.borderWidth=3
-        infoButton.layer.borderColor=UIColor.systemGreen.cgColor
-        commentButton.setTitleColor(UIColor.white, for: .normal)
-        commentButton.backgroundColor = .systemGreen
+        infoButton.layer.borderColor=UIColor(named: "myGreen")?.cgColor
+        //commentButton.setTitleColor(UIColor.white, for: .normal)
+        //commentButton.backgroundColor = .systemGreen
         commentButton.layer.borderWidth=3
-        commentButton.layer.borderColor=UIColor.systemGreen.cgColor
-        uploadButton.setTitleColor(UIColor.white, for: .normal)
-        uploadButton.backgroundColor = .green
+        commentButton.layer.borderColor=UIColor(named: "myGreen")?.cgColor
+        //uploadButton.setTitleColor(UIColor.white, for: .normal)
+        //uploadButton.backgroundColor = .green
         uploadButton.layer.cornerRadius=30
         //appointmentButton.setTitleColor(UIColor.white, for: .normal)
         //appointmentButton.backgroundColor = .systemGreen

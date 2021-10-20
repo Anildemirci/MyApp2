@@ -15,11 +15,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        loginButton.setTitleColor(UIColor.white, for: .normal)
+        //loginButton.setTitleColor(UIColor.white, for: .normal)
         loginButton.backgroundColor = .systemBlue
         loginButton.layer.cornerRadius=25
         signUpButton.setTitleColor(UIColor.white, for: .normal)
-        signUpButton.backgroundColor = .systemGreen
+        //signUpButton.backgroundColor = .systemGreen
         signUpButton.layer.cornerRadius=25
     }
     @IBAction func loginButtonClicked(_ sender: Any) {

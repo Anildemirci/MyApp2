@@ -183,7 +183,7 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell=tableView.dequeueReusableCell(withIdentifier: "confirmDateCell", for: indexPath) as! ConfirmDateTableViewCell
-        cell.hourLabel.backgroundColor=UIColor.green
+        cell.hourLabel.backgroundColor=UIColor(named: "myGreen")
         
         if closedByStadium.count > 1 {
             for i in 0...closedByStadium.count-1 {

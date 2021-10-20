@@ -27,17 +27,17 @@ class UserInformationViewController: UIViewController {
         super.viewDidLoad()
         
         userFullname.layer.borderWidth=1
-        userFullname.layer.borderColor=UIColor.systemGreen.cgColor
+        userFullname.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         phone.layer.borderWidth=1
-        phone.layer.borderColor=UIColor.systemGreen.cgColor
+        phone.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         city.layer.borderWidth=1
-        city.layer.borderColor=UIColor.systemGreen.cgColor
+        city.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         town.layer.borderWidth=1
-        town.layer.borderColor=UIColor.systemGreen.cgColor
+        town.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         confirmedAppointments.layer.borderWidth=1
-        confirmedAppointments.layer.borderColor=UIColor.systemGreen.cgColor
+        confirmedAppointments.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         canceledAppointments.layer.borderWidth=1
-        canceledAppointments.layer.borderColor=UIColor.systemGreen.cgColor
+        canceledAppointments.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         view1.layer.cornerRadius=30
         view2.layer.cornerRadius=30
 

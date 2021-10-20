@@ -16,10 +16,10 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         stadiumLoginButton.setTitleColor(UIColor.white, for: .normal)
-        stadiumLoginButton.backgroundColor = .systemGreen
+        //stadiumLoginButton.backgroundColor = .systemGreen
         stadiumLoginButton.layer.cornerRadius=25
         userLoginButton.setTitleColor(UIColor.white, for: .normal)
-        userLoginButton.backgroundColor = .systemGreen
+        //userLoginButton.backgroundColor = .systemGreen
         userLoginButton.layer.cornerRadius=25
         
         // Do any additional setup after loading the view.

@@ -18,17 +18,17 @@ class UserSignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         signUpButton.setTitleColor(UIColor.white, for: .normal)
-        signUpButton.backgroundColor = .systemGreen
+        //signUpButton.backgroundColor = .systemGreen
         signUpButton.layer.cornerRadius=25
         emailText.layer.cornerRadius=25
         emailText.layer.borderWidth = 1
-        emailText.layer.borderColor=UIColor.systemBlue.cgColor
+        emailText.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         passwordText.layer.cornerRadius=25
         passwordText.layer.borderWidth=1
-        passwordText.layer.borderColor=UIColor.systemBlue.cgColor
+        passwordText.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         password2Text.layer.cornerRadius=25
         password2Text.layer.borderWidth=1
-        password2Text.layer.borderColor=UIColor.systemBlue.cgColor
+        password2Text.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
         
