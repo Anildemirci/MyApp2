@@ -21,6 +21,8 @@ class SignUpViewController: UIViewController {
         userSignUpButton.setTitleColor(UIColor.white, for: .normal)
         //userSignUpButton.backgroundColor = .systemGreen
         userSignUpButton.layer.cornerRadius=25
+        navigationItem.title="Üye Ol"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
         // Do any additional setup after loading the view.
     }
     @IBAction func backButtonClicked(_ sender: Any) {

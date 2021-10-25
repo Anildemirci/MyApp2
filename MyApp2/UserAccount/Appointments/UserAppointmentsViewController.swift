@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 
+
 class UserAppointmentsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
@@ -15,12 +16,14 @@ class UserAppointmentsViewController: UIViewController,UITableViewDelegate,UITab
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
     var appointmentsArray=[String]()
+    var confirmedAppointmentsArray=[String]()
+    var pastAppointments=[String]()
     var appointmentDate=""
     var status=""
     var daysArray=[String]()
-    var pastAppointments=[String]()
     var today=""
-    
+    var navTitle=""
+    var appointmentCount=0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,13 +43,16 @@ class UserAppointmentsViewController: UIViewController,UITableViewDelegate,UITab
             dateFormatter.dateFormat = "dd.MM.yyyy"
             let date = dateFormatter.string(from: currentDate! as Date)
             daysArray.append(date)
+            
+            
+            navigationItem.title=navTitle
+            navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
         }
         
         firestoreDatabase.collection("UserAppointments").document(currentUser!.uid).collection(currentUser!.uid).whereField("Status", isEqualTo: status).addSnapshotListener { (snapshot, error) in
             if error == nil {
                 for document in snapshot!.documents {
                     let date=document.get("AppointmentDate") as! String
-                    
                     if self.status == "Onay bekliyor." {
                         if self.daysArray.contains(date) {
                             self.appointmentsArray.append(document.documentID)
@@ -54,13 +60,22 @@ class UserAppointmentsViewController: UIViewController,UITableViewDelegate,UITab
                     }
                     else if self.status == "Onaylandı." {
                         if self.daysArray.contains(date) {
-                            self.appointmentsArray.append(document.documentID)
+                            self.confirmedAppointmentsArray.append(document.documentID)
                         } else {
                             self.pastAppointments.append(document.documentID)
                         }
                     }
                 }
-                if self.appointmentsArray.count == 0 {
+                if self.status == "Onay bekliyor." {
+                    self.appointmentCount=self.appointmentsArray.count
+                } else {
+                    if self.today == "past" {
+                        self.appointmentCount=self.pastAppointments.count
+                    } else {
+                        self.appointmentCount=self.confirmedAppointmentsArray.count
+                    }
+                }
+                if self.appointmentCount == 0  {
                     self.tableView.isUserInteractionEnabled=false
                 }
                 self.tableView.reloadData()
@@ -85,38 +100,65 @@ class UserAppointmentsViewController: UIViewController,UITableViewDelegate,UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if appointmentsArray.count == 0 {
-            return 1
-        } else {
+        var number=0
+        if status == "Onaylandı." {
             if today == "past" {
-                return pastAppointments.count
+                if pastAppointments.count == 0 {
+                    return 1
+                } else {
+                    number=pastAppointments.count
+                }
             }
-            else if today == "next "{
-                return appointmentsArray.count
+            else if today == "next"{
+                if confirmedAppointmentsArray.count == 0 {
+                    return 1
+                } else {
+                    number=confirmedAppointmentsArray.count
+                }
+            }
+        } else {
+            if appointmentsArray.count == 0 {
+                return 1
+            } else {
+                number=appointmentsArray.count
             }
         }
-        return appointmentsArray.count
+        return number
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell=tableView.dequeueReusableCell(withIdentifier: "userAppointmentCell", for: indexPath) as! UserAppointmentTableViewCell
-        if appointmentsArray.count != 0 {
+        
+        if status == "Onaylandı." {
+            
             if today == "past" {
-                cell.appointmentLabel.text=pastAppointments[indexPath.row]
+                if pastAppointments.count != 0 {
+                    cell.appointmentLabel.text=pastAppointments[indexPath.row]
+                } else {
+                    cell.appointmentLabel.text="Henüz bekleyen randevunuz yok."
+                }
             }
             else if today == "next" {
+                if confirmedAppointmentsArray.count != 0 {
+                    cell.appointmentLabel.text=confirmedAppointmentsArray[indexPath.row]
+                } else {
+                    cell.appointmentLabel.text="Henüz bekleyen randevunuz yok."
+                }
+            }
+            
+        } else {
+            if appointmentsArray.count != 0 {
                 cell.appointmentLabel.text=appointmentsArray[indexPath.row]
             } else {
-                cell.appointmentLabel.text=appointmentsArray[indexPath.row]
+                cell.appointmentLabel.text="Henüz bekleyen randevunuz yok."
             }
-            return cell
-        } else {
-            cell.appointmentLabel.text="Henüz bekleyen randevunuz yok."
-            return cell
         }
+        return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if today == "past" {
             appointmentDate=pastAppointments[indexPath.row]
+        } else if today == "next" {
+            appointmentDate=confirmedAppointmentsArray[indexPath.row]
         } else {
             appointmentDate=appointmentsArray[indexPath.row]
         }
@@ -126,6 +168,7 @@ class UserAppointmentsViewController: UIViewController,UITableViewDelegate,UITab
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toShowAppointment" {
+            
             let destinationVC=segue.destination as! EvaluationViewController
             destinationVC.documentID=appointmentDate
         }

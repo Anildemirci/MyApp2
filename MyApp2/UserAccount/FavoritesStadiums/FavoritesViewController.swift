@@ -21,8 +21,13 @@ class FavoritesViewController: UIViewController,UITableViewDelegate,UITableViewD
         tableView.delegate=self
         tableView.dataSource=self
         // Do any additional setup after loading the view.
+        navigationItem.title="Favori Sahalar"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationController?.navigationBar.tintColor=UIColor.white
+        navigationController?.navigationBar.backgroundColor=UIColor(named: "myGreen")
         getDataFromFirestore()
     }
+    
     func getDataFromFirestore(){
         
         self.firestoreDatabase.collection("Users").whereField("User", isEqualTo: currentUser!.uid).getDocuments { (snapshot, error) in

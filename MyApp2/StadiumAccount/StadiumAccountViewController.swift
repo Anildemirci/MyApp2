@@ -13,9 +13,7 @@ import grpc
 class StadiumAccountViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var uploadButton: UIButton!
-    @IBOutlet weak var trashButton: UIButton!
     @IBOutlet weak var appointmentButton: UIButton!
     @IBOutlet weak var photosButton: UIButton!
     @IBOutlet weak var infoButton: UIButton!
@@ -24,7 +22,6 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
     var firestoreDatabase=Firestore.firestore()
     var currentUser=Auth.auth().currentUser
     var storage=Storage.storage()
-    
     var appointmentArray=[String]()
     var nameStadium=""
     
@@ -52,8 +49,12 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
         profileImageView.layer.borderColor=UIColor.black.cgColor
         // Do any additional setup after loading the view.
         
-        trashButton.titleLabel?.text=""
         profileImageView.isUserInteractionEnabled=true
+        navigationItem.title="Hesabım"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationController?.navigationBar.tintColor=UIColor.white
+        navigationController?.navigationBar.backgroundColor=UIColor(named: "myGreen")
+        
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(choosePicture))
         profileImageView.addGestureRecognizer(gestureRecognizer)
         
@@ -62,22 +63,39 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
             if let document = document {
                 let name=document.get("Name") as! String
                 self.nameStadium=name
-                self.nameLabel.text=name
             }
     }
         firestoreDatabase.collection("ProfilePhoto").document(currentUser!.uid).getDocument(source: .cache) { (snapshot, error) in
             if let document = snapshot {
                 if let pp=document.get("imageUrl") {
                     self.profileImageView.isUserInteractionEnabled=false
+                    self.navigationItem.rightBarButtonItem=UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(self.trashClicked))
                 }else {
-                    self.trashButton.isHidden=true
+                    self.navigationItem.rightBarButtonItem=UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.choosePicture))
                 }
             }
         }
         getPhoto()
         
     }
-    
+    @objc func trashClicked(){
+        firestoreDatabase.collection("ProfilePhoto").document(currentUser!.uid).delete { error in
+            if error != nil {
+                self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
+            } else {
+                let storageRef=self.storage.reference()
+                let uuid=self.currentUser!.uid
+                let deleteRef=storageRef.child("Profile").child("\(uuid).jpg")
+                deleteRef.delete { error in
+                    if error != nil {
+                        self.makeAlert(titleInput: "Hata", messageInput: error?.localizedDescription ?? "Fotoğraf silinemedi.")
+                    } else {
+                        self.makeAlert(titleInput: "Başarılı", messageInput: "Profil fotoğrafınız silindi.")
+                    }
+                }
+            }
+        }
+    }
     
     @objc func choosePicture(){
         let picker=UIImagePickerController()
@@ -140,7 +158,7 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
                             let firestoreProfile=["imageUrl":imageUrl!,
                                                   "User":Auth.auth().currentUser!.email!,
                                                   "ID":Auth.auth().currentUser!.uid,
-                                                  "StadiumName":self.nameLabel.text!,
+                                                  "StadiumName":self.nameStadium,
                                                "Date":FieldValue.serverTimestamp()] as [String:Any]
                                 self.firestoreDatabase.collection("ProfilePhoto").document(Auth.auth().currentUser!.uid).setData(firestoreProfile) { error in
                                     if error != nil {
@@ -152,37 +170,6 @@ class StadiumAccountViewController: UIViewController,UIImagePickerControllerDele
                 }
             }
         }
-    }
-    
-    @IBAction func imagesClicked(_ sender: Any) {
-    }
-    @IBAction func informationClicked(_ sender: Any) {
-        
-    }
-    @IBAction func commentClicked(_ sender: Any) {
-    }
-    @IBAction func trashButtonClicked(_ sender: Any) {
-        
-        firestoreDatabase.collection("ProfilePhoto").document(currentUser!.uid).delete { error in
-            if error != nil {
-                self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
-            } else {
-                let storageRef=self.storage.reference()
-                let uuid=self.currentUser!.uid
-                let deleteRef=storageRef.child("Profile").child("\(uuid).jpg")
-                deleteRef.delete { error in
-                    if error != nil {
-                        self.makeAlert(titleInput: "Hata", messageInput: error?.localizedDescription ?? "Fotoğraf silinemedi.")
-                    } else {
-                        self.makeAlert(titleInput: "Başarılı", messageInput: "Profil fotoğrafınız silindi.")
-                    }
-                }
-            }
-        }
-    }
-    
-    @IBAction func appointmentClicked(_ sender: Any) {
-    
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

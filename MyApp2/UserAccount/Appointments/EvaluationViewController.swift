@@ -64,6 +64,8 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
         sendButton.layer.cornerRadius=25
         view1.layer.cornerRadius=30
         view2.layer.cornerRadius=30
+        
+        
         let docref=firestoreDatabase.collection("Users").document(currentUser!.uid)
         docref.getDocument(source: .cache) { (document, error) in
             if let document = document {
@@ -243,3 +245,4 @@ class EvaluationViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
 }
+

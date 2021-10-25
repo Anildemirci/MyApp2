@@ -12,8 +12,6 @@ import SDWebImage
 class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     
-    @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var uploadButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
     var photoStatement=[String]()
@@ -34,15 +32,14 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
         tableView.delegate=self
         tableView.dataSource=self
         // Do any additional setup after loading the view.
-        
+        navigationItem.title="Fotoğraflar"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
         firestoreDatabase.collection("Users").addSnapshotListener { (snapshot, error) in
             if error == nil {
                 for document in snapshot!.documents{
                     if let userType=document.get("User") as? String{
                         self.userTypeArray.append(userType)
                         if self.userTypeArray.contains(self.currentUser!.uid) {
-                            self.uploadButton.isHidden=true
-                            self.backButton.isHidden=true
                             self.getDataFromUser()
                         }
                     }
@@ -55,8 +52,8 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
                     if let userType=document.get("User") as? String{
                         self.stadiumTypeArray.append(userType)
                         if self.stadiumTypeArray.contains(self.currentUser!.uid) {
+                            self.navigationItem.rightBarButtonItem=UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.uploadClicked))
                             self.getDataFromStadium()
-                            
                         }
                     }
                 }
@@ -174,36 +171,8 @@ class StadiumPhotosViewController: UIViewController,UITableViewDelegate,UITableV
         return cell
     }
     
-    @IBAction func uploadClicked(_ sender: Any) {
+    @objc func uploadClicked(){
         performSegue(withIdentifier: "toUploadPhoto", sender: nil)
-    }
-    
-    @IBAction func backClicked(_ sender: Any) {
-        
-        firestoreDatabase.collection("Users").addSnapshotListener { (snapshot, error) in
-                   if error == nil {
-                       for document in snapshot!.documents{
-                           if let userType=document.get("User") as? String{
-                               self.userTypeArray.append(userType)
-                               if self.userTypeArray.contains(self.currentUser!.uid) {
-                                   self.performSegue(withIdentifier: "backUser", sender: nil)
-                               }
-                           }
-                       }
-                   }
-               }
-               firestoreDatabase.collection("Stadiums").addSnapshotListener { (snapshot, error) in
-                   if error==nil {
-                       for document in snapshot!.documents{
-                           if let userType=document.get("User") as? String{
-                               self.stadiumTypeArray.append(userType)
-                               if self.stadiumTypeArray.contains(self.currentUser!.uid) {
-                                   self.performSegue(withIdentifier: "backStadium", sender: nil)
-                               }
-                           }
-                       }
-                   }
-               }
     }
     
     

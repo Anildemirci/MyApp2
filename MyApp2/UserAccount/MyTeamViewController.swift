@@ -12,6 +12,8 @@ class MyTeamViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title="Takımım"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
         // Do any additional setup after loading the view.
     }
     

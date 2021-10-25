@@ -22,6 +22,10 @@ class LoginViewController: UIViewController {
         //userLoginButton.backgroundColor = .systemGreen
         userLoginButton.layer.cornerRadius=25
         
+        navigationItem.title="Giriş Yap"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationController?.navigationBar.tintColor=UIColor.white
+        navigationController?.navigationBar.backgroundColor=UIColor(named: "myGreen")
         // Do any additional setup after loading the view.
         
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))

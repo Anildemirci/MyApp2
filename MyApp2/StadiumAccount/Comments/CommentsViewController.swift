@@ -10,7 +10,6 @@ import Firebase
 
 class CommentsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
-    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var scoringLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var firestoreDatabase=Firestore.firestore()
@@ -33,13 +32,14 @@ class CommentsViewController: UIViewController,UITableViewDelegate,UITableViewDa
         tableView.delegate=self
         tableView.dataSource=self
         // Do any additional setup after loading the view.
+        navigationItem.title="Yorumlar"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
         firestoreDatabase.collection("Users").addSnapshotListener { (snapshot, error) in
             if error == nil {
                 for document in snapshot!.documents{
                     if let userType=document.get("User") as? String{
                         self.userTypeArray.append(userType)
                         if self.userTypeArray.contains(self.currentUser!.uid) {
-                            self.backButton.isHidden=true
                         }
                     }
                 }

@@ -29,6 +29,8 @@ class StadiumSignUpViewController: UIViewController {
         passwordText2.layer.cornerRadius=25
         passwordText2.layer.borderWidth=1
         passwordText2.layer.borderColor=UIColor(named: "myGreen")?.cgColor
+        navigationItem.title="Halı Saha Kaydı"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
         // Do any additional setup after loading the view.
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)

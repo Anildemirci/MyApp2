@@ -22,6 +22,8 @@ class AppoitmentViewController: UIViewController,UITableViewDelegate,UITableView
         tableView.delegate=self
         tableView.dataSource=self
         // Do any additional setup after loading the view.
+        navigationItem.title="Saha Seçimi"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
         firestoreDatabase.collection("Stadiums").whereField("Name", isEqualTo: stadiumName).getDocuments { (snapshot, error) in
             if error == nil {
                 for document in snapshot!.documents {
@@ -34,7 +36,7 @@ class AppoitmentViewController: UIViewController,UITableViewDelegate,UITableView
                 }
             }
         }
-
+        
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return nameFields.count

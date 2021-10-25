@@ -22,6 +22,10 @@ class CalendarViewController: UIViewController,UITableViewDelegate,UITableViewDa
         tableView.dataSource=self
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        navigationItem.title="Saha Seçimi"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationController?.navigationBar.tintColor=UIColor.white
+        navigationController?.navigationBar.backgroundColor=UIColor(named: "myGreen")
         let docRef=firestoreDatabase.collection("Stadiums").document(currentUser!.uid)
         docRef.getDocument(source: .cache) { (document, error) in
             if let document = document {

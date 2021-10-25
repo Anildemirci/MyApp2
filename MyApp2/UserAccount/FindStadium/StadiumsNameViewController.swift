@@ -11,6 +11,7 @@ import Firebase
 class StadiumsNameViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     var stadiumNameArray=[String]()
     var selectedTown=""
     
@@ -19,9 +20,13 @@ class StadiumsNameViewController: UIViewController,UITableViewDelegate,UITableVi
         tableView.delegate=self
         tableView.dataSource=self
         // Do any additional setup after loading the view.
+        navigationItem.title=selectedTown
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
         getDataFromFirestore()
     }
- 
+    
+    
+    
     func getDataFromFirestore(){
        let firestoreDatabase=Firestore.firestore()
         firestoreDatabase.collection("Stadiums").order(by: "Name",descending: false).addSnapshotListener { (snapshot, error) in

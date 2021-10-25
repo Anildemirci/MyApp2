@@ -29,6 +29,8 @@ class UserSignUpViewController: UIViewController {
         password2Text.layer.cornerRadius=25
         password2Text.layer.borderWidth=1
         password2Text.layer.borderColor=UIColor(named: "myGreen")?.cgColor
+        navigationItem.title="Kullanıcı Kaydı"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
         

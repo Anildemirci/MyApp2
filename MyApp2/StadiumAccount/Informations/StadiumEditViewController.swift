@@ -68,7 +68,8 @@ class StadiumEditViewController: UIViewController,MKMapViewDelegate,CLLocationMa
         view1.layer.cornerRadius=30
         view2.layer.cornerRadius=30
         view3.layer.cornerRadius=30
-        
+        navigationItem.title="Düzenle"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
         let docRef=firestoreDatabase.collection("Stadiums").document(currentUser!.uid)
         docRef.getDocument(source: .cache) { (document, error) in
             if let document = document {

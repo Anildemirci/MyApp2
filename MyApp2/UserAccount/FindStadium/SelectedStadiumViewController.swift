@@ -14,7 +14,6 @@ class SelectedStadiumViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var addFavoriteButton: UIButton!
     @IBOutlet weak var addedFavButton: UIButton!
-    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var appointmentButton: UIButton!
     @IBOutlet weak var photosButton: UIButton!
     @IBOutlet weak var infoButton: UIButton!
@@ -44,8 +43,13 @@ class SelectedStadiumViewController: UIViewController {
         //commentButton.backgroundColor = .systemGreen
         commentButton.layer.borderWidth=3
         commentButton.layer.borderColor=UIColor(named: "myGreen")?.cgColor
-        nameLabel.text=name
         
+        let favIcon=UIImage(named: "favIcon")?.withRenderingMode(.alwaysOriginal)
+        
+        navigationItem.title=name
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationItem.rightBarButtonItem=UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFavClicked))
+        //navigationItem.rightBarButtonItem=UIBarButtonItem(image: favIcon, style: .plain, target: self, action: #selector(addFavClicked))
         firestoreDatabase.collection("ProfilePhoto").whereField("StadiumName", isEqualTo: name).getDocuments { (snapshot, error) in
             if error == nil {
                 for document in snapshot!.documents {
@@ -83,15 +87,17 @@ class SelectedStadiumViewController: UIViewController {
                     }
                 }
             }
-    @IBAction func imagesClicked(_ sender: Any) {
+    
+    @objc func addFavClicked(){
+        //let favIcon2=UIImage(named: "favIcon2")?.withRenderingMode(.alwaysOriginal)
+        //navigationItem.rightBarButtonItem=UIBarButtonItem(image: favIcon2, style: UIBarButtonItem.Style.plain, target: self, action: nil)
+        navigationItem.rightBarButtonItem=UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
+    }
+    
+    @IBAction func photosClicked(_ sender: Any) {
         performSegue(withIdentifier: "toStadiumPhotosFromUser", sender: nil)
     }
-    @IBAction func informationClicked(_ sender: Any) {
-    }
-    @IBAction func commentClicked(_ sender: Any) {
-    }
-    @IBAction func requestClicked(_ sender: Any) {
-    }
+ 
     @IBAction func addedFavClicked(_ sender: Any) {
         firestoreDatabase.collection("Users").document(currentUser!.uid).updateData(["FavoriteStadiums":FieldValue.arrayRemove([name])])
         self.makeAlert(titleInput: "Başarılı", messageInput: "Saha favorilerden çıkartıldı.")

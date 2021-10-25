@@ -14,7 +14,6 @@ import grpc
 class UserAccountViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var trashButton: UIButton!
     @IBOutlet weak var myTeamButton: UIButton!
     @IBOutlet weak var infoButton: UIButton!
     @IBOutlet weak var appointmentsButton: UIButton!
@@ -33,7 +32,7 @@ class UserAccountViewController: UIViewController,UIImagePickerControllerDelegat
         profileImageView.layer.borderWidth=2.0
         profileImageView.layer.borderColor=UIColor.black.cgColor
         //profileImageView.image=UIImage(systemName: "person.circle")
-        //trashButton.setImage(UIImage(named: "futbolculogo"), for: .normal)
+        //trashButton.setImage(UIImage(systemName: "pencil"), for: UIControl.State.normal)
         myTeamButton.layer.borderWidth = 3
         myTeamButton.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         //myTeamButton.backgroundColor=UIColor.systemGreen
@@ -43,15 +42,21 @@ class UserAccountViewController: UIViewController,UIImagePickerControllerDelegat
         appointmentsButton.layer.borderWidth = 3
         appointmentsButton.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         //appointmentsButton.backgroundColor=UIColor.systemRed
-        
-        let navBar=UINavigationBar(frame: CGRect(x: 0, y: 0, width: Int(view.frame.size.width), height: 50))
+       /* let navBar=UINavigationBar(frame: CGRect(x: 0, y: 0, width: Int(view.frame.size.width), height: 75))
+        navBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor: UIColor.white]
+        navBar.barTintColor=UIColor(named: "myGreen")
         view.addSubview(navBar)
         let navItem=UINavigationItem(title: "Hesabım")
         //let doneItem=UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(backButton))
         //navItem.leftBarButtonItem=doneItem
-        navBar.setItems([navItem], animated: false)
+        navBar.setItems([navItem], animated: false) */
         
-        trashButton.titleLabel?.text=""
+        
+        navigationItem.title="Hesabım"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationController?.navigationBar.tintColor=UIColor.white
+        navigationController?.navigationBar.backgroundColor=UIColor(named: "myGreen")
+        
         profileImageView.isUserInteractionEnabled=true
         let gestureRecognizer=UITapGestureRecognizer(target: self, action: #selector(choosePicture))
         profileImageView.addGestureRecognizer(gestureRecognizer)
@@ -68,13 +73,32 @@ class UserAccountViewController: UIViewController,UIImagePickerControllerDelegat
             if let document = snapshot {
                 if let pp=document.get("imageUrl") {
                     self.profileImageView.isUserInteractionEnabled=false
+                    self.navigationItem.rightBarButtonItem=UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(self.trashClicked))
                 }else {
-                    self.trashButton.isHidden=true
+                    self.navigationItem.rightBarButtonItem=UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.choosePicture))
                 }
             }
         }
         getPhoto()
         
+    }
+    @objc func trashClicked(){
+        firedatabase.collection("UserProfilePhoto").document(currentUser!.uid).delete { error in
+            if error != nil {
+                self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
+            } else {
+                let storageRef=self.storage.reference()
+                let uuid=self.currentUser!.uid
+                let deleteRef=storageRef.child("UserProfile").child("\(uuid).jpg")
+                deleteRef.delete { error in
+                    if error != nil {
+                        self.makeAlert(titleInput: "Hata", messageInput: error?.localizedDescription ?? "Fotoğraf silinemedi.")
+                    } else {
+                        self.makeAlert(titleInput: "Başarılı", messageInput: "Profil fotoğrafınız silindi.")
+                    }
+                }
+            }
+        }
     }
     
     @objc func choosePicture(){
@@ -149,24 +173,6 @@ class UserAccountViewController: UIViewController,UIImagePickerControllerDelegat
         }
     }
     
-    @IBAction func trashClicked(_ sender: Any) {
-        firedatabase.collection("UserProfilePhoto").document(currentUser!.uid).delete { error in
-            if error != nil {
-                self.makeAlert(titleInput: "Error", messageInput: error?.localizedDescription ?? "Error")
-            } else {
-                let storageRef=self.storage.reference()
-                let uuid=self.currentUser!.uid
-                let deleteRef=storageRef.child("UserProfile").child("\(uuid).jpg")
-                deleteRef.delete { error in
-                    if error != nil {
-                        self.makeAlert(titleInput: "Hata", messageInput: error?.localizedDescription ?? "Fotoğraf silinemedi.")
-                    } else {
-                        self.makeAlert(titleInput: "Başarılı", messageInput: "Profil fotoğrafınız silindi.")
-                    }
-                }
-            }
-        }
-    }
     @IBAction func appointmentsClicked(_ sender: Any) {
     }
     @IBAction func informationClicked(_ sender: Any) {

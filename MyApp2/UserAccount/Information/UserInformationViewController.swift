@@ -40,7 +40,8 @@ class UserInformationViewController: UIViewController {
         canceledAppointments.layer.borderColor=UIColor(named: "myGreen")?.cgColor
         view1.layer.cornerRadius=30
         view2.layer.cornerRadius=30
-
+        navigationItem.title="Bilgilerim"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
         // Do any additional setup after loading the view.
         let docref=firedatabase.collection("Users").document(currentUser!.uid)
         docref.getDocument(source: .cache) { (document, error) in

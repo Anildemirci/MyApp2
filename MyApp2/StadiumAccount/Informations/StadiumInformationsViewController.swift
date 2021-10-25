@@ -12,8 +12,6 @@ import MapKit
 
 class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
-    @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var featuresTableView: UITableView!
     @IBOutlet weak var openingTime: UILabel!
@@ -32,6 +30,7 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
     var annotationLatitude=Double()
     var annotationLongitude=Double()
     var user=""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         featuresTableView.delegate=self
@@ -39,6 +38,8 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
         // Do any additional setup after loading the view.
         view1.layer.cornerRadius=30
         view2.layer.cornerRadius=30
+        navigationItem.title="Bilgiler"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
         //user girişi ise
         firestoreDatabase.collection("Users").addSnapshotListener { (snapshot, error) in
             if error == nil {
@@ -47,9 +48,8 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
                         self.userTypeArray.append(userType)
                         if self.userTypeArray.contains(self.currentUser!.uid) {
                             self.user="1"
-                            self.backButton.isHidden=true
-                            self.editButton.isHidden=true
                             self.navigationButton.isHidden=false
+                            
                             //self.featuresTableView.isUserInteractionEnabled=false
                             self.firestoreDatabase.collection("Stadiums").whereField("Name", isEqualTo: self.equalName).getDocuments { (snapshot, error) in
                                 if error == nil {
@@ -102,6 +102,7 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
                                 }
                             }
                         }else {//saha girişi ise
+                            self.navigationItem.rightBarButtonItem=UIBarButtonItem(title: "Düzenle",style: .plain, target: self, action: #selector(self.editClicked))
                             let docRef=self.firestoreDatabase.collection("Stadiums").document(self.currentUser!.uid)
                             docRef.getDocument(source: .cache) { (document, error) in
                                 if let document = document {
@@ -127,6 +128,10 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
                 }
             }
         }
+    }
+    
+    @objc func editClicked(){
+        performSegue(withIdentifier: "toEditInfo", sender: nil)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -170,12 +175,6 @@ class StadiumInformationsViewController: UIViewController,UITableViewDelegate,UI
         return cell
     }
     
-    @IBAction func backClicked(_ sender: Any) {
-        
-    }
-    @IBAction func editClicked(_ sender: Any) {
-        
-    }
     
     @IBAction func navigationClicked(_ sender: Any) {
 

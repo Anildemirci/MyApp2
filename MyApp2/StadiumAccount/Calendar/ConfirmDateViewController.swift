@@ -12,7 +12,6 @@ import Foundation
 class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
     
     @IBOutlet weak var tableview: UITableView!
-    @IBOutlet weak var fieldName: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
     var hourArray=[String]()
@@ -38,8 +37,9 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         collectionView.delegate=self
         collectionView.dataSource=self
         // Do any additional setup after loading the view.
-        fieldName.text=selectedName
-        
+        navigationItem.title=selectedName
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationItem.rightBarButtonItem=UIBarButtonItem(title: "Düzenle", style: .plain, target: self, action: #selector(editClicked))
         hourArray=["00:00-01:00","01:00-02:00","02:00-03:00","03:00-04:00","04:00-05:00","05:00-06:00","06:00-07:00","07:00-08:00","08:00-09:00","09:00-10:00","10:00-11:00","11:00-12:00","12:00-13:00","13:00-14:00","14:00-15:00","15:00-16:00","16:00-17:00","17:00-18:00","18:00-19:00","19:00-20:00","20:00-21:00","21:00-22:00","22:00-23:00","23:00-00:00"]
         
         for day in 0...13 {
@@ -156,6 +156,9 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         }
     }
     
+    @objc func editClicked(){
+        performSegue(withIdentifier: "toEditFromField", sender: nil)
+    }
     
     func getCurrentDate()->Date {
         var now=Date()
@@ -312,10 +315,6 @@ class ConfirmDateViewController: UIViewController,UITableViewDelegate,UITableVie
         } else {
             self.makeAlert(titleInput: "Hata", messageInput: "Tarih/saat seçiniz.")
         }
-    }
-    
-    @IBAction func editClicked(_ sender: Any) {
-        performSegue(withIdentifier: "toEditFromField", sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -25,7 +25,10 @@ class PendingAppointmentsViewController: UIViewController,UITableViewDelegate,UI
         tableView.dataSource=self
         tableView.delegate=self
         // Do any additional setup after loading the view.
-        
+        navigationItem.title="Bekleyen Randevular"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationController?.navigationBar.topItem?.title="Hesabım"
+    
         for day in 0...13 {
             let hourToAdd=3
             let daysToAdd=0 + day

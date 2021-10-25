@@ -20,8 +20,15 @@ class FindStadiumViewController: UIViewController,UITableViewDelegate,UITableVie
         // Do any additional setup after loading the view.
         tableView.delegate=self
         tableView.dataSource=self
+        
+        navigationItem.title="İlçeler"
+        navigationController?.navigationBar.titleTextAttributes=[NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationController?.navigationBar.tintColor=UIColor.white
+        navigationController?.navigationBar.backgroundColor=UIColor(named: "myGreen")
+        
         getDataFromFirestore()
-              }
+        
+    }
     
      func getDataFromFirestore(){
         let firestoreDatabase=Firestore.firestore()

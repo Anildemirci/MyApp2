@@ -156,13 +156,14 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         //kontrol et listeyi kaydırırken indexpath hataları geliyor
         cell.dateLabel.backgroundColor=UIColor.green
         
-        
         if redDates.count > 1 {
             for i in 0...redDates.count-1 {
                 
                 if hourArray[indexPath.row]==(redDates[i]) {
                     cell.dateLabel.backgroundColor=UIColor.red
                     cell.isUserInteractionEnabled=false
+                    print("deneme1")
+                    print(redDates)
                 }
             }
         } else if redDates.count == 1 {
@@ -170,6 +171,8 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             if hourArray[indexPath.row]==(redHour) {
                 cell.dateLabel.backgroundColor=UIColor.red
                 cell.isUserInteractionEnabled=false
+                print("deneme2")
+                print(redDates)
             }
         }
         
@@ -179,6 +182,8 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 if hourArray[indexPath.row]==(yellowDates[i]) {
                     cell.dateLabel.backgroundColor=UIColor.yellow
                     cell.isUserInteractionEnabled=false
+                    print("deneme3")
+                    print(yellowDates)
                 }
             }
         } else if yellowDates.count == 1 {
@@ -186,6 +191,8 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             if hourArray[indexPath.row]==(yellowHour) {
                 cell.dateLabel.backgroundColor=UIColor.yellow
                 cell.isUserInteractionEnabled=false
+                print("deneme4")
+                print(yellowDates)
             }
         }
         cell.dateLabel.text=hourArray[indexPath.row]
@@ -209,6 +216,8 @@ class DateViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         selectedIndex=indexPath.row
         selectedDay=daysArray[indexPath.row]
         getDatefromCalendar(day: selectedDay)
+        print(selectedDay)
+        print(hourArray)
         self.tableView.reloadData()
         self.collectionView.reloadData()
     }
